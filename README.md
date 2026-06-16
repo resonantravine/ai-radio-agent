@@ -5,11 +5,85 @@
 [![Provider: Mock Gemini OpenAI](https://img.shields.io/badge/LLM-mock%20%7C%20Gemini%20%7C%20OpenAI-purple.svg)](#run-with-gemini)
 [![Audio: ElevenLabs Optional](https://img.shields.io/badge/audio-ElevenLabs%20optional-orange.svg)](#elevenlabs-tts)
 
-A beginner-friendly portfolio demo for an **AI Agent Engineer | Audio Content Generation** role.
+A portfolio demo for an **AI Agent Engineer | Audio Content Generation** role.
 
-The project turns a user topic, memory context, profile, and target duration into a two-host AI radio episode.
+AI Radio Agent turns a listener profile, memory context, topic, and target duration into a personalized two-host AI radio episode. It produces inspectable JSON artifacts, TTS-ready segments, dual-host voice clips, and a final rendered audio episode.
 
-In a real AI podcast product, the end user does **not** write Host A / Host B scripts. The scripts are internal generated artifacts used for quality control, TTS segmentation, persona consistency, and audio rendering.
+In a real AI podcast product, the user would not write Host A / Host B scripts. These scripts are internal generated artifacts used for quality control, TTS segmentation, persona consistency, and audio rendering.
+
+## At A Glance
+
+- **What it is:** A multi-agent workflow that generates a personalized two-host AI radio episode.
+- **What it demonstrates:** agent orchestration, structured JSON artifacts, dialogue quality evaluation, TTS segmentation, and final audio rendering.
+- **Demo format:** **Yoli's Morning Coffee**, a soft personal morning radio sample with intro/outro music and subtle breakfast-at-home live texture.
+- **Best audio demo:** [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
+- **Run locally:** `python -m ai_radio_agent.run_pipeline --mock`
+
+## Listen First
+
+The best current demo is [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3): a soft morning-radio sample with dual AI hosts, intro/outro music, and subtle breakfast-at-home live texture.
+
+## Listen To The Iterations
+
+The audio demos are hosted as GitHub Release assets so the code repository stays lightweight.
+
+| Version | Audio | What Changed |
+| --- | --- | --- |
+| 1. Basic dual-host render | [01_basic_dual_host.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/01_basic_dual_host.mp3) | First complete two-host pipeline: generated dialogue, segmented ElevenLabs TTS, and assembled mp3. |
+| 2. Dialogue liveliness pass | [02_dialogue_liveliness.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/02_dialogue_liveliness.mp3) | Adds stronger host response, a lived Host A reaction, a concrete Host B metaphor, and remembered context. |
+| 3. Morning show identity | [03_morning_coffee_intro.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/03_morning_coffee_intro.mp3) | Turns the demo into **Yoli's Morning Coffee**, with a softer personal morning-radio opening. |
+| 4. Final live texture mix | [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3) | Final portfolio sample with dual voices, intro/outro music, subtle kitchen texture, and a more live breakfast-at-home feeling. |
+
+Release page: [AI Radio Agent Demo Audio](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
+
+## What This Project Shows
+
+This project shows the core skills behind AI audio content generation:
+
+- Personalized content planning from listener preferences and memory.
+- Modular agent design instead of one giant prompt.
+- Internal intermediate representations such as `episode_brief.json`, `segment_plan.json`, `dialogue_plan.json`, and `tts_segments.json`.
+- Structured JSON outputs with Pydantic validation.
+- A quality and fact-checking step before voice generation.
+- A dialogue liveliness evaluation that checks response, tension, clarification, and emotional or experiential movement.
+- Clean TTS handoff files that separate human production notes from machine-ready speech text.
+- Dual-voice segment generation and final episode rendering.
+- Multi-provider LLM support for mock, Gemini, and OpenAI.
+
+## Demo Evolution
+
+This repo includes the pipeline artifacts for a small but realistic iteration story:
+
+```text
+basic AI-generated dialogue
+-> dual-host segmented TTS
+-> more natural host interaction
+-> Yoli's Morning Coffee show identity
+-> breakfast-at-home live texture mix
+```
+
+The key portfolio idea is that a good AI audio agent is not just "one prompt to speech." It needs intermediate planning artifacts, persona control, TTS-safe segmentation, audio rendering, and quality evaluation.
+
+See [docs/demo_iterations.md](docs/demo_iterations.md) for the recommended demo audio sequence and release checklist.
+
+## Sound Direction
+
+The sample show format is **Yoli's Morning Coffee**: a soft personal morning ritual that gives the listener a gentle greeting, reconnects with yesterday's unfinished thread, and offers one useful thought while breakfast is coming together.
+
+The current dialogue prompts intentionally optimize for radio liveliness, not just correctness:
+
+- Host A must include at least one lived reaction from the listener's point of view.
+- Host B must use at least one concrete metaphor.
+- Each episode should include one specific remembered detail from the previous listening session.
+
+- Calm but not sleepy.
+- Personal but not overly intimate.
+- Thoughtful but not academic.
+- Warm but not sentimental.
+- Clear but not over-explaining.
+- Not a tech news anchor, productivity coach, marketing narrator, overly cheerful podcast host, or therapist.
+
+## How The Pipeline Works
 
 ```text
 User Preference Agent
@@ -28,8 +102,6 @@ User Preference Agent
 → Audio Assembler / Episode Renderer
 → final_ai_radio_episode.mp3
 ```
-
-## Architecture
 
 ```mermaid
 flowchart TD
@@ -50,71 +122,28 @@ Each agent produces a small JSON artifact in `outputs/`, so the workflow is easy
 
 The listener hears a natural two-host radio episode. The interviewer can inspect the agent pipeline behind that episode.
 
-The included mock episode is a breakfast-at-home morning sample: at 8:00 AM, the AI radio continues yesterday's AI startup episode by asking why AI companies are competing for long-term memory.
-
-The sample show format is **Yoli's Morning Coffee**: a soft personal morning radio ritual that gives the listener a gentle greeting, reconnects with yesterday's unfinished thread, and offers one useful thought while breakfast is coming together.
-
-## Demo Evolution
-
-This repo includes the pipeline artifacts for a small but realistic iteration story:
-
-```text
-basic AI-generated dialogue
--> dual-host segmented TTS
--> more natural host interaction
--> Yoli's Morning Coffee show identity
--> breakfast-at-home live texture mix
-```
-
-The key portfolio idea is that a good AI audio agent is not just "one prompt to speech." It needs intermediate planning artifacts, persona control, TTS-safe segmentation, audio rendering, and quality evaluation.
-
-See [docs/demo_iterations.md](docs/demo_iterations.md) for the recommended demo audio sequence and release checklist.
-
-### Listen To The Iterations
-
-The audio demos are hosted as GitHub Release assets so the code repository stays lightweight.
-
-| Version | Audio | What Changed |
-| --- | --- | --- |
-| 1. Basic dual-host render | [01_basic_dual_host.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/01_basic_dual_host.mp3) | First complete two-host pipeline: generated dialogue, segmented ElevenLabs TTS, and assembled mp3. |
-| 2. Dialogue liveliness pass | [02_dialogue_liveliness.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/02_dialogue_liveliness.mp3) | Adds stronger host response, a lived Host A reaction, a concrete Host B metaphor, and remembered context. |
-| 3. Morning show identity | [03_morning_coffee_intro.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/03_morning_coffee_intro.mp3) | Turns the demo into **Yoli's Morning Coffee**, with a softer personal morning-radio opening. |
-| 4. Final live texture mix | [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3) | Final portfolio sample with dual voices, intro/outro music, subtle kitchen texture, and a more live breakfast-at-home feeling. |
-
-Release page: [AI Radio Agent Demo Audio](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
-
-The current dialogue prompts intentionally optimize for radio liveliness, not just correctness:
-
-- Host A must include at least one lived reaction from the listener's point of view.
-- Host B must use at least one concrete metaphor.
-- Each episode should include one specific remembered detail from the previous listening session.
-
-Sound direction:
-
-- Calm but not sleepy.
-- Personal but not overly intimate.
-- Thoughtful but not academic.
-- Warm but not sentimental.
-- Clear but not over-explaining.
-- Not a tech news anchor, productivity coach, marketing narrator, overly cheerful podcast host, or therapist.
-
-## Why This Is A Good Audio Agent Demo
-
-This project shows the core skills behind AI audio content generation:
-
-- Personalized content planning from listener preferences and memory.
-- Modular agent design instead of one giant prompt.
-- Internal intermediate representations such as `episode_brief.json`, `segment_plan.json`, `dialogue_plan.json`, and `tts_segments.json`.
-- Structured JSON outputs with Pydantic validation.
-- A quality and fact-checking step before voice generation.
-- A dialogue liveliness evaluation that checks response, tension, clarification, and emotional or experiential movement.
-- Clean TTS handoff files that separate human production notes from machine-ready speech text.
-- Dual-voice segment generation and final episode rendering.
-- Multi-provider LLM support for mock, Gemini, and OpenAI.
-
-## Setup
+## Fastest Way To Try It
 
 Use Python 3.10 or newer.
+
+Mock mode does not require any API key. It creates inspectable JSON artifacts, a human-readable production script, and TTS-ready segment files in `outputs/`.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+python -m ai_radio_agent.run_pipeline --mock
+```
+
+Then inspect:
+
+```text
+outputs/production_script.md
+outputs/tts_segments.json
+outputs/tts_clean_single_voice.txt
+```
+
+## Installation Options
 
 Basic local setup:
 
@@ -136,6 +165,9 @@ python3 -m pip install -e '.[gemini]'
 
 # OpenAI provider
 python3 -m pip install -e '.[openai]'
+
+# Optional local ASR quality check
+python3 -m pip install -e '.[asr]'
 
 # Everything used by the core portfolio demo
 python3 -m pip install -e '.[all]'
@@ -252,7 +284,7 @@ Edit `.env`:
 ```bash
 LLM_PROVIDER=openai
 OPENAI_API_KEY=your_key_here
-LLM_MODEL=gpt-5.5
+LLM_MODEL=your_preferred_text_model
 ```
 
 Then run:
@@ -261,7 +293,7 @@ Then run:
 python -m ai_radio_agent.run_pipeline
 ```
 
-Use OpenAI mode only if you have API credits. You can replace `LLM_MODEL` with any lower-cost text model your account supports. Mock mode is best for demos, tests, and interviews where you want predictable output.
+Use OpenAI mode only if you have API credits. Set `LLM_MODEL` to any text model available to your account. Mock mode is best for demos, tests, and interviews where you want predictable output.
 
 ## JSON Reliability
 

@@ -8,13 +8,13 @@ The samples show how the project evolved from a basic AI-generated two-host dial
 
 Recommended listening order:
 
-1. `final_ai_radio_episode_english.mp3`
+1. `01_basic_dual_host.mp3`
    - Baseline dual-host generation and segment rendering.
-2. `final_ai_radio_episode_lively.mp3`
+2. `02_dialogue_liveliness.mp3`
    - Improved dialogue liveliness, host reaction, metaphor, and remembered detail.
-3. `final_ai_radio_episode_breakfast_intro.mp3`
+3. `03_morning_coffee_intro.mp3`
    - Soft show identity with Yoli's Morning Coffee intro.
-4. `final_ai_radio_episode_breakfast_live_texture_v2.mp3`
+4. `04_final_live_texture_mix.mp3`
    - Final sample with intro/outro music and subtle live kitchen texture.
 
 The code repository contains the generation pipeline and inspectable artifacts. The audio files are provided here as release assets so the Git repo stays lightweight.

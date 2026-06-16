@@ -1,0 +1,43 @@
+{
+  "host_a_persona": "Curious technical producer who explains the system clearly.",
+  "host_b_persona": "Friendly listener advocate who asks practical questions.",
+  "style_rules": [
+    "Keep lines short",
+    "Avoid hype",
+    "Sound like a natural radio conversation for curious listeners"
+  ],
+  "revised_lines": [
+    {
+      "host": "Host A",
+      "line": "Have you noticed that some AI hosts are starting to feel less random?"
+    },
+    {
+      "host": "Host B",
+      "line": "Yes. The good ones sound like they know what kind of day you are having."
+    },
+    {
+      "host": "Host A",
+      "line": "If you listen to AI products and business technology on your commute, the next episode should not be generic tech news."
+    },
+    {
+      "host": "Host B",
+      "line": "It should know you care about the product logic behind the story, not just the headline."
+    },
+    {
+      "host": "Host A",
+      "line": "That is where personalization gets interesting. The voice is only the surface."
+    },
+    {
+      "host": "Host B",
+      "line": "The real value is that it remembers your listening habits, your questions, and the way you like things explained."
+    },
+    {
+      "host": "Host A",
+      "line": "And when it works, it feels less like a feed and more like a host who prepared for you."
+    },
+    {
+      "host": "Host B",
+      "line": "That is the kind of AI radio I would actually come back to tomorrow."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[project]
+name = "ai-radio-agent"
+version = "0.3.0"
+description = "A beginner-friendly multi-provider AI radio content generation pipeline."
+requires-python = ">=3.10"
+dependencies = [
+    "certifi>=2024.0.0",
+    "pydub>=0.25.1",
+    "audioop-lts>=0.2.1; python_version >= '3.13'",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+openai = ["openai>=1.93"]
+gemini = ["google-genai>=1.20"]
+test = ["pytest>=8.0"]
+all = ["openai>=1.93", "google-genai>=1.20", "pytest>=8.0"]

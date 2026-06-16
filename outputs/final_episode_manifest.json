@@ -1,0 +1,84 @@
+{
+  "episode_title": "When AI Radio Starts To Know Your Taste",
+  "segments_path": "outputs/tts_segments.json",
+  "audio_dir": "outputs/elevenlabs_segments_v2",
+  "output_mp3": "outputs/final_ai_radio_episode_v2.mp3",
+  "output_wav": null,
+  "target_dbfs": -18.0,
+  "renderer": "ffmpeg-only",
+  "note": "ffprobe was not found, so the renderer used an ffmpeg-only fallback.",
+  "segments": [
+    {
+      "index": 1,
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "Have you noticed that some AI hosts are starting to feel less random?",
+      "audio_file": "outputs/elevenlabs_segments_v2/01_host_a.mp3",
+      "pause_after_ms": 900,
+      "normalization": "ffmpeg loudnorm"
+    },
+    {
+      "index": 2,
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "Yes. The good ones sound like they know what kind of day you are having.",
+      "audio_file": "outputs/elevenlabs_segments_v2/02_host_b.mp3",
+      "pause_after_ms": 900,
+      "normalization": "ffmpeg loudnorm"
+    },
+    {
+      "index": 3,
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "If you listen to AI products and business technology on your commute, the next episode should not be generic tech news.",
+      "audio_file": "outputs/elevenlabs_segments_v2/03_host_a.mp3",
+      "pause_after_ms": 900,
+      "normalization": "ffmpeg loudnorm"
+    },
+    {
+      "index": 4,
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "It should know you care about the product logic behind the story, not just the headline.",
+      "audio_file": "outputs/elevenlabs_segments_v2/04_host_b.mp3",
+      "pause_after_ms": 900,
+      "normalization": "ffmpeg loudnorm"
+    },
+    {
+      "index": 5,
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "That is where personalization gets interesting. The voice is only the surface.",
+      "audio_file": "outputs/elevenlabs_segments_v2/05_host_a.mp3",
+      "pause_after_ms": 900,
+      "normalization": "ffmpeg loudnorm"
+    },
+    {
+      "index": 6,
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "The real value is that it remembers your listening habits, your questions, and the way you like things explained.",
+      "audio_file": "outputs/elevenlabs_segments_v2/06_host_b.mp3",
+      "pause_after_ms": 900,
+      "normalization": "ffmpeg loudnorm"
+    },
+    {
+      "index": 7,
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "And when it works, it feels less like a feed and more like a host who prepared for you.",
+      "audio_file": "outputs/elevenlabs_segments_v2/07_host_a.mp3",
+      "pause_after_ms": 900,
+      "normalization": "ffmpeg loudnorm"
+    },
+    {
+      "index": 8,
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "That is the kind of AI radio I would actually come back to tomorrow.",
+      "audio_file": "outputs/elevenlabs_segments_v2/08_host_b.mp3",
+      "pause_after_ms": 900,
+      "normalization": "ffmpeg loudnorm"
+    }
+  ]
+}

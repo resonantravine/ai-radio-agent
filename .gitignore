@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.pytest_cache/
+outputs/debug/
+outputs/*.mp3
+outputs/*.wav
+outputs/*.m4a
+outputs/elevenlabs_segments/
+outputs/elevenlabs_segments*/
+*.egg-info/

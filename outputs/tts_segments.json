@@ -1,0 +1,61 @@
+{
+  "episode_title": "When AI Radio Starts To Know Your Taste",
+  "segments": [
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "Have you noticed that some AI hosts are starting to feel less random?",
+      "delivery_note": "Curious technical producer who explains the system clearly.",
+      "pause_after_ms": 900
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "Yes. The good ones sound like they know what kind of day you are having.",
+      "delivery_note": "Friendly listener advocate who asks practical questions.",
+      "pause_after_ms": 900
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "If you listen to AI products and business technology on your commute, the next episode should not be generic tech news.",
+      "delivery_note": "Curious technical producer who explains the system clearly.",
+      "pause_after_ms": 900
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "It should know you care about the product logic behind the story, not just the headline.",
+      "delivery_note": "Friendly listener advocate who asks practical questions.",
+      "pause_after_ms": 900
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "That is where personalization gets interesting. The voice is only the surface.",
+      "delivery_note": "Curious technical producer who explains the system clearly.",
+      "pause_after_ms": 900
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "The real value is that it remembers your listening habits, your questions, and the way you like things explained.",
+      "delivery_note": "Friendly listener advocate who asks practical questions.",
+      "pause_after_ms": 900
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "And when it works, it feels less like a feed and more like a host who prepared for you.",
+      "delivery_note": "Curious technical producer who explains the system clearly.",
+      "pause_after_ms": 900
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "That is the kind of AI radio I would actually come back to tomorrow.",
+      "delivery_note": "Friendly listener advocate who asks practical questions.",
+      "pause_after_ms": 900
+    }
+  ]
+}

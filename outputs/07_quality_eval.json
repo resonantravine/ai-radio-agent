@@ -1,0 +1,12 @@
+{
+  "score": 9,
+  "strengths": [
+    "Clear pipeline",
+    "Good portfolio mapping",
+    "TTS-ready dialogue"
+  ],
+  "improvements": [
+    "Add real web research in a future version"
+  ],
+  "ready_for_tts": true
+}

@@ -1,0 +1,14 @@
+{
+  "listener_name": "Marta",
+  "preferred_topics": [
+    "AI audio tools",
+    "creative workflows",
+    "agent evaluation"
+  ],
+  "tone": "smart, warm, practical",
+  "episode_length_minutes": 8,
+  "avoid_topics": [
+    "investment advice",
+    "medical claims"
+  ]
+}

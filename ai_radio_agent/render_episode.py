@@ -47,6 +47,7 @@ def render_episode(
     wav_output_path: Path | None = None,
     target_dbfs: float = TARGET_DBFS,
 ) -> dict[str, Any]:
+    ensure_file_exists(segments_path, "TTS segments")
     episode_data = json.loads(segments_path.read_text(encoding="utf-8"))
     segments = episode_data.get("segments", [])
     if not segments:
@@ -131,6 +132,16 @@ def render_episode(
     manifest_path = output_path.with_name("final_episode_manifest.json")
     manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return manifest
+
+
+def ensure_file_exists(path: Path, label: str) -> None:
+    if path.exists():
+        return
+    raise RuntimeError(
+        f"{label} file not found: {path}. Current directory: {Path.cwd()}. "
+        "Run this command from the project root or use absolute paths. "
+        "Project root: /Users/martaliu/Documents/Codex/2026-06-15/please-upgrade-this-ai-radio-agent"
+    )
 
 
 def check_ffmpeg() -> None:

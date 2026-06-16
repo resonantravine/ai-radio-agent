@@ -82,6 +82,7 @@ def export_segments(
     model_id: str,
     output_format: str,
 ) -> None:
+    ensure_file_exists(segments_path, "TTS segments")
     payload = json.loads(segments_path.read_text(encoding="utf-8"))
     segments = payload.get("segments", [])
     if not segments:
@@ -100,6 +101,17 @@ def export_segments(
             output_format=output_format,
         )
         print(f"Saved {segment['speaker']} segment {index} with voice {voice_id} to {output_path}")
+
+
+def ensure_file_exists(path: Path, label: str) -> None:
+    if path.exists():
+        return
+    raise RuntimeError(
+        f"{label} file not found: {path}. Current directory: {Path.cwd()}. "
+        "Run the pipeline first from the project root, for example: "
+        "cd /Users/martaliu/Documents/Codex/2026-06-15/please-upgrade-this-ai-radio-agent && "
+        "python3 -m ai_radio_agent.run_pipeline --mock"
+    )
 
 
 def list_voices() -> None:

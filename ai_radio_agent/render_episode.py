@@ -70,8 +70,6 @@ def render_episode(
 
     check_ffmpeg()
     if shutil.which("ffprobe") is None:
-        if intro_audio_path is not None:
-            raise RuntimeError("Optional intro audio currently requires ffprobe/pydub support. Install ffmpeg with ffprobe first.")
         return render_with_ffmpeg_only(
             episode_data=episode_data,
             segments=segments,
@@ -80,6 +78,11 @@ def render_episode(
             output_path=output_path,
             wav_output_path=wav_output_path,
             target_dbfs=target_dbfs,
+            intro_audio_path=intro_audio_path,
+            intro_gain_db=intro_gain_db,
+            intro_fade_ms=intro_fade_ms,
+            voice_start_ms=voice_start_ms,
+            intro_total_ms=intro_total_ms,
         )
 
     try:
@@ -192,7 +195,15 @@ def render_with_ffmpeg_only(
     output_path: Path,
     wav_output_path: Path | None,
     target_dbfs: float,
+    intro_audio_path: Path | None,
+    intro_gain_db: float,
+    intro_fade_ms: int,
+    voice_start_ms: int,
+    intro_total_ms: int,
 ) -> dict[str, Any]:
+    if intro_audio_path is not None:
+        ensure_file_exists(intro_audio_path, "Intro audio")
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_segments: list[dict[str, Any]] = []
 
@@ -256,6 +267,7 @@ def render_with_ffmpeg_only(
             "\n".join(f"file '{escape_concat_path(path)}'" for path in concat_items) + "\n",
             encoding="utf-8",
         )
+        no_intro_output = tmp_dir / "episode_no_intro.mp3" if intro_audio_path else output_path
         run_ffmpeg(
             [
                 "ffmpeg",
@@ -270,26 +282,43 @@ def render_with_ffmpeg_only(
                 "libmp3lame",
                 "-b:a",
                 "192k",
-                str(output_path),
+                str(no_intro_output),
             ]
         )
+
+        if intro_audio_path is not None:
+            run_ffmpeg(
+                build_ffmpeg_intro_mix_command(
+                    episode_path=no_intro_output,
+                    intro_audio_path=intro_audio_path,
+                    output_path=output_path,
+                    intro_gain_db=intro_gain_db,
+                    intro_fade_ms=intro_fade_ms,
+                    voice_start_ms=voice_start_ms,
+                    intro_total_ms=intro_total_ms,
+                )
+            )
+
         if wav_output_path is not None:
             wav_output_path.parent.mkdir(parents=True, exist_ok=True)
-            run_ffmpeg(
-                [
-                    "ffmpeg",
-                    "-y",
-                    "-f",
-                    "concat",
-                    "-safe",
-                    "0",
-                    "-i",
-                    str(concat_list),
-                    "-c:a",
-                    "pcm_s16le",
-                    str(wav_output_path),
-                ]
-            )
+            if intro_audio_path is None:
+                run_ffmpeg(
+                    [
+                        "ffmpeg",
+                        "-y",
+                        "-f",
+                        "concat",
+                        "-safe",
+                        "0",
+                        "-i",
+                        str(concat_list),
+                        "-c:a",
+                        "pcm_s16le",
+                        str(wav_output_path),
+                    ]
+                )
+            else:
+                run_ffmpeg(["ffmpeg", "-y", "-i", str(output_path), "-c:a", "pcm_s16le", str(wav_output_path)])
 
     manifest = {
         "episode_title": episode_data.get("episode_title", "AI Radio Episode"),
@@ -300,6 +329,9 @@ def render_with_ffmpeg_only(
         "target_dbfs": target_dbfs,
         "renderer": "ffmpeg-only",
         "note": "ffprobe was not found, so the renderer used an ffmpeg-only fallback.",
+        "intro_audio": str(intro_audio_path) if intro_audio_path else None,
+        "intro_gain_db": intro_gain_db if intro_audio_path else None,
+        "voice_start_ms": voice_start_ms if intro_audio_path else None,
         "segments": manifest_segments,
     }
     manifest_path = output_path.with_name("final_episode_manifest.json")
@@ -311,6 +343,47 @@ def run_ffmpeg(command: list[str]) -> None:
     result = subprocess.run(command, capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip() or "ffmpeg failed")
+
+
+def build_ffmpeg_intro_mix_command(
+    *,
+    episode_path: Path,
+    intro_audio_path: Path,
+    output_path: Path,
+    intro_gain_db: float,
+    intro_fade_ms: int,
+    voice_start_ms: int,
+    intro_total_ms: int,
+) -> list[str]:
+    fade_sec = max(0.0, min(intro_fade_ms / 1000, intro_total_ms / 2000))
+    total_sec = max(0.1, intro_total_ms / 1000)
+    fade_out_start_sec = max(0.0, total_sec - fade_sec)
+    filter_complex = (
+        f"[0:a]adelay={voice_start_ms}|{voice_start_ms}[voice];"
+        f"[1:a]atrim=0:{total_sec:.3f},asetpts=PTS-STARTPTS,"
+        f"volume={intro_gain_db}dB,"
+        f"afade=t=in:st=0:d={fade_sec:.3f},"
+        f"afade=t=out:st={fade_out_start_sec:.3f}:d={fade_sec:.3f}[intro];"
+        "[voice][intro]amix=inputs=2:duration=longest:dropout_transition=0,"
+        "loudnorm=I=-18:LRA=11:TP=-1.5[a]"
+    )
+    return [
+        "ffmpeg",
+        "-y",
+        "-i",
+        str(episode_path),
+        "-i",
+        str(intro_audio_path),
+        "-filter_complex",
+        filter_complex,
+        "-map",
+        "[a]",
+        "-c:a",
+        "libmp3lame",
+        "-b:a",
+        "192k",
+        str(output_path),
+    ]
 
 
 def escape_concat_path(path: Path) -> str:

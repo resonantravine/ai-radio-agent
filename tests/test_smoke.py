@@ -59,10 +59,14 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
     assert "Memory Agent" not in clean_tts
     assert "Recommendation Agent" not in clean_tts
     assert "Good morning, Yoli. Your morning coffee is ready." in clean_tts
+    assert "The kitchen is still quiet" in clean_tts
+    assert "breakfast is slowly coming together" in clean_tts
     assert "recommendation algorithm" in clean_tts
     assert "feel uncomfortable" in clean_tts
-    assert "new onboarding layer" in clean_tts
-    assert "I feel that on a commute" in clean_tts
+    assert "one small question on the table" in clean_tts
+    assert "I feel that in the morning" in clean_tts
+    assert "Before the coffee cools" in clean_tts
+    assert "subway" not in clean_tts.lower()
     assert "shop window" in clean_tts
     assert "bookmark inside an ongoing conversation" in clean_tts
 

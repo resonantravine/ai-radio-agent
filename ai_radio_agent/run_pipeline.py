@@ -73,12 +73,12 @@ def run_pipeline(
             "title": "Why do some AI hosts sound like they really understand you?",
             "format_name": "Yoli's Morning Coffee",
             "time": "8:00 AM",
-            "scene": "the listener is on the subway",
+            "scene": "the listener is in a quiet kitchen preparing breakfast",
             "previous_memory": "yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products",
             "today_continuation": "continue the listener's previous question: why are AI companies competing for long-term memory?",
             "target_duration_seconds": f"{duration_minutes * 60}",
             "audio_identity": (
-                "A soft personal morning radio ritual: calm but not sleepy, personal but not creepy, "
+                "A soft personal morning radio ritual for breakfast at home: calm but not sleepy, personal but not creepy, "
                 "thoughtful but not academic, warm but not sentimental, clear but not over-explaining."
             ),
         },
@@ -192,6 +192,16 @@ def build_production_script(
         "",
     ]
     lines.extend(f"- {rule}" for rule in persona.style_rules)
+    lines.extend(
+        [
+            "",
+            "## Sound Design Notes",
+            "",
+            "- Optional intro: 3-5 seconds of very soft morning bed, such as warm pad, light chime, or room tone. Keep it low and beatless.",
+            "- Optional cue: one subtle cup or spoon sound after the bookmark metaphor. Do not render this as spoken TTS text.",
+            "- Optional ending: bring the same bed back lightly under the final two lines, then fade out for 2-3 seconds.",
+        ]
+    )
     lines.extend(["", "## Dialogue Plan", ""])
     for index, turn in enumerate(dialogue_plan.turns, start=1):
         lines.append(

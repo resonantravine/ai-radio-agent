@@ -28,9 +28,9 @@ Each agent produces a small JSON artifact in `outputs/`, so the workflow is easy
 
 The listener hears a natural two-host radio episode. The interviewer can inspect the agent pipeline behind that episode.
 
-The included mock episode is a morning subway sample: at 8:00 AM, the AI radio continues yesterday's AI startup episode by asking why AI companies are competing for long-term memory.
+The included mock episode is a breakfast-at-home morning sample: at 8:00 AM, the AI radio continues yesterday's AI startup episode by asking why AI companies are competing for long-term memory.
 
-The sample show format is **Yoli's Morning Coffee**: a soft personal morning radio ritual that gives the listener a gentle greeting, reconnects with yesterday's unfinished thread, and offers one useful thought for the commute.
+The sample show format is **Yoli's Morning Coffee**: a soft personal morning radio ritual that gives the listener a gentle greeting, reconnects with yesterday's unfinished thread, and offers one useful thought while breakfast is coming together.
 
 The current dialogue prompts intentionally optimize for radio liveliness, not just correctness:
 
@@ -72,13 +72,13 @@ python3 -m pip install -r requirements.txt
 cp .env.example .env
 ```
 
-For final episode rendering on macOS, install ffmpeg:
+For final episode rendering and local ASR transcription on macOS, install ffmpeg:
 
 ```bash
 brew install ffmpeg
 ```
 
-The renderer needs both `ffmpeg` and `ffprobe`, which Homebrew's ffmpeg package normally installs together.
+The renderer needs both `ffmpeg` and `ffprobe`, which Homebrew's ffmpeg package normally installs together. `faster-whisper` also uses ffmpeg to decode mp3 and other audio files.
 
 ## Run In Mock Mode
 
@@ -318,7 +318,7 @@ python -m ai_radio_agent.render_episode \
   --intro-audio path/to/soft_intro.mp3
 ```
 
-The intro bed fades in quietly, starts the first voice after about three seconds, then fades out. Keep intro audio subtle: 3-5 seconds of soft piano, ambient texture, or room tone works better than a full podcast jingle.
+The intro bed fades in quietly, starts the first voice after about three seconds, then fades out. Keep intro audio subtle: 3-5 seconds of soft piano, ambient texture, room tone, or a tiny cup/spoon cue works better than a full podcast jingle.
 
 Optional WAV export:
 
@@ -335,6 +335,47 @@ outputs/final_episode_manifest.json
 ```
 
 The renderer preserves segment order, normalizes segment loudness, inserts the configured pauses, and never reads speaker labels aloud because it uses only the generated mp3 clips.
+
+### ASR transcript check
+
+After rendering a final episode, you can transcribe the audio locally with `faster-whisper`. This step is a **quality check** for the rendered audio. It is **not** the original source of truth for the episode text.
+
+The source of truth is still:
+
+- `outputs/tts_segments.json` for machine-ready speech text
+- `outputs/script.md` and `outputs/production_script.md` for human review
+
+For generated TTS audio, compare the ASR transcript with `tts_segments.json` to detect:
+
+- missing text
+- wrong pronunciation
+- accidental reading of speaker labels
+- music or SFX interference
+
+Example:
+
+```bash
+python3 -m ai_radio_agent.asr_transcribe \
+  --audio outputs/final_ai_radio_episode_morning.mp3 \
+  --output outputs/transcript_morning.md
+```
+
+Outputs:
+
+```text
+outputs/transcript_morning.md
+outputs/transcript_morning.json
+```
+
+The markdown file includes the audio file name, detected language, timestamped segments, and a clean full transcript section. The JSON file contains the same data in a machine-friendly format for diffing or tooling.
+
+Optional flags:
+
+- `--model base` — Whisper model size (`tiny`, `base`, `small`, `medium`, `large-v3`, etc.)
+- `--language en` — force a language instead of auto-detecting
+- `--device auto` — use `cpu` or `cuda` if needed
+
+The first run downloads the selected Whisper model. No OpenAI API key or paid ASR service is required.
 
 ## Test
 
@@ -355,6 +396,7 @@ ai_radio_agent/
   run_pipeline.py  # CLI entry point
   tts_elevenlabs.py # optional ElevenLabs single-voice or segmented export
   render_episode.py # audio assembler / final episode renderer
+  asr_transcribe.py # optional local ASR quality check for rendered audio
 tests/
   test_smoke.py
 ```

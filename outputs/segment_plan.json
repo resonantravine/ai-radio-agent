@@ -2,9 +2,9 @@
   "episode_duration_minutes": 2,
   "segments": [
     {
-      "name": "Opening subway scenario",
+      "name": "Opening breakfast ritual",
       "target_duration_sec": 35,
-      "goal": "Set up the 8 AM subway listening context and yesterday's specific AI startup memory.",
+      "goal": "Set up the 8 AM kitchen breakfast context and yesterday's AI startup question.",
       "listener_value": "The listener immediately understands why this episode is personally relevant."
     },
     {

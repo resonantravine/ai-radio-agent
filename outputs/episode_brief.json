@@ -1,6 +1,6 @@
 {
   "title": "Yoli's Morning Coffee: Why do some AI hosts sound like they really understand you?",
-  "listener_promise": "A soft personal morning radio segment that continues yesterday's unfinished AI startup question.",
+  "listener_promise": "A soft personal morning radio segment for breakfast at home that continues yesterday's unfinished AI startup question.",
   "user_facing_topic": "An AI host feels like it understands you when it can continue yesterday's question in today's context.",
   "internal_pipeline_note": "Host scripts are generated internal artifacts for quality control, persona consistency, TTS segmentation, and audio rendering. The end user only provides topic, profile or memory context, and duration.",
   "target_duration_minutes": 2

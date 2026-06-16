@@ -8,6 +8,7 @@ outputs/debug/
 outputs/*.mp3
 outputs/*.wav
 outputs/*.m4a
+outputs/final_episode_manifest.json
 outputs/elevenlabs_segments/
 outputs/elevenlabs_segments*/
 *.egg-info/

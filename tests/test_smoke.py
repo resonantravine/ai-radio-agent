@@ -9,12 +9,14 @@ EXPECTED_OUTPUTS = [
     "00_memory_state.json",
     "00_recommendation.json",
     "01_topic_plan.json",
-    "02_research_brief.json",
-    "03_fact_check.json",
-    "04_script_outline.json",
-    "05_dialogue_script.json",
-    "06_persona_script.json",
-    "07_quality_eval.json",
+    "02_broadcast_context.json",
+    "03_research_brief.json",
+    "04_fact_check.json",
+    "05_script_outline.json",
+    "06_dialogue_plan.json",
+    "07_dialogue_script.json",
+    "08_persona_script.json",
+    "09_quality_eval.json",
     "08_tts_input.txt",
     "production_script.md",
     "tts_segments.json",
@@ -51,8 +53,13 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
     assert "Host B:" not in clean_tts
     assert "Pause after" not in clean_tts
     assert "Agent" not in clean_tts
+    assert "Memory Agent" not in clean_tts
+    assert "Recommendation Agent" not in clean_tts
+    assert "普通推荐算法" in clean_tts
+    assert "会不会让人不舒服" in clean_tts
 
     segments = json.loads((outputs_dir / "tts_segments.json").read_text(encoding="utf-8"))
+    assert len(segments["segments"]) >= 12
     first_segment = segments["segments"][0]
     assert set(first_segment) == {
         "speaker",

@@ -1,0 +1,18 @@
+{
+  "key_points": [
+    "A personalized AI radio experience should connect listening history, preferences, follow-up questions, and current context.",
+    "Behavioral recommendation predicts what a user might click next; long-term memory helps continue an unfinished question over time.",
+    "Good memory should be controllable, explainable, and easy to turn off."
+  ],
+  "examples": [
+    "The listener heard about AI startups yesterday; today the host continues with why AI companies care about memory."
+  ],
+  "open_questions": [
+    "How much memory feels helpful before it feels intrusive?"
+  ],
+  "sources_to_check": [
+    "Product memory settings",
+    "recommendation system explanations",
+    "AI audio product examples"
+  ]
+}

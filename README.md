@@ -10,6 +10,8 @@ User Preference Agent
 → Recommendation Agent
 → Topic Planner
 → Research / Fact Check
+→ Broadcast Context Agent
+→ Dialogue Planner Agent
 → Dialogue Writer
 → Persona Agent
 → TTS Segment Export
@@ -21,6 +23,8 @@ User Preference Agent
 Each agent produces a small JSON artifact in `outputs/`, so the workflow is easy to inspect, debug, and explain in an interview.
 
 The listener hears a natural two-host radio episode. The interviewer can inspect the agent pipeline behind that episode.
+
+The included mock episode is a morning subway sample: at 8:00 AM, the AI radio continues yesterday's AI startup episode by asking why AI companies are competing for long-term memory.
 
 ## Why This Is A Good Audio Agent Demo
 
@@ -91,13 +95,15 @@ outputs/00_user_preference.json
 outputs/00_memory_state.json
 outputs/00_recommendation.json
 outputs/01_topic_plan.json
-outputs/02_research_brief.json
-outputs/03_fact_check.json
-outputs/04_script_outline.json
-outputs/05_dialogue_script.json
-outputs/06_persona_script.json
-outputs/07_quality_eval.json
-outputs/08_tts_export.json
+outputs/02_broadcast_context.json
+outputs/03_research_brief.json
+outputs/04_fact_check.json
+outputs/05_script_outline.json
+outputs/06_dialogue_plan.json
+outputs/07_dialogue_script.json
+outputs/08_persona_script.json
+outputs/09_quality_eval.json
+outputs/10_tts_export.json
 ```
 
 ## Run With Gemini

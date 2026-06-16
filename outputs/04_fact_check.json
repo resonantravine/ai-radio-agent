@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "verified_claims": [
+    "The episode frames memory and recommendation as product concepts rather than making hard factual claims."
+  ],
+  "risky_claims": [],
+  "revision_notes": [
+    "Keep claims general and user-experience focused; avoid naming specific companies unless researched."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "intro": "Open like a morning commute radio segment, then ask what it means for an AI host to really understand a listener.",
+  "beats": [
+    "Host A sets the subway scene and asks whether knowing the listener is more than a natural voice.",
+    "Host B explains that good AI radio can continue yesterday's question instead of serving generic tech news.",
+    "Host A challenges whether this is just a recommendation algorithm.",
+    "Host B distinguishes short-term behavior prediction from long-term memory in everyday language.",
+    "Host A asks the boundary question: what if it remembers too much?",
+    "Host B explains controllable, explainable, easy-to-turn-off memory."
+  ],
+  "transition_notes": [
+    "Use quick responses for back-and-forth, longer pauses only after questions or section turns."
+  ],
+  "outro": "End with the idea that the next AI audio experience should feel prepared for the listener, not just generated."
+}

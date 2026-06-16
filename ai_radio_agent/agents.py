@@ -20,9 +20,11 @@ AGENT_ORDER = [
     "memory_agent",
     "recommendation_agent",
     "topic_planner",
+    "broadcast_context_agent",
     "research_agent",
     "fact_check_agent",
     "script_outliner",
+    "dialogue_planner_agent",
     "dual_host_dialogue_writer",
     "persona_agent",
     "quality_evaluator",
@@ -35,13 +37,15 @@ AGENT_OUTPUTS = {
     "memory_agent": "00_memory_state.json",
     "recommendation_agent": "00_recommendation.json",
     "topic_planner": "01_topic_plan.json",
-    "research_agent": "02_research_brief.json",
-    "fact_check_agent": "03_fact_check.json",
-    "script_outliner": "04_script_outline.json",
-    "dual_host_dialogue_writer": "05_dialogue_script.json",
-    "persona_agent": "06_persona_script.json",
-    "quality_evaluator": "07_quality_eval.json",
-    "tts_export": "08_tts_export.json",
+    "broadcast_context_agent": "02_broadcast_context.json",
+    "research_agent": "03_research_brief.json",
+    "fact_check_agent": "04_fact_check.json",
+    "script_outliner": "05_script_outline.json",
+    "dialogue_planner_agent": "06_dialogue_plan.json",
+    "dual_host_dialogue_writer": "07_dialogue_script.json",
+    "persona_agent": "08_persona_script.json",
+    "quality_evaluator": "09_quality_eval.json",
+    "tts_export": "10_tts_export.json",
 }
 
 
@@ -85,6 +89,8 @@ def build_prompt(*, agent_name: str, schema: type[BaseModel], context: dict[str,
         "Use the upstream context to produce the next artifact.\n"
         "For user-facing dialogue or TTS text, write natural radio content for a listener. "
         "Do not make hosts read internal agent names, JSON artifact names, or production instructions aloud.\n"
+        "Host A is a warm observer who represents lived listener experience and asks natural questions. "
+        "Host B is a calm explainer who uses everyday language, avoids jargon, and responds directly to Host A.\n"
         "Return only valid JSON. Do not include markdown, commentary, or extra keys.\n\n"
         f"Required JSON schema:\n{schema.model_json_schema()}\n\n"
         f"Upstream context:\n{context}\n"

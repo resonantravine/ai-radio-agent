@@ -1,10 +1,11 @@
 {
-  "episode_theme": "Why personalized AI radio feels less random and more useful",
-  "why_this_fits": "It turns the technical pipeline into a listener-friendly story about better audio recommendations.",
+  "episode_theme": "为什么有些 AI 主播听起来像真的懂你？",
+  "why_this_fits": "It turns memory and personalization into a listener-facing radio topic about commute-time AI audio.",
   "candidate_topics": [
-    "listening habits",
-    "personalized explanations",
-    "AI radio hosts",
-    "daily commute content"
+    "AI 主播",
+    "长期记忆",
+    "通勤场景",
+    "个性化解释",
+    "可控的记忆边界"
   ]
 }

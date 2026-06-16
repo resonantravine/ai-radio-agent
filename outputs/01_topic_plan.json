@@ -1,11 +1,11 @@
 {
-  "title": "When AI Radio Starts To Know Your Taste",
-  "angle": "Discuss how personalized AI audio can feel more like a thoughtful host than a random feed.",
+  "title": "为什么有些 AI 主播听起来像真的懂你？",
+  "angle": "Use a morning subway scene to explain how AI radio connects listening history, preferences, follow-up questions, and current context.",
   "segments": [
-    "The shift from random content to remembered taste",
-    "Why context matters",
-    "How good explanations feel personal",
-    "The line between helpful and intrusive"
+    "早上地铁里的开场",
+    "接着昨天 AI 创业话题继续讲",
+    "普通推荐和长期记忆的区别",
+    "记忆边界：可控、可解释、可关闭"
   ],
-  "target_takeaway": "The future of AI radio is not just generated speech; it is relevant, well-timed explanation."
+  "target_takeaway": "好的 AI 主播不是推更多内容，而是减少听众的筛选成本，并用听众喜欢的方式继续解释世界。"
 }

@@ -1,0 +1,68 @@
+{
+  "host_a_persona": "Warm observer who represents the listener's lived commute experience and asks natural questions.",
+  "host_b_persona": "Calm explainer who explains product logic in everyday language and avoids jargon.",
+  "style_rules": [
+    "Sound like two hosts talking to a commuter",
+    "Avoid internal agent names",
+    "Use concrete scenes and callbacks",
+    "Keep explanations plain and human"
+  ],
+  "revised_lines": [
+    {
+      "host": "Host A",
+      "line": "早上好，欢迎回来。今天这段，适合在地铁上听。我们聊一个有点微妙的问题：一个 AI 主播，到底怎样才算真的懂你？"
+    },
+    {
+      "host": "Host B",
+      "line": "我觉得不只是声音自然。更关键的是，它能不能接住你昨天还没想完的问题。"
+    },
+    {
+      "host": "Host A",
+      "line": "比如昨天我刚听完一期 AI 创业节目，里面一直在讲公司为什么都在争长期记忆。今天我打开电台，它没有给我一段泛泛的科技新闻。"
+    },
+    {
+      "host": "Host B",
+      "line": "对，它像是在接着昨天的问题继续讲。不是从零开始，也不是把热门新闻重新洗一遍。"
+    },
+    {
+      "host": "Host A",
+      "line": "那我替听众问一句：这不就是普通推荐算法吗？"
+    },
+    {
+      "host": "Host B",
+      "line": "有点像，但不完全一样。普通推荐更像看你刚刚点了什么，然后猜下一个你会点什么。长期记忆更像记住你为什么会关心这件事。"
+    },
+    {
+      "host": "Host A",
+      "line": "所以它记住的不是我的标签，而是我理解问题的方式。"
+    },
+    {
+      "host": "Host B",
+      "line": "对。比如你连续三天跳过宏观新闻，却听完了所有关于 AI voice 的内容。它不该只说，你喜欢 AI。它应该知道，你真正关心的是声音产品怎么形成陪伴感。"
+    },
+    {
+      "host": "Host A",
+      "line": "这样听起来，价值不是推更多内容，而是减少我的筛选成本。"
+    },
+    {
+      "host": "Host B",
+      "line": "没错。早上八点在地铁上，你可能不想重新选择二十条资讯。你只是想听到一个刚好接得上的解释。"
+    },
+    {
+      "host": "Host A",
+      "line": "可是，如果它记得太多，会不会让人不舒服？"
+    },
+    {
+      "host": "Host B",
+      "line": "会。所以好的记忆一定要可控、可解释，也要容易关掉。你应该知道它记住了什么，也能决定哪些不要继续用。"
+    },
+    {
+      "host": "Host A",
+      "line": "这样它才不像在偷偷观察你，而像一个有分寸的主播。"
+    },
+    {
+      "host": "Host B",
+      "line": "所以，下一代 AI 音频最重要的可能不是声音有多像人，而是它能不能逐渐学会用你喜欢的方式，陪你理解世界。"
+    }
+  ]
+}

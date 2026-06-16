@@ -15,7 +15,7 @@ except ImportError:
 from ai_radio_agent.agents import AGENT_ORDER, run_agent
 from ai_radio_agent.json_utils import write_json
 from ai_radio_agent.providers import get_provider
-from ai_radio_agent.schemas import PersonaNotes, QualityEvaluation, TTSExport
+from ai_radio_agent.schemas import BroadcastContext, DialoguePlan, PersonaNotes, QualityEvaluation, TTSExport
 
 
 LOGGER = logging.getLogger("ai_radio_agent")
@@ -48,6 +48,14 @@ def run_pipeline(provider_name: str | None = None, output_dir: Path | None = Non
     LOGGER.info("Running AI radio pipeline with provider=%s", provider.name)
     context: dict[str, Any] = {
         "project_goal": "Create a personalized AI radio episode script for an audio content generation portfolio demo.",
+        "target_episode": {
+            "title": "为什么有些 AI 主播听起来像真的懂你？",
+            "time": "8:00 AM",
+            "scene": "the listener is on the subway",
+            "previous_memory": "yesterday the listener heard an episode about AI startups",
+            "today_continuation": "continue the listener's previous question: why are AI companies competing for long-term memory?",
+            "target_duration_seconds": "90-120",
+        },
         "listener_experience_rule": (
             "The listener should hear a natural two-host radio conversation, not an explanation of the internal agent pipeline. "
             "Do not mention names like User Preference Agent, Memory Agent, Recommendation Agent, or TTS Export in dialogue text. "
@@ -70,6 +78,8 @@ def run_pipeline(provider_name: str | None = None, output_dir: Path | None = Non
 
     write_tts_exports(
         output_dir=target_dir,
+        broadcast_context=BroadcastContext.model_validate(results["broadcast_context_agent"]),
+        dialogue_plan=DialoguePlan.model_validate(results["dialogue_planner_agent"]),
         persona=PersonaNotes.model_validate(results["persona_agent"]),
         quality=QualityEvaluation.model_validate(results["quality_evaluator"]),
         legacy_export=TTSExport.model_validate(results["tts_export"]),
@@ -82,6 +92,8 @@ def run_pipeline(provider_name: str | None = None, output_dir: Path | None = Non
 def write_tts_exports(
     *,
     output_dir: Path,
+    broadcast_context: BroadcastContext,
+    dialogue_plan: DialoguePlan,
     persona: PersonaNotes,
     quality: QualityEvaluation,
     legacy_export: TTSExport,
@@ -89,19 +101,23 @@ def write_tts_exports(
     title = legacy_export.episode_title
     voice_key_by_host = {"Host A": "host_a", "Host B": "host_b"}
 
-    segments = [
-        {
-            "speaker": line.host,
-            "voice_key": voice_key_by_host[line.host],
-            "text": line.line,
-            "delivery_note": persona.host_a_persona if line.host == "Host A" else persona.host_b_persona,
-            "pause_after_ms": 900,
-        }
-        for line in persona.revised_lines
-    ]
+    segments = []
+    for index, line in enumerate(persona.revised_lines):
+        turn = dialogue_plan.turns[index] if index < len(dialogue_plan.turns) else None
+        segments.append(
+            {
+                "speaker": line.host,
+                "voice_key": voice_key_by_host[line.host],
+                "text": line.line,
+                "delivery_note": build_delivery_note(line.host, persona, turn),
+                "pause_after_ms": pause_for_turn(turn, index, len(persona.revised_lines)),
+            }
+        )
 
     production_script = build_production_script(
         title=title,
+        broadcast_context=broadcast_context,
+        dialogue_plan=dialogue_plan,
         persona=persona,
         quality=quality,
         segments=segments,
@@ -122,6 +138,8 @@ def write_tts_exports(
 def build_production_script(
     *,
     title: str,
+    broadcast_context: BroadcastContext,
+    dialogue_plan: DialoguePlan,
     persona: PersonaNotes,
     quality: QualityEvaluation,
     segments: list[dict[str, Any]],
@@ -129,6 +147,15 @@ def build_production_script(
 ) -> str:
     lines = [
         f"# {title}",
+        "",
+        "## Broadcast Context",
+        "",
+        f"- Time: {broadcast_context.time}",
+        f"- Scene: {broadcast_context.scene}",
+        f"- Previous memory: {broadcast_context.previous_memory}",
+        f"- Today's continuation: {broadcast_context.today_continuation}",
+        f"- Listener mood: {broadcast_context.listener_mood}",
+        f"- Opening frame: {broadcast_context.opening_frame}",
         "",
         "## Host Personas",
         "",
@@ -139,6 +166,12 @@ def build_production_script(
         "",
     ]
     lines.extend(f"- {rule}" for rule in persona.style_rules)
+    lines.extend(["", "## Dialogue Plan", ""])
+    for index, turn in enumerate(dialogue_plan.turns, start=1):
+        lines.append(
+            f"{index}. {turn.speaker} | {turn.turn_type} | {turn.conversational_function} | "
+            f"tone: {turn.emotional_tone} | responds to: {turn.responds_to}"
+        )
     lines.extend(["", "## Production Dialogue", ""])
     for segment in segments:
         lines.append(f"**{segment['speaker']}** ({segment['delivery_note']})")
@@ -153,6 +186,28 @@ def build_production_script(
     lines.append(f"- Score: {quality.score}/10")
     lines.append(f"- Ready for TTS: {quality.ready_for_tts}")
     return "\n".join(lines).strip() + "\n"
+
+
+def build_delivery_note(host: str, persona: PersonaNotes, turn: Any) -> str:
+    base = persona.host_a_persona if host == "Host A" else persona.host_b_persona
+    if turn is None:
+        return base
+    return f"{base}; {turn.emotional_tone}; function: {turn.conversational_function}"
+
+
+def pause_for_turn(turn: Any, index: int, total: int) -> int:
+    if index == total - 1:
+        return 1300
+    if turn is None:
+        return 450
+    return {
+        "question": 650,
+        "example": 450,
+        "challenge": 700,
+        "clarification": 320,
+        "callback": 550,
+        "ending": 1200,
+    }.get(turn.turn_type, 450)
 
 
 def build_elevenlabs_ready_doc(*, title: str, segments: list[dict[str, Any]]) -> str:

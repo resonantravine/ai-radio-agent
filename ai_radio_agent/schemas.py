@@ -36,6 +36,15 @@ class TopicPlan(StrictBaseModel):
     target_takeaway: str
 
 
+class BroadcastContext(StrictBaseModel):
+    time: str
+    scene: str
+    previous_memory: str
+    today_continuation: str
+    listener_mood: str
+    opening_frame: str
+
+
 class ResearchBrief(StrictBaseModel):
     key_points: list[str]
     examples: list[str]
@@ -55,6 +64,19 @@ class ScriptOutline(StrictBaseModel):
     beats: list[str]
     transition_notes: list[str]
     outro: str
+
+
+class DialogueTurnPlan(StrictBaseModel):
+    speaker: Literal["Host A", "Host B"]
+    conversational_function: str
+    emotional_tone: str
+    responds_to: str
+    turn_type: Literal["question", "example", "challenge", "clarification", "callback", "ending"]
+
+
+class DialoguePlan(StrictBaseModel):
+    episode_title: str
+    turns: list[DialogueTurnPlan]
 
 
 class DialogueLine(StrictBaseModel):
@@ -92,9 +114,11 @@ SCHEMA_BY_AGENT: dict[str, type[BaseModel]] = {
     "memory_agent": MemoryProfile,
     "recommendation_agent": Recommendation,
     "topic_planner": TopicPlan,
+    "broadcast_context_agent": BroadcastContext,
     "research_agent": ResearchBrief,
     "fact_check_agent": FactCheckReport,
     "script_outliner": ScriptOutline,
+    "dialogue_planner_agent": DialoguePlan,
     "dual_host_dialogue_writer": DialogueScript,
     "persona_agent": PersonaNotes,
     "quality_evaluator": QualityEvaluation,

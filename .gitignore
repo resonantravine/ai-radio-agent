@@ -9,6 +9,8 @@ outputs/debug/
 outputs/*.mp3
 outputs/*.wav
 outputs/*.m4a
+outputs/*.mp4
+outputs/*_cover*.png
 outputs/audio_assets/*.mp3
 outputs/audio_assets/*.wav
 outputs/audio_assets/*.zip

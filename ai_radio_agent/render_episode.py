@@ -435,7 +435,7 @@ def build_ffmpeg_texture_mix_command(
 
     filter_parts.append(
         "".join(mix_labels)
-        + f"amix=inputs={len(mix_labels)}:duration=longest:dropout_transition=0,"
+        + f"amix=inputs={len(mix_labels)}:duration=longest:dropout_transition=0:normalize=0,"
         + "loudnorm=I=-18:LRA=11:TP=-1.5[a]"
     )
     filter_complex = ";".join(filter_parts)
@@ -503,7 +503,7 @@ def build_ffmpeg_intro_mix_command(
         f"volume={intro_gain_db}dB,"
         f"afade=t=in:st=0:d={fade_sec:.3f},"
         f"afade=t=out:st={fade_out_start_sec:.3f}:d={fade_sec:.3f}[intro];"
-        "[voice][intro]amix=inputs=2:duration=longest:dropout_transition=0,"
+        "[voice][intro]amix=inputs=2:duration=longest:dropout_transition=0:normalize=0,"
         "loudnorm=I=-18:LRA=11:TP=-1.5[a]"
     )
     return [
@@ -557,17 +557,17 @@ def build_breakfast_texture_events(
         opening_room_start = max(0, voice_start_ms - 500)
         events.extend(
             [
-                event(files["room"], opening_room_start, -32, "opening room tone", 12000, 1000, 2000),
-                event(files["room"], opening_room_start + 10500, -34, "opening room tone extension", 12000, 800, 2000),
-                event(files["cloth"], voice_start_ms + host_b_first["start_ms"] - 250, -24, "small cloth movement", 1000, 120, 350),
-                event(files["toast"], voice_start_ms + host_b_kitchen["start_ms"] + 3000, -25, "toast counter touch", 1500, 200, 650),
-                event(files["coffee"], voice_start_ms + host_b_kitchen["start_ms"] + 4300, -24, "coffee bubbling", 4000, 300, 900),
-                event(files["window"], voice_start_ms + host_b_kitchen["start_ms"] + 7200, -27, "window air shift", 2500, 400, 1000),
-                event(files["street"], voice_start_ms + host_b_kitchen["start_ms"] + 9100, -30, "distant street waking", 8000, 700, 1600),
-                event(files["cup"], voice_start_ms + host_a_begin["start_ms"] - 650, -23, "opening cup transition", 1200, 100, 500),
-                event(files["room"], voice_start_ms + host_a_ending["start_ms"] - 500, -36, "ending room tone", 12000, 900, 2500),
-                event(files["kettle"], voice_start_ms + host_b_coffee["start_ms"] + 1100, -27, "ending kettle click and steam", 2000, 200, 900),
-                event(files["cup"], voice_start_ms + host_a_thanks["start_ms"] - 550, -26, "ending cup transition", 1200, 100, 550),
+                event(files["room"], opening_room_start, -18, "opening room tone", 12000, 1000, 2000),
+                event(files["room"], opening_room_start + 10500, -20, "opening room tone extension", 12000, 800, 2000),
+                event(files["cloth"], voice_start_ms + host_b_first["start_ms"] - 250, -12, "small cloth movement", 1000, 120, 350),
+                event(files["toast"], voice_start_ms + host_b_kitchen["start_ms"] + 3000, -13, "toast counter touch", 1500, 200, 650),
+                event(files["coffee"], voice_start_ms + host_b_kitchen["start_ms"] + 4300, -12, "coffee bubbling", 4000, 300, 900),
+                event(files["window"], voice_start_ms + host_b_kitchen["start_ms"] + 7200, -14, "window air shift", 2500, 400, 1000),
+                event(files["street"], voice_start_ms + host_b_kitchen["start_ms"] + 9100, -17, "distant street waking", 8000, 700, 1600),
+                event(files["cup"], voice_start_ms + host_a_begin["start_ms"] - 650, -12, "opening cup transition", 1200, 100, 500),
+                event(files["room"], voice_start_ms + host_a_ending["start_ms"] - 500, -22, "ending room tone", 12000, 900, 2500),
+                event(files["kettle"], voice_start_ms + host_b_coffee["start_ms"] + 1100, -15, "ending kettle click and steam", 2000, 200, 900),
+                event(files["cup"], voice_start_ms + host_a_thanks["start_ms"] - 550, -15, "ending cup transition", 1200, 100, 550),
             ]
         )
 
@@ -575,7 +575,7 @@ def build_breakfast_texture_events(
         ensure_file_exists(outro_audio_path, "Outro audio")
         host_a_until = find_segment_by_text(segments, "Until then, take it slow.")
         events.append(
-            event(outro_audio_path, voice_start_ms + host_a_until["start_ms"] - 300, -19, "soft outro bed", 9000, 1200, 3500)
+            event(outro_audio_path, voice_start_ms + host_a_until["start_ms"] - 300, -9, "soft outro bed", 9000, 1200, 3500)
         )
     return events
 

@@ -1,11 +1,11 @@
 {
-  "episode_theme": "为什么有些 AI 主播听起来像真的懂你？",
+  "episode_theme": "Why do some AI hosts sound like they really understand you?",
   "why_this_fits": "It turns memory and personalization into a listener-facing radio topic about commute-time AI audio.",
   "candidate_topics": [
-    "AI 主播",
-    "长期记忆",
-    "通勤场景",
-    "个性化解释",
-    "可控的记忆边界"
+    "AI hosts",
+    "long-term memory",
+    "commute context",
+    "personalized explanation",
+    "controllable memory boundaries"
   ]
 }

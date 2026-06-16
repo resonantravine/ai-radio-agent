@@ -17,6 +17,7 @@
     "09_quality_eval.json",
     "10_tts_export.json",
     "episode_brief.json",
+    "final_episode_manifest.json",
     "segment_plan.json",
     "tts_segments.json"
   ]

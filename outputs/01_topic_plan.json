@@ -1,11 +1,11 @@
 {
-  "title": "为什么有些 AI 主播听起来像真的懂你？",
+  "title": "Why do some AI hosts sound like they really understand you?",
   "angle": "Use a morning subway scene to explain how AI radio connects listening history, preferences, follow-up questions, and current context.",
   "segments": [
-    "早上地铁里的开场",
-    "接着昨天 AI 创业话题继续讲",
-    "普通推荐和长期记忆的区别",
-    "记忆边界：可控、可解释、可关闭"
+    "Morning subway opening",
+    "Continue yesterday's AI startup question",
+    "Recommendation versus long-term memory",
+    "Memory boundaries: controllable, explainable, and deletable"
   ],
-  "target_takeaway": "好的 AI 主播不是推更多内容，而是减少听众的筛选成本，并用听众喜欢的方式继续解释世界。"
+  "target_takeaway": "A good AI host does not push more content. It reduces the listener's filtering cost and continues in the way they like to understand things."
 }

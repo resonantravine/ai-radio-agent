@@ -26,7 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mock", action="store_true", help="Run with the built-in mock provider.")
     parser.add_argument("--provider", choices=["mock", "openai", "gemini"], help="Override LLM_PROVIDER.")
     parser.add_argument("--output-dir", default=None, help="Where generated artifacts should be saved.")
-    parser.add_argument("--topic", default="为什么有些 AI 主播听起来像真的懂你？", help="User-facing episode topic.")
+    parser.add_argument("--topic", default="Why do some AI hosts sound like they really understand you?", help="User-facing episode topic.")
     parser.add_argument("--duration-minutes", type=int, default=2, help="Target episode duration in minutes.")
     parser.add_argument("--user-profile", default="A commuter interested in AI products, startups, and practical product logic.")
     parser.add_argument("--memory-context", default="Yesterday the listener heard an episode about AI startups and kept thinking about long-term memory.")
@@ -48,7 +48,7 @@ def main() -> None:
 def run_pipeline(
     provider_name: str | None = None,
     output_dir: Path | None = None,
-    topic: str = "为什么有些 AI 主播听起来像真的懂你？",
+    topic: str = "Why do some AI hosts sound like they really understand you?",
     duration_minutes: int = 2,
     user_profile: str = "A commuter interested in AI products, startups, and practical product logic.",
     memory_context: str = "Yesterday the listener heard an episode about AI startups and kept thinking about long-term memory.",
@@ -70,7 +70,7 @@ def run_pipeline(
             "duration_minutes": duration_minutes,
         },
         "target_episode": {
-            "title": "为什么有些 AI 主播听起来像真的懂你？",
+            "title": "Why do some AI hosts sound like they really understand you?",
             "time": "8:00 AM",
             "scene": "the listener is on the subway",
             "previous_memory": "yesterday the listener heard an episode about AI startups",

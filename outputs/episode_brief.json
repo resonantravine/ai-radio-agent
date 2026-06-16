@@ -1,5 +1,5 @@
 {
-  "title": "为什么有些 AI 主播听起来像真的懂你？",
+  "title": "Why do some AI hosts sound like they really understand you?",
   "listener_promise": "A short commute-friendly conversation explaining why AI radio can feel personal without exposing the internal pipeline.",
   "user_facing_topic": "An AI host feels like it understands you when it can continue yesterday's question in today's context.",
   "internal_pipeline_note": "Host scripts are generated internal artifacts for quality control, persona consistency, TTS segmentation, and audio rendering. The end user only provides topic, profile or memory context, and duration.",

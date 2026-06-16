@@ -73,7 +73,7 @@ python -m ai_radio_agent.run_pipeline --mock
 You can also pass the user-facing product inputs directly:
 
 ```bash
-python -m ai_radio_agent.run_pipeline --mock --topic "为什么有些 AI 主播听起来像真的懂你？" --duration-minutes 2
+python -m ai_radio_agent.run_pipeline --mock --topic "Why do some AI hosts sound like they really understand you?" --duration-minutes 2
 ```
 
 Main outputs:

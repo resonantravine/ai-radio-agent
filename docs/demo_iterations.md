@@ -14,14 +14,14 @@ Suggested release title:
 AI Radio Agent Demo Audio
 ```
 
-Suggested files:
+Suggested release asset names:
 
-| Stage | Local File | What It Shows |
+| Stage | Release Asset Name | What It Shows |
 | --- | --- | --- |
-| 1. Early dual-host render | `outputs/final_ai_radio_episode_english.mp3` | Basic two-voice pipeline: generated script, segmented TTS, assembled episode. Useful as the "before" sample. |
-| 2. Dialogue liveliness pass | `outputs/final_ai_radio_episode_lively.mp3` | Better host interaction, more lived reaction, stronger metaphor, and clearer memory continuity. |
-| 3. Soft morning identity | `outputs/final_ai_radio_episode_breakfast_intro.mp3` | The show becomes **Yoli's Morning Coffee**, with a personal greeting and soft intro bed. |
-| 4. Final live texture mix | `outputs/final_ai_radio_episode_breakfast_live_texture_v2.mp3` | Final portfolio sample: breakfast-at-home scene, dual voices, intro/outro music, subtle kitchen texture, and a more live radio feel. |
+| 1. Early dual-host render | `01_basic_dual_host.mp3` | Basic two-voice pipeline: generated script, segmented TTS, assembled episode. Useful as the "before" sample. |
+| 2. Dialogue liveliness pass | `02_dialogue_liveliness.mp3` | Better host interaction, more lived reaction, stronger metaphor, and clearer memory continuity. |
+| 3. Soft morning identity | `03_morning_coffee_intro.mp3` | The show becomes **Yoli's Morning Coffee**, with a personal greeting and soft intro bed. |
+| 4. Final live texture mix | `04_final_live_texture_mix.mp3` | Final portfolio sample: breakfast-at-home scene, dual voices, intro/outro music, subtle kitchen texture, and a more live radio feel. |
 
 ## Iteration Story
 
@@ -121,7 +121,7 @@ python3 -m ai_radio_agent.tts_elevenlabs \
 python3 -m ai_radio_agent.render_episode \
   --segments outputs/tts_segments.json \
   --audio-dir outputs/elevenlabs_segments_breakfast_live \
-  --output outputs/final_ai_radio_episode_breakfast_live_texture_v2.mp3 \
+  --output outputs/04_final_live_texture_mix.mp3 \
   --intro-audio outputs/audio_assets/yoli_morning_coffee_intro_bed.mp3 \
   --live-sfx-dir outputs/audio_assets/breakfast_live_sfx_pack \
   --outro-audio outputs/audio_assets/breakfast_soft_outro_bed_v1.mp3

@@ -1,4 +1,4 @@
-# Why do some AI hosts sound like they really understand you?
+# Yoli's Morning Coffee: Why do some AI hosts sound like they really understand you?
 
 ## Broadcast Context
 
@@ -7,26 +7,26 @@
 - Previous memory: Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.
 - Today's continuation: Instead of generic tech news, today's episode continues the listener's previous question: why are AI companies competing for long-term memory?
 - Listener mood: half-awake, curious, wants something useful but not too heavy
-- Opening frame: Good morning, welcome back. This one is for the subway: what does it actually mean for an AI host to understand you?
+- Opening frame: Good morning, Yoli. Your morning coffee is ready. Yesterday we left off with one question: why are AI companies competing for long-term memory?
 
 ## Host Personas
 
-- Host A: Warm observer who represents the listener's lived commute experience and asks natural questions.
-- Host B: Calm explainer who explains product logic in everyday language and avoids jargon.
+- Host A: Soft morning companion who represents Yoli's lived commute experience and asks natural questions.
+- Host B: Calm thought organizer who explains product logic in everyday language and avoids jargon.
 
 ## Style Rules
 
-- Sound like two hosts talking to a commuter
+- Sound like Yoli's personal morning radio, not a tech news show
 - Avoid internal agent names
 - Use concrete scenes and callbacks
-- Keep explanations plain and human
+- Keep explanations plain, soft, and human
 
 ## Dialogue Plan
 
-1. Host A | example | open with the subway scene and yesterday's specific founder memory | tone: warm, close, like starting the day with the listener | responds to: broadcast context
-2. Host B | clarification | explain why continuity makes the host feel understanding | tone: calm and explanatory | responds to: Host A commute scene
+1. Host A | example | open with a personal morning greeting, subway scene, and yesterday's specific founder memory | tone: soft, warm, like placing coffee beside the listener | responds to: broadcast context
+2. Host B | clarification | gently explain why continuity can feel like understanding | tone: calm and unhurried | responds to: Host A morning greeting
 3. Host A | question | check whether understanding is deeper than topic labels | tone: lightly questioning | responds to: Host B continuity point
-4. Host B | clarification | explain understanding style instead of labels | tone: plain and grounded | responds to: Host A label question
+4. Host B | clarification | softly explain understanding style instead of labels | tone: plain, grounded, not lecture-like | responds to: Host A label question
 5. Host A | challenge | raise the ordinary recommendation challenge | tone: friendly skeptical | responds to: Host B deeper understanding claim
 6. Host B | clarification | separate behavior recommendation from continuous memory using a concrete metaphor | tone: patient explainer | responds to: recommendation challenge
 7. Host A | callback | express a lived commute reaction before summarizing the continuity idea | tone: recognizing the point from lived experience | responds to: Host B distinction
@@ -39,88 +39,88 @@
 
 ## Production Dialogue
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; warm, close, like starting the day with the listener; function: open with the subway scene and yesterday's specific founder memory)
+**Host A** (Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; soft, warm, like placing coffee beside the listener; function: open with a personal morning greeting, subway scene, and yesterday's specific founder memory)
 
-It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?
+Good morning, Yoli. Your morning coffee is ready. It is eight o'clock, you are on the subway, and yesterday's episode about AI startups left one detail on the table: a founder called memory the new onboarding layer for AI products. So today, instead of another piece of generic tech news, let's stay with that question for a few minutes.
 
 _Pause after: 450 ms_
 
-**Host B** (Calm explainer who explains product logic in everyday language and avoids jargon.; calm and explanatory; function: explain why continuity makes the host feel understanding)
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; calm and unhurried; function: gently explain why continuity can feel like understanding)
 
-That moment matters. An AI host sounds like it understands you not just because the voice is natural, but because it knows where you left off yesterday and what you might still be thinking about today.
+Maybe we can think of it this way. An AI host starts to feel personal when it remembers where the conversation paused, not when it rushes to sound impressive.
 
 _Pause after: 320 ms_
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; lightly questioning; function: check whether understanding is deeper than topic labels)
+**Host A** (Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; lightly questioning; function: check whether understanding is deeper than topic labels)
 
-So it is not as simple as knowing that I like tech news?
+I like that, but I am also a little unsure. Is this really more than knowing that I like tech news?
 
 _Pause after: 650 ms_
 
-**Host B** (Calm explainer who explains product logic in everyday language and avoids jargon.; plain and grounded; function: explain understanding style instead of labels)
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; plain, grounded, not lecture-like; function: softly explain understanding style instead of labels)
 
-Right. That is only a label. A deeper kind of understanding is knowing how you like to enter a question. Maybe you do not want every AI headline. You care about why a product makes sense, what user need it answers, and how it differs from an ordinary tool.
+There is a small difference here. A topic label says you like AI. A softer kind of memory notices how you like to enter the question. Maybe you care less about every headline, and more about why a product makes sense in someone's day.
 
 _Pause after: 320 ms_
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; friendly skeptical; function: raise the ordinary recommendation challenge)
+**Host A** (Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; friendly skeptical; function: raise the ordinary recommendation challenge)
 
-Let me ask the listener's question: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same.
+Let me ask the listener's question gently: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same.
 
 _Pause after: 700 ms_
 
-**Host B** (Calm explainer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory using a concrete metaphor)
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory using a concrete metaphor)
 
-A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained.
+A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It helps the show remember why you cared, where you paused, and what kind of explanation feels useful.
 
 _Pause after: 320 ms_
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; recognizing the point from lived experience; function: express a lived commute reaction before summarizing the continuity idea)
+**Host A** (Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; recognizing the point from lived experience; function: express a lived commute reaction before summarizing the continuity idea)
 
 I feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward.
 
 _Pause after: 550 ms_
 
-**Host B** (Calm explainer who explains product logic in everyday language and avoids jargon.; useful and warm; function: explain reduced filtering cost and morning context)
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; useful and warm; function: explain reduced filtering cost and morning context)
 
-Exactly. It is not just generating more content. It is reducing your filtering cost. On a morning commute, you do not want to explain again what you want to hear. It should already know that today's episode needs to be light, clear, but not shallow.
+Exactly. And maybe that is the quiet value. It is not giving you more content. It is reducing the small morning effort of choosing. Today can be light and clear, but not shallow.
 
 _Pause after: 320 ms_
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; thoughtful concern; function: ask the discomfort boundary question)
+**Host A** (Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; thoughtful concern; function: ask the discomfort boundary question)
 
 But if it remembers too much, doesn't that start to feel uncomfortable?
 
 _Pause after: 650 ms_
 
-**Host B** (Calm explainer who explains product logic in everyday language and avoids jargon.; reassuring and careful; function: answer with controllable, explainable, deletable memory)
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; reassuring and careful; function: answer with controllable, explainable, deletable memory)
 
-It can. That is why good memory should never feel like secretly remembering everything. It should be controllable, explainable, and deletable. You should know why it recommended something, and you should decide what should not be remembered.
+It can. So good memory should not feel like it is secretly collecting everything. It should be controllable, explainable, and easy to turn off. You should be able to see why this episode appeared, and decide what does not need to stay.
 
 _Pause after: 320 ms_
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; softly reflective; function: turn the answer into a memorable phrase)
+**Host A** (Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; softly reflective; function: turn the answer into a memorable phrase)
 
 So understanding you is not a kind of mystery. It is a kind of restraint.
 
 _Pause after: 550 ms_
 
-**Host B** (Calm explainer who explains product logic in everyday language and avoids jargon.; settled and memorable; function: state the central ending insight)
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; settled and memorable; function: state the central ending insight)
 
-Yes. The next generation of AI hosts may not be defined by how human the voice sounds, but by whether it can catch the question you had not finished yesterday, at the right moment.
+Yes. Maybe the next generation of AI hosts will not be defined by how human the voice sounds, but by whether it can gently catch the question you had not finished yesterday.
 
 _Pause after: 1200 ms_
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; gentle closing; function: close with a light commuter-friendly takeaway)
+**Host A** (Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; gentle closing; function: close with a light commuter-friendly takeaway)
 
-Before the subway doors open, maybe that is today's line to keep: sounding like it understands you is not about talking all the time. It is about knowing where to continue.
+Before the subway doors open, maybe that is today's first cup: sounding like it understands you is not about talking all the time. It is about knowing where to continue.
 
 _Pause after: 1300 ms_
 
 ## Voice Notes
 
-- Host A should sound warm, observant, and close to the listener.
-- Host B should sound calm, grounded, and explanatory without sounding like a lecture.
+- Host A should sound soft, observant, and close to Yoli without becoming overly intimate.
+- Host B should sound calm, grounded, and clear without sounding like a lecturer.
 
 ## Quality Evaluation
 

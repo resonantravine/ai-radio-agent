@@ -30,11 +30,22 @@ The listener hears a natural two-host radio episode. The interviewer can inspect
 
 The included mock episode is a morning subway sample: at 8:00 AM, the AI radio continues yesterday's AI startup episode by asking why AI companies are competing for long-term memory.
 
+The sample show format is **Yoli's Morning Coffee**: a soft personal morning radio ritual that gives the listener a gentle greeting, reconnects with yesterday's unfinished thread, and offers one useful thought for the commute.
+
 The current dialogue prompts intentionally optimize for radio liveliness, not just correctness:
 
 - Host A must include at least one lived reaction from the listener's point of view.
 - Host B must use at least one concrete metaphor.
 - Each episode should include one specific remembered detail from the previous listening session.
+
+Sound direction:
+
+- Calm but not sleepy.
+- Personal but not overly intimate.
+- Thoughtful but not academic.
+- Warm but not sentimental.
+- Clear but not over-explaining.
+- Not a tech news anchor, productivity coach, marketing narrator, overly cheerful podcast host, or therapist.
 
 ## Why This Is A Good Audio Agent Demo
 
@@ -230,6 +241,18 @@ ELEVENLABS_HOST_A_VOICE_ID=JBFqnCBsd6RMkjVDRZzb
 ELEVENLABS_HOST_B_VOICE_ID=EXAVITQu4vr4xnSDxMaL
 ELEVENLABS_MODEL_ID=eleven_multilingual_v2
 ELEVENLABS_OUTPUT_FORMAT=mp3_44100_128
+
+ELEVENLABS_HOST_A_STABILITY=0.72
+ELEVENLABS_HOST_A_SIMILARITY_BOOST=0.72
+ELEVENLABS_HOST_A_STYLE=0.08
+ELEVENLABS_HOST_A_USE_SPEAKER_BOOST=false
+ELEVENLABS_HOST_A_SPEED=0.90
+
+ELEVENLABS_HOST_B_STABILITY=0.68
+ELEVENLABS_HOST_B_SIMILARITY_BOOST=0.76
+ELEVENLABS_HOST_B_STYLE=0.10
+ELEVENLABS_HOST_B_USE_SPEAKER_BOOST=false
+ELEVENLABS_HOST_B_SPEED=0.93
 ```
 
 For a two-host show, choose voices that are obviously different, for example one male-coded voice and one female-coded voice. List the voices available to your account:
@@ -239,6 +262,8 @@ python -m ai_radio_agent.tts_elevenlabs --list-voices
 ```
 
 Then copy two different voice IDs into `ELEVENLABS_HOST_A_VOICE_ID` and `ELEVENLABS_HOST_B_VOICE_ID`.
+
+The voice ID controls who is speaking. The `voice_settings` values control how that voice speaks for this request. The defaults above aim for a softer morning-radio delivery: slightly slower, less boosted, stable, and not too performative. You can A/B test by changing only these `.env` values.
 
 Export a quick single-voice audio test:
 
@@ -282,6 +307,18 @@ After generating ElevenLabs segments, render the complete two-host episode:
 ```bash
 python -m ai_radio_agent.render_episode --segments outputs/tts_segments.json --audio-dir outputs/elevenlabs_segments --output outputs/final_ai_radio_episode.mp3
 ```
+
+Optional soft intro music or room tone:
+
+```bash
+python -m ai_radio_agent.render_episode \
+  --segments outputs/tts_segments.json \
+  --audio-dir outputs/elevenlabs_segments \
+  --output outputs/final_ai_radio_episode.mp3 \
+  --intro-audio path/to/soft_intro.mp3
+```
+
+The intro bed fades in quietly, starts the first voice after about three seconds, then fades out. Keep intro audio subtle: 3-5 seconds of soft piano, ambient texture, or room tone works better than a full podcast jingle.
 
 Optional WAV export:
 

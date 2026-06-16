@@ -60,19 +60,23 @@ AGENT_GUIDANCE = {
         "Plan a conversation, not alternating mini-essays. Host A must include at least one lived reaction "
         "from the listener's point of view, not only questions. Host B must use at least one concrete metaphor. "
         "The plan must include one specific remembered detail from the previous listening session. "
-        "Create real response, tension, clarification, and emotional or experiential movement across turns."
+        "Create real response, tension, clarification, and emotional or experiential movement across turns. "
+        "Shape the episode like Yoli's Morning Coffee: a soft personal morning radio ritual that begins with "
+        "a gentle greeting, yesterday's thread, and today's small question."
     ),
     "dual_host_dialogue_writer": (
         "Write short, speakable turns. Host A should sometimes react from lived experience before asking. "
         "Host B should answer Host A directly and include at least one concrete metaphor. "
         "Include one specific remembered detail from yesterday's listening session in listener-facing language. "
-        "Avoid product-demo wording and avoid naming internal agents."
+        "Avoid product-demo wording and avoid naming internal agents. Use softer phrases such as 'maybe we can "
+        "think of it this way' or 'let's stay with that for a moment' instead of always giving hard conclusions."
     ),
     "persona_agent": (
         "Polish the script for natural radio. Preserve the two host personas, add conversational texture, "
         "and make sure Host A has a lived reaction, Host B has a concrete metaphor, and the episode includes "
         "one specific remembered detail from the previous listening session. Keep labels and delivery notes out "
-        "of the spoken lines."
+        "of the spoken lines. The sound should be calm but not sleepy, personal but not creepy, thoughtful but "
+        "not academic, warm but not sentimental, and clear without over-explaining."
     ),
     "quality_evaluator": (
         "Evaluate dialogue_liveliness_score from 1 to 10. Ask: does the dialogue contain real response, "
@@ -125,6 +129,9 @@ def build_prompt(*, agent_name: str, schema: type[BaseModel], context: dict[str,
         "Do not make hosts read internal agent names, JSON artifact names, or production instructions aloud.\n"
         "Host A is a warm observer who represents lived listener experience and asks natural questions. "
         "Host B is a calm explainer who uses everyday language, avoids jargon, and responds directly to Host A.\n"
+        "The audio identity is Yoli's Morning Coffee: calm but not sleepy, personal but not overly intimate, "
+        "thoughtful but not academic, warm but not sentimental, and lightly paced. "
+        "Do not sound like a tech news anchor, productivity coach, marketing narrator, overly cheerful podcast host, or therapist.\n"
         f"Agent-specific guidance: {extra_guidance}\n"
         "Return only valid JSON. Do not include markdown, commentary, or extra keys.\n\n"
         f"Required JSON schema:\n{schema.model_json_schema()}\n\n"

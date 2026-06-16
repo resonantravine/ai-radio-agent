@@ -1,11 +1,11 @@
 {
-  "title": "Why do some AI hosts sound like they really understand you?",
-  "angle": "Use a morning subway scene to explain how AI radio connects listening history, preferences, follow-up questions, and current context.",
+  "title": "Yoli's Morning Coffee: Why do some AI hosts sound like they really understand you?",
+  "angle": "Use a soft morning coffee ritual and subway scene to explain how AI radio continues a listener's unfinished question.",
   "segments": [
-    "Morning subway opening",
+    "Personal morning greeting",
     "Continue yesterday's AI startup detail about memory as onboarding",
     "Recommendation versus long-term memory",
     "Memory boundaries: controllable, explainable, and deletable"
   ],
-  "target_takeaway": "A good AI host does not push more content. It reduces the listener's filtering cost and continues in the way they like to understand things."
+  "target_takeaway": "A good AI host does not push more content. It gently reduces the listener's filtering cost and knows where to continue."
 }

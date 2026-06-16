@@ -20,6 +20,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", default="outputs/final_ai_radio_episode.mp3", help="Final mp3 output path.")
     parser.add_argument("--wav-output", default=None, help="Optional final wav output path.")
     parser.add_argument("--target-dbfs", type=float, default=TARGET_DBFS, help="Simple loudness target for each segment.")
+    parser.add_argument("--intro-audio", default=None, help="Optional soft intro music or room-tone bed.")
+    parser.add_argument("--intro-gain-db", type=float, default=-18.0, help="Gain applied to optional intro audio.")
+    parser.add_argument("--intro-fade-ms", type=int, default=3000, help="Fade in/out duration for optional intro audio.")
+    parser.add_argument("--voice-start-ms", type=int, default=3000, help="When the first voice starts if intro audio is used.")
+    parser.add_argument("--intro-total-ms", type=int, default=13000, help="Total intro bed duration if intro audio is used.")
     return parser.parse_args()
 
 
@@ -32,6 +37,11 @@ def main() -> None:
             output_path=Path(args.output),
             wav_output_path=Path(args.wav_output) if args.wav_output else None,
             target_dbfs=args.target_dbfs,
+            intro_audio_path=Path(args.intro_audio) if args.intro_audio else None,
+            intro_gain_db=args.intro_gain_db,
+            intro_fade_ms=args.intro_fade_ms,
+            voice_start_ms=args.voice_start_ms,
+            intro_total_ms=args.intro_total_ms,
         )
         print(f"Saved final episode to {args.output}")
     except RuntimeError as exc:
@@ -46,6 +56,11 @@ def render_episode(
     output_path: Path,
     wav_output_path: Path | None = None,
     target_dbfs: float = TARGET_DBFS,
+    intro_audio_path: Path | None = None,
+    intro_gain_db: float = -18.0,
+    intro_fade_ms: int = 3000,
+    voice_start_ms: int = 3000,
+    intro_total_ms: int = 13000,
 ) -> dict[str, Any]:
     ensure_file_exists(segments_path, "TTS segments")
     episode_data = json.loads(segments_path.read_text(encoding="utf-8"))
@@ -55,6 +70,8 @@ def render_episode(
 
     check_ffmpeg()
     if shutil.which("ffprobe") is None:
+        if intro_audio_path is not None:
+            raise RuntimeError("Optional intro audio currently requires ffprobe/pydub support. Install ffmpeg with ffprobe first.")
         return render_with_ffmpeg_only(
             episode_data=episode_data,
             segments=segments,
@@ -107,6 +124,18 @@ def render_episode(
             }
         )
 
+    if intro_audio_path is not None:
+        ensure_file_exists(intro_audio_path, "Intro audio")
+        final_audio = apply_intro_audio(
+            AudioSegment=AudioSegment,
+            episode_audio=final_audio,
+            intro_audio_path=intro_audio_path,
+            gain_db=intro_gain_db,
+            fade_ms=intro_fade_ms,
+            voice_start_ms=voice_start_ms,
+            intro_total_ms=intro_total_ms,
+        )
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
     try:
         final_audio.export(output_path, format="mp3")
@@ -126,6 +155,9 @@ def render_episode(
         "output_mp3": str(output_path),
         "output_wav": str(wav_output_path) if wav_output_path else None,
         "target_dbfs": target_dbfs,
+        "intro_audio": str(intro_audio_path) if intro_audio_path else None,
+        "intro_gain_db": intro_gain_db if intro_audio_path else None,
+        "voice_start_ms": voice_start_ms if intro_audio_path else None,
         "total_duration_ms": len(final_audio),
         "segments": manifest_segments,
     }
@@ -306,6 +338,49 @@ def normalize_audio(audio: Any, *, target_dbfs: float) -> Any:
         return audio
     gain = target_dbfs - audio.dBFS
     return audio.apply_gain(gain)
+
+
+def apply_intro_audio(
+    *,
+    AudioSegment: Any,
+    episode_audio: Any,
+    intro_audio_path: Path,
+    gain_db: float,
+    fade_ms: int,
+    voice_start_ms: int,
+    intro_total_ms: int,
+) -> Any:
+    intro = AudioSegment.from_file(intro_audio_path)
+    intro_bed = build_intro_bed(
+        AudioSegment=AudioSegment,
+        intro=intro,
+        duration_ms=intro_total_ms,
+        gain_db=gain_db,
+        fade_ms=fade_ms,
+    )
+    episode_with_space = AudioSegment.silent(duration=voice_start_ms) + episode_audio
+    return episode_with_space.overlay(intro_bed, position=0)
+
+
+def build_intro_bed(
+    *,
+    AudioSegment: Any,
+    intro: Any,
+    duration_ms: int,
+    gain_db: float,
+    fade_ms: int,
+) -> Any:
+    if len(intro) == 0:
+        return AudioSegment.silent(duration=duration_ms)
+
+    bed = intro
+    while len(bed) < duration_ms:
+        bed += intro
+    bed = bed[:duration_ms].apply_gain(gain_db)
+    safe_fade_ms = max(0, min(fade_ms, duration_ms // 2))
+    if safe_fade_ms:
+        bed = bed.fade_in(safe_fade_ms).fade_out(safe_fade_ms)
+    return bed
 
 
 if __name__ == "__main__":

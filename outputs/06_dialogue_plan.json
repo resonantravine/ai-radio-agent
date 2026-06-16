@@ -1,18 +1,18 @@
 {
-  "episode_title": "Why do some AI hosts sound like they really understand you?",
+  "episode_title": "Yoli's Morning Coffee: Why do some AI hosts sound like they really understand you?",
   "turns": [
     {
       "speaker": "Host A",
-      "conversational_function": "open with the subway scene and yesterday's specific founder memory",
-      "emotional_tone": "warm, close, like starting the day with the listener",
+      "conversational_function": "open with a personal morning greeting, subway scene, and yesterday's specific founder memory",
+      "emotional_tone": "soft, warm, like placing coffee beside the listener",
       "responds_to": "broadcast context",
       "turn_type": "example"
     },
     {
       "speaker": "Host B",
-      "conversational_function": "explain why continuity makes the host feel understanding",
-      "emotional_tone": "calm and explanatory",
-      "responds_to": "Host A commute scene",
+      "conversational_function": "gently explain why continuity can feel like understanding",
+      "emotional_tone": "calm and unhurried",
+      "responds_to": "Host A morning greeting",
       "turn_type": "clarification"
     },
     {
@@ -24,8 +24,8 @@
     },
     {
       "speaker": "Host B",
-      "conversational_function": "explain understanding style instead of labels",
-      "emotional_tone": "plain and grounded",
+      "conversational_function": "softly explain understanding style instead of labels",
+      "emotional_tone": "plain, grounded, not lecture-like",
       "responds_to": "Host A label question",
       "turn_type": "clarification"
     },

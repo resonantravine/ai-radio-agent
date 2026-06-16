@@ -1,95 +1,95 @@
 {
-  "episode_title": "Why do some AI hosts sound like they really understand you?",
+  "episode_title": "Yoli's Morning Coffee: Why do some AI hosts sound like they really understand you?",
   "segments": [
     {
       "speaker": "Host A",
       "voice_key": "host_a",
-      "text": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; warm, close, like starting the day with the listener; function: open with the subway scene and yesterday's specific founder memory",
+      "text": "Good morning, Yoli. Your morning coffee is ready. It is eight o'clock, you are on the subway, and yesterday's episode about AI startups left one detail on the table: a founder called memory the new onboarding layer for AI products. So today, instead of another piece of generic tech news, let's stay with that question for a few minutes.",
+      "delivery_note": "Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; soft, warm, like placing coffee beside the listener; function: open with a personal morning greeting, subway scene, and yesterday's specific founder memory",
       "pause_after_ms": 450
     },
     {
       "speaker": "Host B",
       "voice_key": "host_b",
-      "text": "That moment matters. An AI host sounds like it understands you not just because the voice is natural, but because it knows where you left off yesterday and what you might still be thinking about today.",
-      "delivery_note": "Calm explainer who explains product logic in everyday language and avoids jargon.; calm and explanatory; function: explain why continuity makes the host feel understanding",
+      "text": "Maybe we can think of it this way. An AI host starts to feel personal when it remembers where the conversation paused, not when it rushes to sound impressive.",
+      "delivery_note": "Calm thought organizer who explains product logic in everyday language and avoids jargon.; calm and unhurried; function: gently explain why continuity can feel like understanding",
       "pause_after_ms": 320
     },
     {
       "speaker": "Host A",
       "voice_key": "host_a",
-      "text": "So it is not as simple as knowing that I like tech news?",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; lightly questioning; function: check whether understanding is deeper than topic labels",
+      "text": "I like that, but I am also a little unsure. Is this really more than knowing that I like tech news?",
+      "delivery_note": "Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; lightly questioning; function: check whether understanding is deeper than topic labels",
       "pause_after_ms": 650
     },
     {
       "speaker": "Host B",
       "voice_key": "host_b",
-      "text": "Right. That is only a label. A deeper kind of understanding is knowing how you like to enter a question. Maybe you do not want every AI headline. You care about why a product makes sense, what user need it answers, and how it differs from an ordinary tool.",
-      "delivery_note": "Calm explainer who explains product logic in everyday language and avoids jargon.; plain and grounded; function: explain understanding style instead of labels",
+      "text": "There is a small difference here. A topic label says you like AI. A softer kind of memory notices how you like to enter the question. Maybe you care less about every headline, and more about why a product makes sense in someone's day.",
+      "delivery_note": "Calm thought organizer who explains product logic in everyday language and avoids jargon.; plain, grounded, not lecture-like; function: softly explain understanding style instead of labels",
       "pause_after_ms": 320
     },
     {
       "speaker": "Host A",
       "voice_key": "host_a",
-      "text": "Let me ask the listener's question: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same.",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; friendly skeptical; function: raise the ordinary recommendation challenge",
+      "text": "Let me ask the listener's question gently: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same.",
+      "delivery_note": "Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; friendly skeptical; function: raise the ordinary recommendation challenge",
       "pause_after_ms": 700
     },
     {
       "speaker": "Host B",
       "voice_key": "host_b",
-      "text": "A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained.",
-      "delivery_note": "Calm explainer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory using a concrete metaphor",
+      "text": "A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It helps the show remember why you cared, where you paused, and what kind of explanation feels useful.",
+      "delivery_note": "Calm thought organizer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory using a concrete metaphor",
       "pause_after_ms": 320
     },
     {
       "speaker": "Host A",
       "voice_key": "host_a",
       "text": "I feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward.",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; recognizing the point from lived experience; function: express a lived commute reaction before summarizing the continuity idea",
+      "delivery_note": "Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; recognizing the point from lived experience; function: express a lived commute reaction before summarizing the continuity idea",
       "pause_after_ms": 550
     },
     {
       "speaker": "Host B",
       "voice_key": "host_b",
-      "text": "Exactly. It is not just generating more content. It is reducing your filtering cost. On a morning commute, you do not want to explain again what you want to hear. It should already know that today's episode needs to be light, clear, but not shallow.",
-      "delivery_note": "Calm explainer who explains product logic in everyday language and avoids jargon.; useful and warm; function: explain reduced filtering cost and morning context",
+      "text": "Exactly. And maybe that is the quiet value. It is not giving you more content. It is reducing the small morning effort of choosing. Today can be light and clear, but not shallow.",
+      "delivery_note": "Calm thought organizer who explains product logic in everyday language and avoids jargon.; useful and warm; function: explain reduced filtering cost and morning context",
       "pause_after_ms": 320
     },
     {
       "speaker": "Host A",
       "voice_key": "host_a",
       "text": "But if it remembers too much, doesn't that start to feel uncomfortable?",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; thoughtful concern; function: ask the discomfort boundary question",
+      "delivery_note": "Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; thoughtful concern; function: ask the discomfort boundary question",
       "pause_after_ms": 650
     },
     {
       "speaker": "Host B",
       "voice_key": "host_b",
-      "text": "It can. That is why good memory should never feel like secretly remembering everything. It should be controllable, explainable, and deletable. You should know why it recommended something, and you should decide what should not be remembered.",
-      "delivery_note": "Calm explainer who explains product logic in everyday language and avoids jargon.; reassuring and careful; function: answer with controllable, explainable, deletable memory",
+      "text": "It can. So good memory should not feel like it is secretly collecting everything. It should be controllable, explainable, and easy to turn off. You should be able to see why this episode appeared, and decide what does not need to stay.",
+      "delivery_note": "Calm thought organizer who explains product logic in everyday language and avoids jargon.; reassuring and careful; function: answer with controllable, explainable, deletable memory",
       "pause_after_ms": 320
     },
     {
       "speaker": "Host A",
       "voice_key": "host_a",
       "text": "So understanding you is not a kind of mystery. It is a kind of restraint.",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; softly reflective; function: turn the answer into a memorable phrase",
+      "delivery_note": "Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; softly reflective; function: turn the answer into a memorable phrase",
       "pause_after_ms": 550
     },
     {
       "speaker": "Host B",
       "voice_key": "host_b",
-      "text": "Yes. The next generation of AI hosts may not be defined by how human the voice sounds, but by whether it can catch the question you had not finished yesterday, at the right moment.",
-      "delivery_note": "Calm explainer who explains product logic in everyday language and avoids jargon.; settled and memorable; function: state the central ending insight",
+      "text": "Yes. Maybe the next generation of AI hosts will not be defined by how human the voice sounds, but by whether it can gently catch the question you had not finished yesterday.",
+      "delivery_note": "Calm thought organizer who explains product logic in everyday language and avoids jargon.; settled and memorable; function: state the central ending insight",
       "pause_after_ms": 1200
     },
     {
       "speaker": "Host A",
       "voice_key": "host_a",
-      "text": "Before the subway doors open, maybe that is today's line to keep: sounding like it understands you is not about talking all the time. It is about knowing where to continue.",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; gentle closing; function: close with a light commuter-friendly takeaway",
+      "text": "Before the subway doors open, maybe that is today's first cup: sounding like it understands you is not about talking all the time. It is about knowing where to continue.",
+      "delivery_note": "Soft morning companion who represents Yoli's lived commute experience and asks natural questions.; gentle closing; function: close with a light commuter-friendly takeaway",
       "pause_after_ms": 1300
     }
   ]

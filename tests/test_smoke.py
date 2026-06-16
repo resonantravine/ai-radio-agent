@@ -58,6 +58,7 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
     assert "Agent" not in clean_tts
     assert "Memory Agent" not in clean_tts
     assert "Recommendation Agent" not in clean_tts
+    assert "Good morning, Yoli. Your morning coffee is ready." in clean_tts
     assert "recommendation algorithm" in clean_tts
     assert "feel uncomfortable" in clean_tts
     assert "new onboarding layer" in clean_tts
@@ -83,3 +84,22 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
 
     quality_eval = json.loads((outputs_dir / "09_quality_eval.json").read_text(encoding="utf-8"))
     assert quality_eval["dialogue_liveliness_score"] >= 8
+
+
+def test_elevenlabs_soft_voice_settings_can_be_overridden(monkeypatch) -> None:
+    from ai_radio_agent.tts_elevenlabs import resolve_voice_settings
+
+    host_a_settings = resolve_voice_settings("host_a")
+    assert host_a_settings == {
+        "stability": 0.72,
+        "similarity_boost": 0.72,
+        "style": 0.08,
+        "use_speaker_boost": False,
+        "speed": 0.90,
+    }
+
+    monkeypatch.setenv("ELEVENLABS_HOST_A_SPEED", "0.88")
+    monkeypatch.setenv("ELEVENLABS_HOST_A_USE_SPEAKER_BOOST", "true")
+    overridden = resolve_voice_settings("host_a")
+    assert overridden["speed"] == 0.88
+    assert overridden["use_speaker_boost"] is True

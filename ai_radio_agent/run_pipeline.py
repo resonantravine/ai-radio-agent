@@ -28,7 +28,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", default=None, help="Where generated artifacts should be saved.")
     parser.add_argument("--topic", default="Why do some AI hosts sound like they really understand you?", help="User-facing episode topic.")
     parser.add_argument("--duration-minutes", type=int, default=2, help="Target episode duration in minutes.")
-    parser.add_argument("--user-profile", default="A commuter interested in AI products, startups, and practical product logic.")
+    parser.add_argument("--user-profile", default="Yoli, a commuter interested in AI products, startups, and practical product logic.")
     parser.add_argument("--memory-context", default="Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.")
     return parser.parse_args()
 
@@ -50,7 +50,7 @@ def run_pipeline(
     output_dir: Path | None = None,
     topic: str = "Why do some AI hosts sound like they really understand you?",
     duration_minutes: int = 2,
-    user_profile: str = "A commuter interested in AI products, startups, and practical product logic.",
+    user_profile: str = "Yoli, a commuter interested in AI products, startups, and practical product logic.",
     memory_context: str = "Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.",
 ) -> dict[str, Any]:
     load_dotenv()
@@ -71,11 +71,16 @@ def run_pipeline(
         },
         "target_episode": {
             "title": "Why do some AI hosts sound like they really understand you?",
+            "format_name": "Yoli's Morning Coffee",
             "time": "8:00 AM",
             "scene": "the listener is on the subway",
             "previous_memory": "yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products",
             "today_continuation": "continue the listener's previous question: why are AI companies competing for long-term memory?",
             "target_duration_seconds": f"{duration_minutes * 60}",
+            "audio_identity": (
+                "A soft personal morning radio ritual: calm but not sleepy, personal but not creepy, "
+                "thoughtful but not academic, warm but not sentimental, clear but not over-explaining."
+            ),
         },
         "listener_experience_rule": (
             "The listener should hear a natural two-host radio conversation, not an explanation of the internal agent pipeline. "

@@ -1,7 +1,7 @@
 {
-  "intro": "Open like a morning commute radio segment, then ask what it means for an AI host to really understand a listener.",
+  "intro": "Open with a soft personal morning greeting, then connect yesterday's AI startup memory to today's small question.",
   "beats": [
-    "Host A sets the subway scene and asks whether knowing the listener is more than a natural voice.",
+    "Host A greets Yoli, sets the subway scene, and names the remembered detail from yesterday.",
     "Host B explains that good AI radio can continue yesterday's question instead of serving generic tech news.",
     "Host A challenges whether this is just a recommendation algorithm.",
     "Host B distinguishes short-term behavior prediction from long-term memory in everyday language.",
@@ -11,5 +11,5 @@
   "transition_notes": [
     "Use quick responses for back-and-forth, longer pauses only after questions or section turns."
   ],
-  "outro": "End with the idea that the next AI audio experience should feel prepared for the listener, not just generated."
+  "outro": "End softly, like a morning thought to carry off the subway, without opening a new question."
 }

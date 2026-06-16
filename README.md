@@ -23,6 +23,8 @@ In a real AI podcast product, the user would not write Host A / Host B scripts. 
 
 The best current demo is [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3): a soft morning-radio sample with dual AI hosts, intro/outro music, and subtle breakfast-at-home live texture.
 
+There is also a simple portfolio-friendly video version: [04_final_live_texture_mix.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp4).
+
 ## Listen To The Iterations
 
 The audio demos are hosted as GitHub Release assets so the code repository stays lightweight.
@@ -486,6 +488,35 @@ outputs/transcript_morning.json
 
 The markdown file includes the audio file name, detected language, timestamped segments, and a clean full transcript section. The JSON file contains the same data in a machine-friendly format for diffing or tooling.
 
+Then run the first-stage automated fidelity check:
+
+```bash
+python -m ai_radio_agent.audio_fidelity_check \
+  --segments outputs/tts_segments.json \
+  --asr outputs/transcript_morning.json \
+  --out-json outputs/audio_fidelity_report.json \
+  --out-md outputs/audio_fidelity_report.md \
+  --expected-language en
+```
+
+Outputs:
+
+```text
+outputs/audio_fidelity_report.json
+outputs/audio_fidelity_report.md
+```
+
+This check treats `tts_segments.json` as the source of truth. The ASR transcript is only a post-render quality probe, so the checker uses conservative fuzzy matching instead of exact word-level diffing.
+
+The report checks:
+
+- text coverage between TTS segments and ASR transcript
+- accidental leakage of labels or production notes such as `Host A`, `pause after`, `delivery note`, or `voice key`
+- low-confidence or missing TTS segments
+- detected ASR language versus the expected language
+
+The final report includes a `ready_for_publish` decision, blocking issues, warnings, and suggested next steps.
+
 Optional flags:
 
 - `--model base` — Whisper model size (`tiny`, `base`, `small`, `medium`, `large-v3`, etc.)
@@ -514,6 +545,7 @@ ai_radio_agent/
   tts_elevenlabs.py # optional ElevenLabs single-voice or segmented export
   render_episode.py # audio assembler / final episode renderer
   asr_transcribe.py # optional local ASR quality check for rendered audio
+  audio_fidelity_check.py # compares ASR transcript with tts_segments.json
 tests/
   test_smoke.py
 ```

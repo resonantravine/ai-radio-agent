@@ -10,11 +10,23 @@
   "revised_lines": [
     {
       "host": "Host A",
-      "line": "Good morning, Yoli. Your morning coffee is ready."
+      "line": "Good morning, Yoli."
+    },
+    {
+      "host": "Host B",
+      "line": "Good morning. I'm already in the kitchen."
     },
     {
       "host": "Host A",
-      "line": "It is eight o'clock. The kitchen is still quiet. Water is warming, breakfast is slowly coming together, and the day has not fully opened yet."
+      "line": "What does it feel like there this morning?"
+    },
+    {
+      "host": "Host B",
+      "line": "Warm, a little messy, and very alive. There's toast on the counter, coffee starting to bubble, and someone just opened the window. You can hear the street waking up outside."
+    },
+    {
+      "host": "Host A",
+      "line": "That sounds like exactly where we should begin."
     },
     {
       "host": "Host A",
@@ -94,11 +106,27 @@
     },
     {
       "host": "Host A",
-      "line": "Before the coffee cools, maybe that is today's first cup: sounding like it understands you is not about talking all the time."
+      "line": "That feels like a good place to leave the morning."
+    },
+    {
+      "host": "Host B",
+      "line": "The coffee's still warm, the toast is almost gone, and the day is just getting started."
     },
     {
       "host": "Host A",
-      "line": "It is about knowing where to continue."
+      "line": "Thanks for spending breakfast with us."
+    },
+    {
+      "host": "Host B",
+      "line": "We'll be here again soon."
+    },
+    {
+      "host": "Host A",
+      "line": "Until then, take it slow."
+    },
+    {
+      "host": "Host A",
+      "line": "This has been Breakfast. Thanks for listening."
     }
   ]
 }

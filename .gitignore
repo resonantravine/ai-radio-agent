@@ -9,6 +9,9 @@ outputs/*.mp3
 outputs/*.wav
 outputs/*.m4a
 outputs/audio_assets/*.mp3
+outputs/audio_assets/*.wav
+outputs/audio_assets/*.zip
+outputs/audio_assets/breakfast_live_sfx_pack/
 outputs/final_episode_manifest.json
 outputs/elevenlabs_segments/
 outputs/elevenlabs_segments*/

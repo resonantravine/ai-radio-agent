@@ -320,6 +320,20 @@ python -m ai_radio_agent.render_episode \
 
 The intro bed fades in quietly, starts the first voice after about three seconds, then fades out. Keep intro audio subtle: 3-5 seconds of soft piano, ambient texture, room tone, or a tiny cup/spoon cue works better than a full podcast jingle.
 
+Optional live kitchen texture mix:
+
+```bash
+python -m ai_radio_agent.render_episode \
+  --segments outputs/tts_segments.json \
+  --audio-dir outputs/elevenlabs_segments_breakfast_live \
+  --output outputs/final_ai_radio_episode_breakfast_live_texture.mp3 \
+  --intro-audio outputs/audio_assets/yoli_morning_coffee_intro_bed.mp3 \
+  --live-sfx-dir outputs/audio_assets/breakfast_live_sfx_pack \
+  --outro-audio outputs/audio_assets/breakfast_soft_outro_bed_v1.mp3
+```
+
+Live texture effects are mixed very quietly behind the voices. They are intended to prevent digital black silence and create a light breakfast-at-home space, not to become foreground ASMR or a kitchen soundscape.
+
 Optional WAV export:
 
 ```bash

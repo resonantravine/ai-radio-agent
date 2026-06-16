@@ -57,139 +57,181 @@
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; soft, warm, like placing coffee beside the listener; function: open with a personal morning greeting)
 
-Good morning, Yoli. Your morning coffee is ready.
+Good morning, Yoli.
 
 _Pause after: 450 ms_
 
-**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; slow and atmospheric; function: set the quiet kitchen and breakfast scene)
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; slow and atmospheric; function: set the quiet kitchen and breakfast scene)
 
-It is eight o'clock. The kitchen is still quiet. Water is warming, breakfast is slowly coming together, and the day has not fully opened yet.
+Good morning. I'm already in the kitchen.
 
 _Pause after: 450 ms_
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; gentle continuity; function: name yesterday's remembered question)
 
-Yesterday's episode about AI startups left one small question on the table: why are so many AI companies suddenly competing for long-term memory?
+What does it feel like there this morning?
 
 _Pause after: 550 ms_
 
 **Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; calm and unhurried; function: gently explain why continuity can feel like understanding)
 
-Maybe we can think of it this way. An AI host does not feel personal only because the voice sounds natural. A smooth voice helps, of course. But the deeper feeling comes from continuity.
+Warm, a little messy, and very alive. There's toast on the counter, coffee starting to bubble, and someone just opened the window. You can hear the street waking up outside.
 
 _Pause after: 320 ms_
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; softly curious; function: name today's small question)
 
-So this morning, not another generic tech headline. Just one question to stay with for a few minutes: why do some AI hosts sound like they actually know where to continue?
+That sounds like exactly where we should begin.
 
 _Pause after: 650 ms_
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; lightly questioning; function: check whether understanding is deeper than topic labels)
 
-I like that, but I am also a little unsure. Is this really more than knowing that I like tech news?
+Yesterday's episode about AI startups left one small question on the table: why are so many AI companies suddenly competing for long-term memory?
 
 _Pause after: 650 ms_
 
 **Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; plain, grounded, not lecture-like; function: softly explain understanding style instead of labels)
 
-There is a small difference here. A topic label says you like AI. A softer kind of memory notices how you like to enter the question.
+Maybe we can think of it this way. An AI host does not feel personal only because the voice sounds natural. A smooth voice helps, of course. But the deeper feeling comes from continuity.
 
 _Pause after: 320 ms_
 
-**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; plain and gentle; function: complete the explanation with a softer product example)
+**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; plain and gentle; function: complete the explanation with a softer product example)
 
-Maybe you care less about every headline, and more about why a product begins to matter in someone's day.
+So this morning, not another generic tech headline. Just one question to stay with for a few minutes: why do some AI hosts sound like they actually know where to continue?
 
 _Pause after: 320 ms_
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; friendly skeptical; function: raise the ordinary recommendation challenge)
 
-Let me ask the listener's question gently: isn't that just a regular recommendation algorithm? I clicked something yesterday, so today it gives me more of the same.
+I like that, but I am also a little unsure. Is this really more than knowing that I like tech news?
 
 _Pause after: 700 ms_
 
 **Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory using a concrete metaphor)
 
-A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next.
+There is a small difference here. A topic label says you like AI. A softer kind of memory notices how you like to enter the question.
 
 _Pause after: 320 ms_
 
 **Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; patient and concrete; function: extend the bookmark metaphor into memory value)
 
-Long-term memory is more like a bookmark inside an ongoing conversation. It helps the show remember why you cared, where you paused, and what kind of explanation feels useful.
+Maybe you care less about every headline, and more about why a product begins to matter in someone's day.
 
 _Pause after: 320 ms_
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; soft recognition; function: reflect the bookmark metaphor back)
 
+Let me ask the listener's question gently: isn't that just a regular recommendation algorithm? I clicked something yesterday, so today it gives me more of the same.
+
+_Pause after: 550 ms_
+
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; recognizing the point from lived experience; function: express a lived breakfast-morning reaction)
+
+A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next.
+
+_Pause after: 550 ms_
+
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; clear and personal; function: summarize the continuity idea in morning language)
+
+Long-term memory is more like a bookmark inside an ongoing conversation. It helps the show remember why you cared, where you paused, and what kind of explanation feels useful.
+
+_Pause after: 550 ms_
+
+**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; useful and warm; function: explain reduced filtering cost and morning context)
+
 A bookmark inside a conversation. I like that.
-
-_Pause after: 550 ms_
-
-**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; recognizing the point from lived experience; function: express a lived breakfast-morning reaction)
-
-I feel that in the morning. Before the day gets noisy, I do not really want another feed to sort through.
-
-_Pause after: 550 ms_
-
-**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; clear and personal; function: summarize the continuity idea in morning language)
-
-I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning. It moves yesterday's conversation forward.
-
-_Pause after: 550 ms_
-
-**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; useful and warm; function: explain reduced filtering cost and morning context)
-
-Exactly. And maybe that is the quiet value. It is not giving you more content. It is reducing the small morning effort of choosing.
 
 _Pause after: 320 ms_
 
-**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; soft and practical; function: make breakfast usefulness concrete)
+**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; soft and practical; function: make breakfast usefulness concrete)
 
-While you are making breakfast, the show should not ask you to sort through ten headlines. It should offer one thread that is light enough to enter the day, but still worth thinking about.
+I feel that in the morning. Before the day gets noisy, I do not really want another feed to sort through.
 
 _Pause after: 450 ms_
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; thoughtful concern; function: ask the discomfort boundary question)
 
-But if it remembers too much, doesn't that start to feel uncomfortable?
+I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning. It moves yesterday's conversation forward.
 
 _Pause after: 650 ms_
 
 **Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; reassuring and careful; function: answer with controllable, explainable, deletable memory)
 
-It can. So good memory should not feel like it is secretly collecting everything.
+Exactly. And maybe that is the quiet value. It is not giving you more content. It is reducing the small morning effort of choosing.
 
 _Pause after: 320 ms_
 
 **Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; careful and reassuring; function: clarify user control in simple language)
 
-It should be controllable, explainable, and easy to turn off. You should be able to see why this episode appeared, and decide what does not need to stay.
+While you are making breakfast, the show should not ask you to sort through ten headlines. It should offer one thread that is light enough to enter the day, but still worth thinking about.
 
 _Pause after: 320 ms_
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; softly reflective; function: turn the answer into a memorable phrase)
 
-So understanding you is not a kind of mystery. It is a kind of restraint.
+But if it remembers too much, doesn't that start to feel uncomfortable?
 
 _Pause after: 550 ms_
 
 **Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; settled and memorable; function: state the central ending insight)
 
-Yes. Maybe the next generation of AI hosts will not be defined by how human the voice sounds, but by whether it can gently catch the question you had not finished yesterday.
+It can. So good memory should not feel like it is secretly collecting everything.
 
 _Pause after: 1200 ms_
 
-**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; gentle closing; function: close with a coffee-centered takeaway)
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.; gentle closing; function: close with a coffee-centered takeaway)
 
-Before the coffee cools, maybe that is today's first cup: sounding like it understands you is not about talking all the time.
+It should be controllable, explainable, and easy to turn off. You should be able to see why this episode appeared, and decide what does not need to stay.
 
 _Pause after: 1200 ms_
 
 **Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.; quiet and complete; function: land the final line)
 
-It is about knowing where to continue.
+So understanding you is not a kind of mystery. It is a kind of restraint.
+
+_Pause after: 1200 ms_
+
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.)
+
+Yes. Maybe the next generation of AI hosts will not be defined by how human the voice sounds, but by whether it can gently catch the question you had not finished yesterday.
+
+_Pause after: 450 ms_
+
+**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.)
+
+That feels like a good place to leave the morning.
+
+_Pause after: 450 ms_
+
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.)
+
+The coffee's still warm, the toast is almost gone, and the day is just getting started.
+
+_Pause after: 450 ms_
+
+**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.)
+
+Thanks for spending breakfast with us.
+
+_Pause after: 450 ms_
+
+**Host B** (Calm thought organizer who explains product logic in everyday language and avoids jargon.)
+
+We'll be here again soon.
+
+_Pause after: 450 ms_
+
+**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.)
+
+Until then, take it slow.
+
+_Pause after: 450 ms_
+
+**Host A** (Soft morning companion who represents Yoli's breakfast-at-home experience and asks natural questions.)
+
+This has been Breakfast. Thanks for listening.
 
 _Pause after: 1300 ms_
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -25,6 +26,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--intro-fade-ms", type=int, default=3000, help="Fade in/out duration for optional intro audio.")
     parser.add_argument("--voice-start-ms", type=int, default=3000, help="When the first voice starts if intro audio is used.")
     parser.add_argument("--intro-total-ms", type=int, default=13000, help="Total intro bed duration if intro audio is used.")
+    parser.add_argument("--live-sfx-dir", default=None, help="Optional breakfast live texture SFX directory.")
+    parser.add_argument("--outro-audio", default=None, help="Optional soft outro music bed.")
     return parser.parse_args()
 
 
@@ -42,6 +45,8 @@ def main() -> None:
             intro_fade_ms=args.intro_fade_ms,
             voice_start_ms=args.voice_start_ms,
             intro_total_ms=args.intro_total_ms,
+            live_sfx_dir=Path(args.live_sfx_dir) if args.live_sfx_dir else None,
+            outro_audio_path=Path(args.outro_audio) if args.outro_audio else None,
         )
         print(f"Saved final episode to {args.output}")
     except RuntimeError as exc:
@@ -61,6 +66,8 @@ def render_episode(
     intro_fade_ms: int = 3000,
     voice_start_ms: int = 3000,
     intro_total_ms: int = 13000,
+    live_sfx_dir: Path | None = None,
+    outro_audio_path: Path | None = None,
 ) -> dict[str, Any]:
     ensure_file_exists(segments_path, "TTS segments")
     episode_data = json.loads(segments_path.read_text(encoding="utf-8"))
@@ -69,7 +76,7 @@ def render_episode(
         raise RuntimeError(f"No segments found in {segments_path}")
 
     check_ffmpeg()
-    if shutil.which("ffprobe") is None:
+    if shutil.which("ffprobe") is None or live_sfx_dir is not None or outro_audio_path is not None:
         return render_with_ffmpeg_only(
             episode_data=episode_data,
             segments=segments,
@@ -83,6 +90,8 @@ def render_episode(
             intro_fade_ms=intro_fade_ms,
             voice_start_ms=voice_start_ms,
             intro_total_ms=intro_total_ms,
+            live_sfx_dir=live_sfx_dir,
+            outro_audio_path=outro_audio_path,
         )
 
     try:
@@ -200,12 +209,19 @@ def render_with_ffmpeg_only(
     intro_fade_ms: int,
     voice_start_ms: int,
     intro_total_ms: int,
+    live_sfx_dir: Path | None,
+    outro_audio_path: Path | None,
 ) -> dict[str, Any]:
     if intro_audio_path is not None:
         ensure_file_exists(intro_audio_path, "Intro audio")
+    if live_sfx_dir is not None and not live_sfx_dir.exists():
+        raise RuntimeError(f"Live SFX directory not found: {live_sfx_dir}")
+    if outro_audio_path is not None:
+        ensure_file_exists(outro_audio_path, "Outro audio")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_segments: list[dict[str, Any]] = []
+    current_ms = 0
 
     with tempfile.TemporaryDirectory(prefix="ai-radio-render-") as tmp:
         tmp_dir = Path(tmp)
@@ -233,6 +249,7 @@ def render_with_ffmpeg_only(
                 ]
             )
             concat_items.append(normalized_path)
+            rendered_duration_ms = get_audio_duration_ms(normalized_path)
 
             if pause_after_ms > 0:
                 run_ffmpeg(
@@ -257,17 +274,22 @@ def render_with_ffmpeg_only(
                     "voice_key": segment.get("voice_key"),
                     "text": segment.get("text"),
                     "audio_file": str(audio_path),
+                    "start_ms": current_ms,
+                    "end_ms": current_ms + rendered_duration_ms,
+                    "rendered_duration_ms": rendered_duration_ms,
                     "pause_after_ms": pause_after_ms,
                     "normalization": "ffmpeg loudnorm",
                 }
             )
+            current_ms += rendered_duration_ms + pause_after_ms
 
         concat_list = tmp_dir / "concat.txt"
         concat_list.write_text(
             "\n".join(f"file '{escape_concat_path(path)}'" for path in concat_items) + "\n",
             encoding="utf-8",
         )
-        no_intro_output = tmp_dir / "episode_no_intro.mp3" if intro_audio_path else output_path
+        needs_texture_mix = intro_audio_path is not None or live_sfx_dir is not None or outro_audio_path is not None
+        no_intro_output = tmp_dir / "episode_no_intro.mp3" if needs_texture_mix else output_path
         run_ffmpeg(
             [
                 "ffmpeg",
@@ -286,16 +308,24 @@ def render_with_ffmpeg_only(
             ]
         )
 
-        if intro_audio_path is not None:
+        effective_voice_start_ms = voice_start_ms if intro_audio_path is not None else 0
+        texture_events = build_breakfast_texture_events(
+            live_sfx_dir=live_sfx_dir,
+            outro_audio_path=outro_audio_path,
+            segments=manifest_segments,
+            voice_start_ms=effective_voice_start_ms,
+        )
+        if needs_texture_mix:
             run_ffmpeg(
-                build_ffmpeg_intro_mix_command(
+                build_ffmpeg_texture_mix_command(
                     episode_path=no_intro_output,
                     intro_audio_path=intro_audio_path,
                     output_path=output_path,
                     intro_gain_db=intro_gain_db,
                     intro_fade_ms=intro_fade_ms,
-                    voice_start_ms=voice_start_ms,
+                    voice_start_ms=effective_voice_start_ms,
                     intro_total_ms=intro_total_ms,
+                    events=texture_events,
                 )
             )
 
@@ -331,7 +361,13 @@ def render_with_ffmpeg_only(
         "note": "ffprobe was not found, so the renderer used an ffmpeg-only fallback.",
         "intro_audio": str(intro_audio_path) if intro_audio_path else None,
         "intro_gain_db": intro_gain_db if intro_audio_path else None,
-        "voice_start_ms": voice_start_ms if intro_audio_path else None,
+        "voice_start_ms": effective_voice_start_ms if intro_audio_path else None,
+        "live_sfx_dir": str(live_sfx_dir) if live_sfx_dir else None,
+        "outro_audio": str(outro_audio_path) if outro_audio_path else None,
+        "texture_events": [
+            {key: str(value) if isinstance(value, Path) else value for key, value in event.items()}
+            for event in texture_events
+        ],
         "segments": manifest_segments,
     }
     manifest_path = output_path.with_name("final_episode_manifest.json")
@@ -343,6 +379,109 @@ def run_ffmpeg(command: list[str]) -> None:
     result = subprocess.run(command, capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip() or "ffmpeg failed")
+
+
+def build_ffmpeg_texture_mix_command(
+    *,
+    episode_path: Path,
+    intro_audio_path: Path | None,
+    output_path: Path,
+    intro_gain_db: float,
+    intro_fade_ms: int,
+    voice_start_ms: int,
+    intro_total_ms: int,
+    events: list[dict[str, Any]],
+) -> list[str]:
+    inputs = [episode_path]
+    if intro_audio_path is not None:
+        inputs.append(intro_audio_path)
+    inputs.extend(Path(event["path"]) for event in events)
+
+    filter_parts = [f"[0:a]adelay={voice_start_ms}|{voice_start_ms}[voice]"]
+    mix_labels = ["[voice]"]
+
+    next_input_index = 1
+    if intro_audio_path is not None:
+        intro_label = f"bed{len(mix_labels)}"
+        filter_parts.append(
+            build_overlay_filter(
+                input_index=next_input_index,
+                label=intro_label,
+                start_ms=0,
+                gain_db=intro_gain_db,
+                fade_in_ms=intro_fade_ms,
+                fade_out_ms=intro_fade_ms,
+                duration_ms=intro_total_ms,
+            )
+        )
+        mix_labels.append(f"[{intro_label}]")
+        next_input_index += 1
+
+    for event in events:
+        label = f"bed{len(mix_labels)}"
+        filter_parts.append(
+            build_overlay_filter(
+                input_index=next_input_index,
+                label=label,
+                start_ms=int(event["start_ms"]),
+                gain_db=float(event["gain_db"]),
+                fade_in_ms=int(event.get("fade_in_ms", 250)),
+                fade_out_ms=int(event.get("fade_out_ms", 700)),
+                duration_ms=event.get("duration_ms"),
+            )
+        )
+        mix_labels.append(f"[{label}]")
+        next_input_index += 1
+
+    filter_parts.append(
+        "".join(mix_labels)
+        + f"amix=inputs={len(mix_labels)}:duration=longest:dropout_transition=0,"
+        + "loudnorm=I=-18:LRA=11:TP=-1.5[a]"
+    )
+    filter_complex = ";".join(filter_parts)
+
+    command = ["ffmpeg", "-y"]
+    for path in inputs:
+        command.extend(["-i", str(path)])
+    command.extend(
+        [
+            "-filter_complex",
+            filter_complex,
+            "-map",
+            "[a]",
+            "-c:a",
+            "libmp3lame",
+            "-b:a",
+            "192k",
+            str(output_path),
+        ]
+    )
+    return command
+
+
+def build_overlay_filter(
+    *,
+    input_index: int,
+    label: str,
+    start_ms: int,
+    gain_db: float,
+    fade_in_ms: int,
+    fade_out_ms: int,
+    duration_ms: int | None,
+) -> str:
+    start_ms = max(0, start_ms)
+    effects = []
+    if duration_ms is not None:
+        duration_sec = max(0.1, duration_ms / 1000)
+        effects.append(f"atrim=0:{duration_sec:.3f}")
+    effects.extend(["asetpts=PTS-STARTPTS", f"volume={gain_db}dB"])
+    if fade_in_ms > 0:
+        effects.append(f"afade=t=in:st=0:d={fade_in_ms / 1000:.3f}")
+    if duration_ms is not None and fade_out_ms > 0:
+        fade_out_start = max(0.0, (duration_ms - fade_out_ms) / 1000)
+        effects.append(f"afade=t=out:st={fade_out_start:.3f}:d={fade_out_ms / 1000:.3f}")
+    effects.append(f"adelay={start_ms}|{start_ms}")
+    return f"[{input_index}:a]{','.join(effects)}[{label}]"
 
 
 def build_ffmpeg_intro_mix_command(
@@ -384,6 +523,98 @@ def build_ffmpeg_intro_mix_command(
         "192k",
         str(output_path),
     ]
+
+
+def build_breakfast_texture_events(
+    *,
+    live_sfx_dir: Path | None,
+    outro_audio_path: Path | None,
+    segments: list[dict[str, Any]],
+    voice_start_ms: int,
+) -> list[dict[str, Any]]:
+    events: list[dict[str, Any]] = []
+    if live_sfx_dir is not None:
+        files = {
+            "room": live_sfx_dir / "01_morning_kitchen_room_tone_12s_soft.wav",
+            "street": live_sfx_dir / "02_distant_window_street_waking_8s_soft.wav",
+            "coffee": live_sfx_dir / "03_coffee_starting_to_bubble_4s_soft.wav",
+            "kettle": live_sfx_dir / "04_kettle_soft_click_and_steam_2s_distant.wav",
+            "cloth": live_sfx_dir / "05_host_small_cloth_movement_1s_subtle.wav",
+            "toast": live_sfx_dir / "06_toast_on_plate_counter_touch_1p5s_soft.wav",
+            "cup": live_sfx_dir / "07_ceramic_cup_spoon_transition_1p2s_alt.wav",
+            "window": live_sfx_dir / "08_window_open_soft_air_shift_2p5s.wav",
+        }
+        for label, path in files.items():
+            ensure_file_exists(path, f"Breakfast SFX {label}")
+
+        host_b_kitchen = find_segment_by_text(segments, "Warm, a little messy")
+        host_b_first = find_segment_by_text(segments, "Good morning. I'm already in the kitchen.")
+        host_a_begin = find_segment_by_text(segments, "That sounds like exactly where we should begin.")
+        host_a_ending = find_segment_by_text(segments, "That feels like a good place")
+        host_b_coffee = find_segment_by_text(segments, "The coffee's still warm")
+        host_a_thanks = find_segment_by_text(segments, "Thanks for spending breakfast")
+
+        opening_room_start = max(0, voice_start_ms - 500)
+        events.extend(
+            [
+                event(files["room"], opening_room_start, -32, "opening room tone", 12000, 1000, 2000),
+                event(files["room"], opening_room_start + 10500, -34, "opening room tone extension", 12000, 800, 2000),
+                event(files["cloth"], voice_start_ms + host_b_first["start_ms"] - 250, -24, "small cloth movement", 1000, 120, 350),
+                event(files["toast"], voice_start_ms + host_b_kitchen["start_ms"] + 3000, -25, "toast counter touch", 1500, 200, 650),
+                event(files["coffee"], voice_start_ms + host_b_kitchen["start_ms"] + 4300, -24, "coffee bubbling", 4000, 300, 900),
+                event(files["window"], voice_start_ms + host_b_kitchen["start_ms"] + 7200, -27, "window air shift", 2500, 400, 1000),
+                event(files["street"], voice_start_ms + host_b_kitchen["start_ms"] + 9100, -30, "distant street waking", 8000, 700, 1600),
+                event(files["cup"], voice_start_ms + host_a_begin["start_ms"] - 650, -23, "opening cup transition", 1200, 100, 500),
+                event(files["room"], voice_start_ms + host_a_ending["start_ms"] - 500, -36, "ending room tone", 12000, 900, 2500),
+                event(files["kettle"], voice_start_ms + host_b_coffee["start_ms"] + 1100, -27, "ending kettle click and steam", 2000, 200, 900),
+                event(files["cup"], voice_start_ms + host_a_thanks["start_ms"] - 550, -26, "ending cup transition", 1200, 100, 550),
+            ]
+        )
+
+    if outro_audio_path is not None:
+        ensure_file_exists(outro_audio_path, "Outro audio")
+        host_a_until = find_segment_by_text(segments, "Until then, take it slow.")
+        events.append(
+            event(outro_audio_path, voice_start_ms + host_a_until["start_ms"] - 300, -19, "soft outro bed", 9000, 1200, 3500)
+        )
+    return events
+
+
+def event(
+    path: Path,
+    start_ms: int,
+    gain_db: float,
+    description: str,
+    duration_ms: int | None,
+    fade_in_ms: int,
+    fade_out_ms: int,
+) -> dict[str, Any]:
+    return {
+        "path": path,
+        "start_ms": max(0, int(start_ms)),
+        "gain_db": gain_db,
+        "description": description,
+        "duration_ms": duration_ms,
+        "fade_in_ms": fade_in_ms,
+        "fade_out_ms": fade_out_ms,
+    }
+
+
+def find_segment_by_text(segments: list[dict[str, Any]], text_start: str) -> dict[str, Any]:
+    for segment in segments:
+        if str(segment.get("text", "")).startswith(text_start):
+            return segment
+    raise RuntimeError(f"Could not find segment starting with: {text_start}")
+
+
+def get_audio_duration_ms(path: Path) -> int:
+    result = subprocess.run(["ffmpeg", "-i", str(path)], capture_output=True, text=True)
+    match = re.search(r"Duration: (\d+):(\d+):(\d+\.\d+)", result.stderr)
+    if not match:
+        raise RuntimeError(f"Could not read audio duration for {path}")
+    hours, minutes, seconds = match.groups()
+    duration_sec = int(hours) * 3600 + int(minutes) * 60 + float(seconds)
+    return int(round(duration_sec * 1000))
 
 
 def escape_concat_path(path: Path) -> str:

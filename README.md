@@ -1,5 +1,10 @@
 # AI Radio Agent
 
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Provider: Mock Gemini OpenAI](https://img.shields.io/badge/LLM-mock%20%7C%20Gemini%20%7C%20OpenAI-purple.svg)](#run-with-gemini)
+[![Audio: ElevenLabs Optional](https://img.shields.io/badge/audio-ElevenLabs%20optional-orange.svg)](#elevenlabs-tts)
+
 A beginner-friendly portfolio demo for an **AI Agent Engineer | Audio Content Generation** role.
 
 The project turns a user topic, memory context, profile, and target duration into a two-host AI radio episode.
@@ -22,6 +27,23 @@ User Preference Agent
 → ElevenLabs Segment Generation
 → Audio Assembler / Episode Renderer
 → final_ai_radio_episode.mp3
+```
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A["User-facing input<br/>topic, profile, memory, duration"] --> B["Preference + Memory Agents"]
+    B --> C["Recommendation + Topic Planner"]
+    C --> D["Research + Fact Check"]
+    D --> E["Broadcast Context<br/>Yoli's Morning Coffee"]
+    E --> F["Dialogue Planner<br/>turn-by-turn conversation plan"]
+    F --> G["Dialogue Writer + Persona Polish"]
+    G --> H["Quality Evaluation<br/>dialogue_liveliness_score"]
+    H --> I["TTS Segment Export<br/>clean speaker/text/pause JSON"]
+    I --> J["ElevenLabs Segment Generation"]
+    J --> K["Episode Renderer<br/>pauses, loudness, intro/outro, live texture"]
+    K --> L["final_ai_radio_episode.mp3"]
 ```
 
 Each agent produces a small JSON artifact in `outputs/`, so the workflow is easy to inspect, debug, and explain in an interview.
@@ -94,12 +116,32 @@ This project shows the core skills behind AI audio content generation:
 
 Use Python 3.10 or newer.
 
+Basic local setup:
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
 cp .env.example .env
 ```
+
+Install as an editable package with optional extras:
+
+```bash
+# Local mock mode + tests
+python3 -m pip install -e '.[test]'
+
+# Gemini provider
+python3 -m pip install -e '.[gemini]'
+
+# OpenAI provider
+python3 -m pip install -e '.[openai]'
+
+# Everything used by the core portfolio demo
+python3 -m pip install -e '.[all]'
+```
+
+Use `requirements-gemini.txt` if you prefer a beginner-friendly requirements-file flow instead of package extras.
 
 For final episode rendering and local ASR transcription on macOS, install ffmpeg:
 

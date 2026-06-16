@@ -3,100 +3,93 @@
   "turns": [
     {
       "speaker": "Host A",
-      "conversational_function": "open the morning commute scene",
-      "emotional_tone": "warm, close, lightly sleepy",
-      "responds_to": "broadcast opening",
-      "turn_type": "question"
-    },
-    {
-      "speaker": "Host B",
-      "conversational_function": "answer with the core difference between voice and continuity",
-      "emotional_tone": "calm and concise",
-      "responds_to": "Host A opening question",
-      "turn_type": "clarification"
-    },
-    {
-      "speaker": "Host A",
-      "conversational_function": "make the idea concrete through yesterday's episode",
-      "emotional_tone": "curious recognition",
-      "responds_to": "Host B continuity point",
+      "conversational_function": "open with the subway scene and yesterday's memory",
+      "emotional_tone": "warm, close, like starting the day with the listener",
+      "responds_to": "broadcast context",
       "turn_type": "example"
     },
     {
       "speaker": "Host B",
-      "conversational_function": "explain continuation instead of generic news",
-      "emotional_tone": "plainspoken explainer",
-      "responds_to": "yesterday memory example",
+      "conversational_function": "explain why continuity makes the host feel understanding",
+      "emotional_tone": "calm and explanatory",
+      "responds_to": "Host A commute scene",
       "turn_type": "clarification"
     },
     {
       "speaker": "Host A",
-      "conversational_function": "challenge with the ordinary recommendation question",
-      "emotional_tone": "skeptical but friendly",
-      "responds_to": "personalization claim",
+      "conversational_function": "check whether understanding is deeper than topic labels",
+      "emotional_tone": "lightly questioning",
+      "responds_to": "Host B continuity point",
+      "turn_type": "question"
+    },
+    {
+      "speaker": "Host B",
+      "conversational_function": "explain understanding style instead of labels",
+      "emotional_tone": "plain and grounded",
+      "responds_to": "Host A label question",
+      "turn_type": "clarification"
+    },
+    {
+      "speaker": "Host A",
+      "conversational_function": "raise the ordinary recommendation challenge",
+      "emotional_tone": "friendly skeptical",
+      "responds_to": "Host B deeper understanding claim",
       "turn_type": "challenge"
     },
     {
       "speaker": "Host B",
-      "conversational_function": "distinguish behavioral recommendation from long-term memory",
-      "emotional_tone": "patient and grounded",
+      "conversational_function": "separate behavior recommendation from continuous memory",
+      "emotional_tone": "patient explainer",
       "responds_to": "recommendation challenge",
       "turn_type": "clarification"
     },
     {
       "speaker": "Host A",
-      "conversational_function": "reflect the phrase listening style back",
-      "emotional_tone": "interested",
-      "responds_to": "memory distinction",
+      "conversational_function": "summarize the continuity idea in listener language",
+      "emotional_tone": "recognizing the point",
+      "responds_to": "Host B distinction",
       "turn_type": "callback"
     },
     {
       "speaker": "Host B",
-      "conversational_function": "give a mini case about skipping macro news and finishing AI voice content",
-      "emotional_tone": "concrete and useful",
-      "responds_to": "listening style callback",
-      "turn_type": "example"
-    },
-    {
-      "speaker": "Host A",
-      "conversational_function": "connect the example to reduced filtering cost",
-      "emotional_tone": "relieved",
-      "responds_to": "mini case",
-      "turn_type": "clarification"
-    },
-    {
-      "speaker": "Host B",
-      "conversational_function": "explain user value in everyday terms",
-      "emotional_tone": "warm explainer",
-      "responds_to": "filtering cost point",
+      "conversational_function": "explain reduced filtering cost and morning context",
+      "emotional_tone": "useful and warm",
+      "responds_to": "Host A continuity summary",
       "turn_type": "clarification"
     },
     {
       "speaker": "Host A",
-      "conversational_function": "ask the boundary question about discomfort",
+      "conversational_function": "ask the discomfort boundary question",
       "emotional_tone": "thoughtful concern",
       "responds_to": "memory value",
       "turn_type": "question"
     },
     {
       "speaker": "Host B",
-      "conversational_function": "answer with controllable, explainable, easy-to-turn-off memory",
-      "emotional_tone": "reassuring",
+      "conversational_function": "answer with controllable, explainable, deletable memory",
+      "emotional_tone": "reassuring and careful",
       "responds_to": "boundary concern",
       "turn_type": "clarification"
     },
     {
       "speaker": "Host A",
-      "conversational_function": "bring it back to the subway listener",
-      "emotional_tone": "intimate and practical",
-      "responds_to": "memory boundary answer",
+      "conversational_function": "turn the answer into a memorable phrase",
+      "emotional_tone": "softly reflective",
+      "responds_to": "Host B boundary answer",
       "turn_type": "callback"
     },
     {
       "speaker": "Host B",
-      "conversational_function": "close with the episode's central takeaway",
+      "conversational_function": "state the central ending insight",
       "emotional_tone": "settled and memorable",
-      "responds_to": "subway callback",
+      "responds_to": "Host A phrase",
+      "turn_type": "ending"
+    },
+    {
+      "speaker": "Host A",
+      "conversational_function": "close with a light commuter-friendly takeaway",
+      "emotional_tone": "gentle closing",
+      "responds_to": "Host B ending insight",
       "turn_type": "ending"
     }
   ]

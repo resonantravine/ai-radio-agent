@@ -56,7 +56,7 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
     assert "Memory Agent" not in clean_tts
     assert "Recommendation Agent" not in clean_tts
     assert "普通推荐算法" in clean_tts
-    assert "会不会让人不舒服" in clean_tts
+    assert "会不会让人有点不舒服" in clean_tts
 
     segments = json.loads((outputs_dir / "tts_segments.json").read_text(encoding="utf-8"))
     assert len(segments["segments"]) >= 12

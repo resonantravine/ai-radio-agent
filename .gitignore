@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 .DS_Store
 .pytest_cache/
+.cursor/
 outputs/debug/
 outputs/*.mp3
 outputs/*.wav

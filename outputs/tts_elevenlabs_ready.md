@@ -12,10 +12,10 @@ Use `tts_segments.json` for the real dual-host workflow:
 ## Host A Text
 
 ```text
-It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one phrase kept coming up: long-term memory. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?
+It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?
 So it is not as simple as knowing that I like tech news?
 Let me ask the listener's question: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same.
-So a good AI host does not meet me from scratch every morning. It can move yesterday's conversation forward.
+I feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward.
 But if it remembers too much, doesn't that start to feel uncomfortable?
 So understanding you is not a kind of mystery. It is a kind of restraint.
 Before the subway doors open, maybe that is today's line to keep: sounding like it understands you is not about talking all the time. It is about knowing where to continue.
@@ -26,7 +26,7 @@ Before the subway doors open, maybe that is today's line to keep: sounding like 
 ```text
 That moment matters. An AI host sounds like it understands you not just because the voice is natural, but because it knows where you left off yesterday and what you might still be thinking about today.
 Right. That is only a label. A deeper kind of understanding is knowing how you like to enter a question. Maybe you do not want every AI headline. You care about why a product makes sense, what user need it answers, and how it differs from an ordinary tool.
-A little, but not quite. Recommendation is often about behavior records: what you clicked, how long you stayed, what you skipped. Long-term memory is more like preserving a continuous line of thought: why you cared, where you last followed up, and how you prefer something to be explained.
+A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained.
 Exactly. It is not just generating more content. It is reducing your filtering cost. On a morning commute, you do not want to explain again what you want to hear. It should already know that today's episode needs to be light, clear, but not shallow.
 It can. That is why good memory should never feel like secretly remembering everything. It should be controllable, explainable, and deletable. You should know why it recommended something, and you should decide what should not be remembered.
 Yes. The next generation of AI hosts may not be defined by how human the voice sounds, but by whether it can catch the question you had not finished yesterday, at the right moment.

@@ -30,6 +30,12 @@ The listener hears a natural two-host radio episode. The interviewer can inspect
 
 The included mock episode is a morning subway sample: at 8:00 AM, the AI radio continues yesterday's AI startup episode by asking why AI companies are competing for long-term memory.
 
+The current dialogue prompts intentionally optimize for radio liveliness, not just correctness:
+
+- Host A must include at least one lived reaction from the listener's point of view.
+- Host B must use at least one concrete metaphor.
+- Each episode should include one specific remembered detail from the previous listening session.
+
 ## Why This Is A Good Audio Agent Demo
 
 This project shows the core skills behind AI audio content generation:
@@ -39,6 +45,7 @@ This project shows the core skills behind AI audio content generation:
 - Internal intermediate representations such as `episode_brief.json`, `segment_plan.json`, `dialogue_plan.json`, and `tts_segments.json`.
 - Structured JSON outputs with Pydantic validation.
 - A quality and fact-checking step before voice generation.
+- A dialogue liveliness evaluation that checks response, tension, clarification, and emotional or experiential movement.
 - Clean TTS handoff files that separate human production notes from machine-ready speech text.
 - Dual-voice segment generation and final episode rendering.
 - Multi-provider LLM support for mock, Gemini, and OpenAI.
@@ -188,6 +195,8 @@ The runner also:
 
 This makes model failures visible instead of mysterious.
 
+The quality evaluator includes `dialogue_liveliness_score`, which asks whether the episode feels like two hosts responding to each other, with some tension, clarification, and lived movement, instead of two voices reading adjacent paragraphs.
+
 ## TTS Is Optional
 
 The pipeline stops at reviewable and TTS-ready files. TTS is a separate optional step.
@@ -320,5 +329,6 @@ This demo maps directly to AI audio agent and prompt evaluation work:
 - **Agent orchestration:** each step has a clear input, output, and responsibility.
 - **Prompt engineering:** each agent is constrained to produce schema-valid artifacts.
 - **Evaluation:** the quality evaluator checks readiness before TTS.
+- **Dialogue quality:** `dialogue_liveliness_score` measures whether the hosts react, clarify, challenge, and move emotionally through the topic.
 - **Reliability:** failed JSON is retried and saved for debugging.
 - **Production mindset:** mock mode supports local testing while real providers support Gemini and OpenAI.

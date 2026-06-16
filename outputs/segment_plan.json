@@ -4,7 +4,7 @@
     {
       "name": "Opening subway scenario",
       "target_duration_sec": 35,
-      "goal": "Set up the 8 AM subway listening context and yesterday's AI startup memory.",
+      "goal": "Set up the 8 AM subway listening context and yesterday's specific AI startup memory.",
       "listener_value": "The listener immediately understands why this episode is personally relevant."
     },
     {

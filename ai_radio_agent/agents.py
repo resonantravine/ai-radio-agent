@@ -55,6 +55,33 @@ AGENT_OUTPUTS = {
 }
 
 
+AGENT_GUIDANCE = {
+    "dialogue_planner_agent": (
+        "Plan a conversation, not alternating mini-essays. Host A must include at least one lived reaction "
+        "from the listener's point of view, not only questions. Host B must use at least one concrete metaphor. "
+        "The plan must include one specific remembered detail from the previous listening session. "
+        "Create real response, tension, clarification, and emotional or experiential movement across turns."
+    ),
+    "dual_host_dialogue_writer": (
+        "Write short, speakable turns. Host A should sometimes react from lived experience before asking. "
+        "Host B should answer Host A directly and include at least one concrete metaphor. "
+        "Include one specific remembered detail from yesterday's listening session in listener-facing language. "
+        "Avoid product-demo wording and avoid naming internal agents."
+    ),
+    "persona_agent": (
+        "Polish the script for natural radio. Preserve the two host personas, add conversational texture, "
+        "and make sure Host A has a lived reaction, Host B has a concrete metaphor, and the episode includes "
+        "one specific remembered detail from the previous listening session. Keep labels and delivery notes out "
+        "of the spoken lines."
+    ),
+    "quality_evaluator": (
+        "Evaluate dialogue_liveliness_score from 1 to 10. Ask: does the dialogue contain real response, "
+        "tension, clarification, and emotional or experiential movement? Also check whether Host A expresses "
+        "a lived reaction, Host B uses a concrete metaphor, and one specific remembered detail appears."
+    ),
+}
+
+
 def run_agent(
     *,
     agent_name: str,
@@ -90,6 +117,7 @@ def run_agent(
 
 
 def build_prompt(*, agent_name: str, schema: type[BaseModel], context: dict[str, Any]) -> str:
+    extra_guidance = AGENT_GUIDANCE.get(agent_name, "Follow the agent responsibility implied by your name.")
     return (
         f"You are the {agent_name.replace('_', ' ')} in an AI radio production pipeline.\n"
         "Use the upstream context to produce the next artifact.\n"
@@ -97,6 +125,7 @@ def build_prompt(*, agent_name: str, schema: type[BaseModel], context: dict[str,
         "Do not make hosts read internal agent names, JSON artifact names, or production instructions aloud.\n"
         "Host A is a warm observer who represents lived listener experience and asks natural questions. "
         "Host B is a calm explainer who uses everyday language, avoids jargon, and responds directly to Host A.\n"
+        f"Agent-specific guidance: {extra_guidance}\n"
         "Return only valid JSON. Do not include markdown, commentary, or extra keys.\n\n"
         f"Required JSON schema:\n{schema.model_json_schema()}\n\n"
         f"Upstream context:\n{context}\n"

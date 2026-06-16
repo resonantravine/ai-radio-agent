@@ -10,7 +10,7 @@
   "revised_lines": [
     {
       "host": "Host A",
-      "line": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one phrase kept coming up: long-term memory. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?"
+      "line": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?"
     },
     {
       "host": "Host B",
@@ -30,11 +30,11 @@
     },
     {
       "host": "Host B",
-      "line": "A little, but not quite. Recommendation is often about behavior records: what you clicked, how long you stayed, what you skipped. Long-term memory is more like preserving a continuous line of thought: why you cared, where you last followed up, and how you prefer something to be explained."
+      "line": "A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained."
     },
     {
       "host": "Host A",
-      "line": "So a good AI host does not meet me from scratch every morning. It can move yesterday's conversation forward."
+      "line": "I feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward."
     },
     {
       "host": "Host B",

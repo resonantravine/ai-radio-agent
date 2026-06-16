@@ -125,6 +125,7 @@ class PersonaNotes(StrictBaseModel):
 
 class QualityEvaluation(StrictBaseModel):
     score: int = Field(ge=1, le=10)
+    dialogue_liveliness_score: int = Field(ge=1, le=10)
     strengths: list[str]
     improvements: list[str]
     ready_for_tts: bool

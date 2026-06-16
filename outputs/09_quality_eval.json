@@ -1,13 +1,15 @@
 {
   "score": 9,
+  "dialogue_liveliness_score": 9,
   "strengths": [
     "Concrete commute scene",
-    "Natural interruption",
-    "Boundary question",
-    "Clear user value"
+    "Specific remembered detail",
+    "Host A lived reaction",
+    "Host B metaphor",
+    "Boundary question"
   ],
   "improvements": [
-    "Future versions can add live user follow-up interaction"
+    "Future versions can add live user follow-up interaction and even shorter spontaneous turns"
   ],
   "ready_for_tts": true
 }

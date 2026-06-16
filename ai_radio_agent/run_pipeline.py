@@ -29,7 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--topic", default="Why do some AI hosts sound like they really understand you?", help="User-facing episode topic.")
     parser.add_argument("--duration-minutes", type=int, default=2, help="Target episode duration in minutes.")
     parser.add_argument("--user-profile", default="A commuter interested in AI products, startups, and practical product logic.")
-    parser.add_argument("--memory-context", default="Yesterday the listener heard an episode about AI startups and kept thinking about long-term memory.")
+    parser.add_argument("--memory-context", default="Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.")
     return parser.parse_args()
 
 
@@ -51,7 +51,7 @@ def run_pipeline(
     topic: str = "Why do some AI hosts sound like they really understand you?",
     duration_minutes: int = 2,
     user_profile: str = "A commuter interested in AI products, startups, and practical product logic.",
-    memory_context: str = "Yesterday the listener heard an episode about AI startups and kept thinking about long-term memory.",
+    memory_context: str = "Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.",
 ) -> dict[str, Any]:
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
@@ -73,7 +73,7 @@ def run_pipeline(
             "title": "Why do some AI hosts sound like they really understand you?",
             "time": "8:00 AM",
             "scene": "the listener is on the subway",
-            "previous_memory": "yesterday the listener heard an episode about AI startups",
+            "previous_memory": "yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products",
             "today_continuation": "continue the listener's previous question: why are AI companies competing for long-term memory?",
             "target_duration_seconds": f"{duration_minutes * 60}",
         },
@@ -205,6 +205,7 @@ def build_production_script(
     lines.extend(f"- {note}" for note in voice_notes)
     lines.extend(["", "## Quality Evaluation", ""])
     lines.append(f"- Score: {quality.score}/10")
+    lines.append(f"- Dialogue liveliness score: {quality.dialogue_liveliness_score}/10")
     lines.append(f"- Ready for TTS: {quality.ready_for_tts}")
     return "\n".join(lines).strip() + "\n"
 

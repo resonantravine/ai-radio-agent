@@ -4,8 +4,8 @@
     {
       "speaker": "Host A",
       "voice_key": "host_a",
-      "text": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one phrase kept coming up: long-term memory. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; warm, close, like starting the day with the listener; function: open with the subway scene and yesterday's memory",
+      "text": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?",
+      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; warm, close, like starting the day with the listener; function: open with the subway scene and yesterday's specific founder memory",
       "pause_after_ms": 450
     },
     {
@@ -39,15 +39,15 @@
     {
       "speaker": "Host B",
       "voice_key": "host_b",
-      "text": "A little, but not quite. Recommendation is often about behavior records: what you clicked, how long you stayed, what you skipped. Long-term memory is more like preserving a continuous line of thought: why you cared, where you last followed up, and how you prefer something to be explained.",
-      "delivery_note": "Calm explainer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory",
+      "text": "A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained.",
+      "delivery_note": "Calm explainer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory using a concrete metaphor",
       "pause_after_ms": 320
     },
     {
       "speaker": "Host A",
       "voice_key": "host_a",
-      "text": "So a good AI host does not meet me from scratch every morning. It can move yesterday's conversation forward.",
-      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; recognizing the point; function: summarize the continuity idea in listener language",
+      "text": "I feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward.",
+      "delivery_note": "Warm observer who represents the listener's lived commute experience and asks natural questions.; recognizing the point from lived experience; function: express a lived commute reaction before summarizing the continuity idea",
       "pause_after_ms": 550
     },
     {

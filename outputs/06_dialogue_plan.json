@@ -3,7 +3,7 @@
   "turns": [
     {
       "speaker": "Host A",
-      "conversational_function": "open with the subway scene and yesterday's memory",
+      "conversational_function": "open with the subway scene and yesterday's specific founder memory",
       "emotional_tone": "warm, close, like starting the day with the listener",
       "responds_to": "broadcast context",
       "turn_type": "example"
@@ -38,15 +38,15 @@
     },
     {
       "speaker": "Host B",
-      "conversational_function": "separate behavior recommendation from continuous memory",
+      "conversational_function": "separate behavior recommendation from continuous memory using a concrete metaphor",
       "emotional_tone": "patient explainer",
       "responds_to": "recommendation challenge",
       "turn_type": "clarification"
     },
     {
       "speaker": "Host A",
-      "conversational_function": "summarize the continuity idea in listener language",
-      "emotional_tone": "recognizing the point",
+      "conversational_function": "express a lived commute reaction before summarizing the continuity idea",
+      "emotional_tone": "recognizing the point from lived experience",
       "responds_to": "Host B distinction",
       "turn_type": "callback"
     },

@@ -60,6 +60,10 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
     assert "Recommendation Agent" not in clean_tts
     assert "recommendation algorithm" in clean_tts
     assert "feel uncomfortable" in clean_tts
+    assert "new onboarding layer" in clean_tts
+    assert "I feel that on a commute" in clean_tts
+    assert "shop window" in clean_tts
+    assert "bookmark inside an ongoing conversation" in clean_tts
 
     segments = json.loads((outputs_dir / "tts_segments.json").read_text(encoding="utf-8"))
     assert len(segments["segments"]) >= 12
@@ -76,3 +80,6 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
     segment_plan = json.loads((outputs_dir / "segment_plan.json").read_text(encoding="utf-8"))
     assert segment_plan["episode_duration_minutes"] == 2
     assert len(segment_plan["segments"]) >= 3
+
+    quality_eval = json.loads((outputs_dir / "09_quality_eval.json").read_text(encoding="utf-8"))
+    assert quality_eval["dialogue_liveliness_score"] >= 8

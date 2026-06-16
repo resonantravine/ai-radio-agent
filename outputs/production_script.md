@@ -4,7 +4,7 @@
 
 - Time: 8:00 AM
 - Scene: The listener is on the subway during a morning commute.
-- Previous memory: Yesterday the listener heard an episode about AI startups.
+- Previous memory: Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.
 - Today's continuation: Instead of generic tech news, today's episode continues the listener's previous question: why are AI companies competing for long-term memory?
 - Listener mood: half-awake, curious, wants something useful but not too heavy
 - Opening frame: Good morning, welcome back. This one is for the subway: what does it actually mean for an AI host to understand you?
@@ -23,13 +23,13 @@
 
 ## Dialogue Plan
 
-1. Host A | example | open with the subway scene and yesterday's memory | tone: warm, close, like starting the day with the listener | responds to: broadcast context
+1. Host A | example | open with the subway scene and yesterday's specific founder memory | tone: warm, close, like starting the day with the listener | responds to: broadcast context
 2. Host B | clarification | explain why continuity makes the host feel understanding | tone: calm and explanatory | responds to: Host A commute scene
 3. Host A | question | check whether understanding is deeper than topic labels | tone: lightly questioning | responds to: Host B continuity point
 4. Host B | clarification | explain understanding style instead of labels | tone: plain and grounded | responds to: Host A label question
 5. Host A | challenge | raise the ordinary recommendation challenge | tone: friendly skeptical | responds to: Host B deeper understanding claim
-6. Host B | clarification | separate behavior recommendation from continuous memory | tone: patient explainer | responds to: recommendation challenge
-7. Host A | callback | summarize the continuity idea in listener language | tone: recognizing the point | responds to: Host B distinction
+6. Host B | clarification | separate behavior recommendation from continuous memory using a concrete metaphor | tone: patient explainer | responds to: recommendation challenge
+7. Host A | callback | express a lived commute reaction before summarizing the continuity idea | tone: recognizing the point from lived experience | responds to: Host B distinction
 8. Host B | clarification | explain reduced filtering cost and morning context | tone: useful and warm | responds to: Host A continuity summary
 9. Host A | question | ask the discomfort boundary question | tone: thoughtful concern | responds to: memory value
 10. Host B | clarification | answer with controllable, explainable, deletable memory | tone: reassuring and careful | responds to: boundary concern
@@ -39,9 +39,9 @@
 
 ## Production Dialogue
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; warm, close, like starting the day with the listener; function: open with the subway scene and yesterday's memory)
+**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; warm, close, like starting the day with the listener; function: open with the subway scene and yesterday's specific founder memory)
 
-It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one phrase kept coming up: long-term memory. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?
+It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?
 
 _Pause after: 450 ms_
 
@@ -69,15 +69,15 @@ Let me ask the listener's question: isn't that just a regular recommendation alg
 
 _Pause after: 700 ms_
 
-**Host B** (Calm explainer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory)
+**Host B** (Calm explainer who explains product logic in everyday language and avoids jargon.; patient explainer; function: separate behavior recommendation from continuous memory using a concrete metaphor)
 
-A little, but not quite. Recommendation is often about behavior records: what you clicked, how long you stayed, what you skipped. Long-term memory is more like preserving a continuous line of thought: why you cared, where you last followed up, and how you prefer something to be explained.
+A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained.
 
 _Pause after: 320 ms_
 
-**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; recognizing the point; function: summarize the continuity idea in listener language)
+**Host A** (Warm observer who represents the listener's lived commute experience and asks natural questions.; recognizing the point from lived experience; function: express a lived commute reaction before summarizing the continuity idea)
 
-So a good AI host does not meet me from scratch every morning. It can move yesterday's conversation forward.
+I feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward.
 
 _Pause after: 550 ms_
 
@@ -125,4 +125,5 @@ _Pause after: 1300 ms_
 ## Quality Evaluation
 
 - Score: 9/10
+- Dialogue liveliness score: 9/10
 - Ready for TTS: True

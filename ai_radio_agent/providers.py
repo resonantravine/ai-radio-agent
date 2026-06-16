@@ -99,7 +99,7 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
     "user_episode_input": {
         "topic": "Why do some AI hosts sound like they really understand you?",
         "user_profile": "A commuter interested in AI products, startups, and practical product logic.",
-        "memory_context": "Yesterday the listener heard an episode about AI startups and kept thinking about long-term memory.",
+        "memory_context": "Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.",
         "duration_minutes": 2,
     },
     "episode_brief_agent": {
@@ -115,7 +115,7 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
             {
                 "name": "Opening subway scenario",
                 "target_duration_sec": 35,
-                "goal": "Set up the 8 AM subway listening context and yesterday's AI startup memory.",
+                "goal": "Set up the 8 AM subway listening context and yesterday's specific AI startup memory.",
                 "listener_value": "The listener immediately understands why this episode is personally relevant.",
             },
             {
@@ -142,7 +142,7 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
     "memory_agent": {
         "listener_summary": "A builder exploring audio-first AI agent portfolios.",
         "known_preferences": ["clear demos", "concrete workflows", "beginner-friendly code"],
-        "recent_episode_memory": ["Liked a prior episode about prompt evaluation loops."],
+        "recent_episode_memory": ["Yesterday's AI startup episode mentioned a founder calling memory the new onboarding layer for AI products."],
     },
     "recommendation_agent": {
         "episode_theme": "Why do some AI hosts sound like they really understand you?",
@@ -152,13 +152,13 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
     "topic_planner": {
         "title": "Why do some AI hosts sound like they really understand you?",
         "angle": "Use a morning subway scene to explain how AI radio connects listening history, preferences, follow-up questions, and current context.",
-        "segments": ["Morning subway opening", "Continue yesterday's AI startup question", "Recommendation versus long-term memory", "Memory boundaries: controllable, explainable, and deletable"],
+        "segments": ["Morning subway opening", "Continue yesterday's AI startup detail about memory as onboarding", "Recommendation versus long-term memory", "Memory boundaries: controllable, explainable, and deletable"],
         "target_takeaway": "A good AI host does not push more content. It reduces the listener's filtering cost and continues in the way they like to understand things.",
     },
     "broadcast_context_agent": {
         "time": "8:00 AM",
         "scene": "The listener is on the subway during a morning commute.",
-        "previous_memory": "Yesterday the listener heard an episode about AI startups.",
+        "previous_memory": "Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.",
         "today_continuation": "Instead of generic tech news, today's episode continues the listener's previous question: why are AI companies competing for long-term memory?",
         "listener_mood": "half-awake, curious, wants something useful but not too heavy",
         "opening_frame": "Good morning, welcome back. This one is for the subway: what does it actually mean for an AI host to understand you?",
@@ -169,7 +169,7 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
             "Behavioral recommendation predicts what a user might click next; long-term memory helps continue an unfinished question over time.",
             "Good memory should be controllable, explainable, and easy to turn off.",
         ],
-        "examples": ["The listener heard about AI startups yesterday; today the host continues with why AI companies care about memory."],
+        "examples": ["The listener heard a founder describe memory as the new onboarding layer for AI products; today the host continues with why AI companies care about memory."],
         "open_questions": ["How much memory feels helpful before it feels intrusive?"],
         "sources_to_check": ["Product memory settings", "recommendation system explanations", "AI audio product examples"],
     },
@@ -195,13 +195,13 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
     "dialogue_planner_agent": {
         "episode_title": "Why do some AI hosts sound like they really understand you?",
         "turns": [
-            {"speaker": "Host A", "conversational_function": "open with the subway scene and yesterday's memory", "emotional_tone": "warm, close, like starting the day with the listener", "responds_to": "broadcast context", "turn_type": "example"},
+            {"speaker": "Host A", "conversational_function": "open with the subway scene and yesterday's specific founder memory", "emotional_tone": "warm, close, like starting the day with the listener", "responds_to": "broadcast context", "turn_type": "example"},
             {"speaker": "Host B", "conversational_function": "explain why continuity makes the host feel understanding", "emotional_tone": "calm and explanatory", "responds_to": "Host A commute scene", "turn_type": "clarification"},
             {"speaker": "Host A", "conversational_function": "check whether understanding is deeper than topic labels", "emotional_tone": "lightly questioning", "responds_to": "Host B continuity point", "turn_type": "question"},
             {"speaker": "Host B", "conversational_function": "explain understanding style instead of labels", "emotional_tone": "plain and grounded", "responds_to": "Host A label question", "turn_type": "clarification"},
             {"speaker": "Host A", "conversational_function": "raise the ordinary recommendation challenge", "emotional_tone": "friendly skeptical", "responds_to": "Host B deeper understanding claim", "turn_type": "challenge"},
-            {"speaker": "Host B", "conversational_function": "separate behavior recommendation from continuous memory", "emotional_tone": "patient explainer", "responds_to": "recommendation challenge", "turn_type": "clarification"},
-            {"speaker": "Host A", "conversational_function": "summarize the continuity idea in listener language", "emotional_tone": "recognizing the point", "responds_to": "Host B distinction", "turn_type": "callback"},
+            {"speaker": "Host B", "conversational_function": "separate behavior recommendation from continuous memory using a concrete metaphor", "emotional_tone": "patient explainer", "responds_to": "recommendation challenge", "turn_type": "clarification"},
+            {"speaker": "Host A", "conversational_function": "express a lived commute reaction before summarizing the continuity idea", "emotional_tone": "recognizing the point from lived experience", "responds_to": "Host B distinction", "turn_type": "callback"},
             {"speaker": "Host B", "conversational_function": "explain reduced filtering cost and morning context", "emotional_tone": "useful and warm", "responds_to": "Host A continuity summary", "turn_type": "clarification"},
             {"speaker": "Host A", "conversational_function": "ask the discomfort boundary question", "emotional_tone": "thoughtful concern", "responds_to": "memory value", "turn_type": "question"},
             {"speaker": "Host B", "conversational_function": "answer with controllable, explainable, deletable memory", "emotional_tone": "reassuring and careful", "responds_to": "boundary concern", "turn_type": "clarification"},
@@ -213,13 +213,13 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
     "dual_host_dialogue_writer": {
         "title": "Why do some AI hosts sound like they really understand you?",
         "lines": [
-            {"host": "Host A", "line": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one phrase kept coming up: long-term memory. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?"},
+            {"host": "Host A", "line": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?"},
             {"host": "Host B", "line": "That moment matters. An AI host sounds like it understands you not just because the voice is natural, but because it knows where you left off yesterday and what you might still be thinking about today."},
             {"host": "Host A", "line": "So it is not as simple as knowing that I like tech news?"},
             {"host": "Host B", "line": "Right. That is only a label. A deeper kind of understanding is knowing how you like to enter a question. Maybe you do not want every AI headline. You care about why a product makes sense, what user need it answers, and how it differs from an ordinary tool."},
             {"host": "Host A", "line": "Let me ask the listener's question: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same."},
-            {"host": "Host B", "line": "A little, but not quite. Recommendation is often about behavior records: what you clicked, how long you stayed, what you skipped. Long-term memory is more like preserving a continuous line of thought: why you cared, where you last followed up, and how you prefer something to be explained."},
-            {"host": "Host A", "line": "So a good AI host does not meet me from scratch every morning. It can move yesterday's conversation forward."},
+            {"host": "Host B", "line": "A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained."},
+            {"host": "Host A", "line": "I feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward."},
             {"host": "Host B", "line": "Exactly. It is not just generating more content. It is reducing your filtering cost. On a morning commute, you do not want to explain again what you want to hear. It should already know that today's episode needs to be light, clear, but not shallow."},
             {"host": "Host A", "line": "But if it remembers too much, doesn't that start to feel uncomfortable?"},
             {"host": "Host B", "line": "It can. That is why good memory should never feel like secretly remembering everything. It should be controllable, explainable, and deletable. You should know why it recommended something, and you should decide what should not be remembered."},
@@ -233,13 +233,13 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
         "host_b_persona": "Calm explainer who explains product logic in everyday language and avoids jargon.",
         "style_rules": ["Sound like two hosts talking to a commuter", "Avoid internal agent names", "Use concrete scenes and callbacks", "Keep explanations plain and human"],
         "revised_lines": [
-            {"host": "Host A", "line": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one phrase kept coming up: long-term memory. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?"},
+            {"host": "Host A", "line": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?"},
             {"host": "Host B", "line": "That moment matters. An AI host sounds like it understands you not just because the voice is natural, but because it knows where you left off yesterday and what you might still be thinking about today."},
             {"host": "Host A", "line": "So it is not as simple as knowing that I like tech news?"},
             {"host": "Host B", "line": "Right. That is only a label. A deeper kind of understanding is knowing how you like to enter a question. Maybe you do not want every AI headline. You care about why a product makes sense, what user need it answers, and how it differs from an ordinary tool."},
             {"host": "Host A", "line": "Let me ask the listener's question: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same."},
-            {"host": "Host B", "line": "A little, but not quite. Recommendation is often about behavior records: what you clicked, how long you stayed, what you skipped. Long-term memory is more like preserving a continuous line of thought: why you cared, where you last followed up, and how you prefer something to be explained."},
-            {"host": "Host A", "line": "So a good AI host does not meet me from scratch every morning. It can move yesterday's conversation forward."},
+            {"host": "Host B", "line": "A little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained."},
+            {"host": "Host A", "line": "I feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward."},
             {"host": "Host B", "line": "Exactly. It is not just generating more content. It is reducing your filtering cost. On a morning commute, you do not want to explain again what you want to hear. It should already know that today's episode needs to be light, clear, but not shallow."},
             {"host": "Host A", "line": "But if it remembers too much, doesn't that start to feel uncomfortable?"},
             {"host": "Host B", "line": "It can. That is why good memory should never feel like secretly remembering everything. It should be controllable, explainable, and deletable. You should know why it recommended something, and you should decide what should not be remembered."},
@@ -250,13 +250,14 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
     },
     "quality_evaluator": {
         "score": 9,
-        "strengths": ["Concrete commute scene", "Natural interruption", "Boundary question", "Clear user value"],
-        "improvements": ["Future versions can add live user follow-up interaction"],
+        "dialogue_liveliness_score": 9,
+        "strengths": ["Concrete commute scene", "Specific remembered detail", "Host A lived reaction", "Host B metaphor", "Boundary question"],
+        "improvements": ["Future versions can add live user follow-up interaction and even shorter spontaneous turns"],
         "ready_for_tts": True,
     },
     "tts_export": {
         "episode_title": "Why do some AI hosts sound like they really understand you?",
-        "tts_text": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one phrase kept coming up: long-term memory. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?\n\nThat moment matters. An AI host sounds like it understands you not just because the voice is natural, but because it knows where you left off yesterday and what you might still be thinking about today.\n\nSo it is not as simple as knowing that I like tech news?\n\nRight. That is only a label. A deeper kind of understanding is knowing how you like to enter a question. Maybe you do not want every AI headline. You care about why a product makes sense, what user need it answers, and how it differs from an ordinary tool.\n\nLet me ask the listener's question: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same.\n\nA little, but not quite. Recommendation is often about behavior records: what you clicked, how long you stayed, what you skipped. Long-term memory is more like preserving a continuous line of thought: why you cared, where you last followed up, and how you prefer something to be explained.\n\nSo a good AI host does not meet me from scratch every morning. It can move yesterday's conversation forward.\n\nExactly. It is not just generating more content. It is reducing your filtering cost. On a morning commute, you do not want to explain again what you want to hear. It should already know that today's episode needs to be light, clear, but not shallow.\n\nBut if it remembers too much, doesn't that start to feel uncomfortable?\n\nIt can. That is why good memory should never feel like secretly remembering everything. It should be controllable, explainable, and deletable. You should know why it recommended something, and you should decide what should not be remembered.\n\nSo understanding you is not a kind of mystery. It is a kind of restraint.\n\nYes. The next generation of AI hosts may not be defined by how human the voice sounds, but by whether it can catch the question you had not finished yesterday, at the right moment.\n\nBefore the subway doors open, maybe that is today's line to keep: sounding like it understands you is not about talking all the time. It is about knowing where to continue.",
+        "tts_text": "It is eight in the morning. You are on the subway, headphones on. Yesterday you listened to an episode about AI startups, and one detail stuck: a founder called memory the new onboarding layer for AI products. Today, when you open your AI radio, it does not hand you generic tech news. It continues yesterday's question: why are AI companies competing over long-term memory?\n\nThat moment matters. An AI host sounds like it understands you not just because the voice is natural, but because it knows where you left off yesterday and what you might still be thinking about today.\n\nSo it is not as simple as knowing that I like tech news?\n\nRight. That is only a label. A deeper kind of understanding is knowing how you like to enter a question. Maybe you do not want every AI headline. You care about why a product makes sense, what user need it answers, and how it differs from an ordinary tool.\n\nLet me ask the listener's question: isn't that just a regular recommendation algorithm? I clicked something, so it keeps pushing more of the same.\n\nA little, but not quite. A recommendation feed is like a shop window: it rearranges what you might click next. Long-term memory is more like a bookmark inside an ongoing conversation. It remembers why you cared, where you last followed up, and how you prefer something to be explained.\n\nI feel that on a commute. Some mornings I do not want another feed to scroll. I want the show to pick up the thread before I lose it. So a good AI host does not meet me from scratch every morning; it moves yesterday's conversation forward.\n\nExactly. It is not just generating more content. It is reducing your filtering cost. On a morning commute, you do not want to explain again what you want to hear. It should already know that today's episode needs to be light, clear, but not shallow.\n\nBut if it remembers too much, doesn't that start to feel uncomfortable?\n\nIt can. That is why good memory should never feel like secretly remembering everything. It should be controllable, explainable, and deletable. You should know why it recommended something, and you should decide what should not be remembered.\n\nSo understanding you is not a kind of mystery. It is a kind of restraint.\n\nYes. The next generation of AI hosts may not be defined by how human the voice sounds, but by whether it can catch the question you had not finished yesterday, at the right moment.\n\nBefore the subway doors open, maybe that is today's line to keep: sounding like it understands you is not about talking all the time. It is about knowing where to continue.",
         "voice_notes": ["Host A should sound warm, observant, and close to the listener.", "Host B should sound calm, grounded, and explanatory without sounding like a lecture."],
     },
 }

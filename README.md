@@ -32,6 +32,22 @@ The included mock episode is a breakfast-at-home morning sample: at 8:00 AM, the
 
 The sample show format is **Yoli's Morning Coffee**: a soft personal morning radio ritual that gives the listener a gentle greeting, reconnects with yesterday's unfinished thread, and offers one useful thought while breakfast is coming together.
 
+## Demo Evolution
+
+This repo includes the pipeline artifacts for a small but realistic iteration story:
+
+```text
+basic AI-generated dialogue
+-> dual-host segmented TTS
+-> more natural host interaction
+-> Yoli's Morning Coffee show identity
+-> breakfast-at-home live texture mix
+```
+
+The key portfolio idea is that a good AI audio agent is not just "one prompt to speech." It needs intermediate planning artifacts, persona control, TTS-safe segmentation, audio rendering, and quality evaluation.
+
+See [docs/demo_iterations.md](docs/demo_iterations.md) for the recommended demo audio sequence and release checklist.
+
 The current dialogue prompts intentionally optimize for radio liveliness, not just correctness:
 
 - Host A must include at least one lived reaction from the listener's point of view.

@@ -1,0 +1,23 @@
+{
+  "episode_duration_minutes": 2,
+  "segments": [
+    {
+      "name": "Opening subway scenario",
+      "target_duration_sec": 35,
+      "goal": "Set up the 8 AM subway listening context and yesterday's AI startup memory.",
+      "listener_value": "The listener immediately understands why this episode is personally relevant."
+    },
+    {
+      "name": "Memory versus recommendation",
+      "target_duration_sec": 45,
+      "goal": "Explain the difference between behavioral recommendation and long-term memory.",
+      "listener_value": "The listener can describe why 'knowing me' is more than topic labels."
+    },
+    {
+      "name": "Boundary and closing takeaway",
+      "target_duration_sec": 40,
+      "goal": "Ask whether too much memory feels uncomfortable, then close with a controllable-memory principle.",
+      "listener_value": "The listener leaves with a memorable line about knowing where to continue."
+    }
+  ]
+}

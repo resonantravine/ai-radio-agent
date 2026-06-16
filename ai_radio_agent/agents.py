@@ -16,6 +16,9 @@ LOGGER = logging.getLogger("ai_radio_agent")
 
 
 AGENT_ORDER = [
+    "user_episode_input",
+    "episode_brief_agent",
+    "segment_planner_agent",
     "user_preference_agent",
     "memory_agent",
     "recommendation_agent",
@@ -33,6 +36,9 @@ AGENT_ORDER = [
 
 
 AGENT_OUTPUTS = {
+    "user_episode_input": "00_user_episode_input.json",
+    "episode_brief_agent": "episode_brief.json",
+    "segment_planner_agent": "segment_plan.json",
     "user_preference_agent": "00_user_preference.json",
     "memory_agent": "00_memory_state.json",
     "recommendation_agent": "00_recommendation.json",

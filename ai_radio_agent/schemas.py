@@ -17,6 +17,33 @@ class UserPreference(StrictBaseModel):
     avoid_topics: list[str]
 
 
+class UserEpisodeInput(StrictBaseModel):
+    topic: str
+    user_profile: str
+    memory_context: str
+    duration_minutes: int = Field(ge=1, le=20)
+
+
+class EpisodeBrief(StrictBaseModel):
+    title: str
+    listener_promise: str
+    user_facing_topic: str
+    internal_pipeline_note: str
+    target_duration_minutes: int = Field(ge=1, le=20)
+
+
+class SegmentPlanItem(StrictBaseModel):
+    name: str
+    target_duration_sec: int = Field(ge=15, le=600)
+    goal: str
+    listener_value: str
+
+
+class SegmentPlan(StrictBaseModel):
+    episode_duration_minutes: int = Field(ge=1, le=20)
+    segments: list[SegmentPlanItem]
+
+
 class MemoryProfile(StrictBaseModel):
     listener_summary: str
     known_preferences: list[str]
@@ -110,6 +137,9 @@ class TTSExport(StrictBaseModel):
 
 
 SCHEMA_BY_AGENT: dict[str, type[BaseModel]] = {
+    "user_episode_input": UserEpisodeInput,
+    "episode_brief_agent": EpisodeBrief,
+    "segment_planner_agent": SegmentPlan,
     "user_preference_agent": UserPreference,
     "memory_agent": MemoryProfile,
     "recommendation_agent": Recommendation,

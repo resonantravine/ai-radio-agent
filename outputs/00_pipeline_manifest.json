@@ -4,6 +4,7 @@
     "00_memory_state.json",
     "00_pipeline_manifest.json",
     "00_recommendation.json",
+    "00_user_episode_input.json",
     "00_user_preference.json",
     "01_topic_plan.json",
     "02_broadcast_context.json",
@@ -15,6 +16,8 @@
     "08_persona_script.json",
     "09_quality_eval.json",
     "10_tts_export.json",
+    "episode_brief.json",
+    "segment_plan.json",
     "tts_segments.json"
   ]
 }

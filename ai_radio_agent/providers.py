@@ -96,6 +96,42 @@ def get_provider(provider_name: str | None = None) -> LLMProvider:
 
 
 MOCK_RESPONSES: dict[str, dict[str, Any]] = {
+    "user_episode_input": {
+        "topic": "为什么有些 AI 主播听起来像真的懂你？",
+        "user_profile": "A commuter interested in AI products, startups, and practical product logic.",
+        "memory_context": "Yesterday the listener heard an episode about AI startups and kept thinking about long-term memory.",
+        "duration_minutes": 2,
+    },
+    "episode_brief_agent": {
+        "title": "为什么有些 AI 主播听起来像真的懂你？",
+        "listener_promise": "A short commute-friendly conversation explaining why AI radio can feel personal without exposing the internal pipeline.",
+        "user_facing_topic": "An AI host feels like it understands you when it can continue yesterday's question in today's context.",
+        "internal_pipeline_note": "Host scripts are generated internal artifacts for quality control, persona consistency, TTS segmentation, and audio rendering. The end user only provides topic, profile or memory context, and duration.",
+        "target_duration_minutes": 2,
+    },
+    "segment_planner_agent": {
+        "episode_duration_minutes": 2,
+        "segments": [
+            {
+                "name": "Opening subway scenario",
+                "target_duration_sec": 35,
+                "goal": "Set up the 8 AM subway listening context and yesterday's AI startup memory.",
+                "listener_value": "The listener immediately understands why this episode is personally relevant.",
+            },
+            {
+                "name": "Memory versus recommendation",
+                "target_duration_sec": 45,
+                "goal": "Explain the difference between behavioral recommendation and long-term memory.",
+                "listener_value": "The listener can describe why 'knowing me' is more than topic labels.",
+            },
+            {
+                "name": "Boundary and closing takeaway",
+                "target_duration_sec": 40,
+                "goal": "Ask whether too much memory feels uncomfortable, then close with a controllable-memory principle.",
+                "listener_value": "The listener leaves with a memorable line about knowing where to continue.",
+            },
+        ],
+    },
     "user_preference_agent": {
         "listener_name": "Marta",
         "preferred_topics": ["AI audio tools", "creative workflows", "agent evaluation"],

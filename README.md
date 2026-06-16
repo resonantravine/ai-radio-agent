@@ -2,12 +2,16 @@
 
 A beginner-friendly portfolio demo for an **AI Agent Engineer | Audio Content Generation** role.
 
-The project turns a listener profile into a two-host radio script through a clear multi-agent pipeline:
+The project turns a user topic, memory context, profile, and target duration into a two-host AI radio episode.
+
+In a real AI podcast product, the end user does **not** write Host A / Host B scripts. The scripts are internal generated artifacts used for quality control, TTS segmentation, persona consistency, and audio rendering.
 
 ```text
 User Preference Agent
 → Memory Agent
 → Recommendation Agent
+→ Episode Brief Agent
+→ Segment Planner Agent
 → Topic Planner
 → Research / Fact Check
 → Broadcast Context Agent
@@ -32,6 +36,7 @@ This project shows the core skills behind AI audio content generation:
 
 - Personalized content planning from listener preferences and memory.
 - Modular agent design instead of one giant prompt.
+- Internal intermediate representations such as `episode_brief.json`, `segment_plan.json`, `dialogue_plan.json`, and `tts_segments.json`.
 - Structured JSON outputs with Pydantic validation.
 - A quality and fact-checking step before voice generation.
 - Clean TTS handoff files that separate human production notes from machine-ready speech text.
@@ -65,16 +70,26 @@ Mock mode uses built-in deterministic responses. It does not require any API key
 python -m ai_radio_agent.run_pipeline --mock
 ```
 
+You can also pass the user-facing product inputs directly:
+
+```bash
+python -m ai_radio_agent.run_pipeline --mock --topic "为什么有些 AI 主播听起来像真的懂你？" --duration-minutes 2
+```
+
 Main outputs:
 
 ```text
 outputs/production_script.md
+outputs/episode_brief.json
+outputs/segment_plan.json
 outputs/tts_segments.json
 outputs/tts_clean_single_voice.txt
 outputs/tts_elevenlabs_ready.md
 ```
 
 `production_script.md` is for human review. It includes speaker names, personas, delivery notes, and production metadata.
+
+`episode_brief.json` and `segment_plan.json` show how the system turns a user-facing request into an internal episode structure. For a longer 10–20 minute product version, the segment planner would divide the show into multiple timed sections and generate each section separately instead of asking one prompt to produce a full long script.
 
 `tts_segments.json` is the machine-friendly dual-host handoff. Each segment has:
 
@@ -92,8 +107,11 @@ Structured artifacts:
 
 ```text
 outputs/00_user_preference.json
+outputs/00_user_episode_input.json
 outputs/00_memory_state.json
 outputs/00_recommendation.json
+outputs/episode_brief.json
+outputs/segment_plan.json
 outputs/01_topic_plan.json
 outputs/02_broadcast_context.json
 outputs/03_research_brief.json
@@ -105,6 +123,8 @@ outputs/08_persona_script.json
 outputs/09_quality_eval.json
 outputs/10_tts_export.json
 ```
+
+The Host A / Host B files are not user-authored inputs. They are generated intermediate representations that make the pipeline inspectable and debuggable.
 
 ## Run With Gemini
 

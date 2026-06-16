@@ -5,9 +5,12 @@ import sys
 
 
 EXPECTED_OUTPUTS = [
+    "00_user_episode_input.json",
     "00_user_preference.json",
     "00_memory_state.json",
     "00_recommendation.json",
+    "episode_brief.json",
+    "segment_plan.json",
     "01_topic_plan.json",
     "02_broadcast_context.json",
     "03_research_brief.json",
@@ -69,3 +72,7 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
         "pause_after_ms",
     }
     assert first_segment["voice_key"] in {"host_a", "host_b"}
+
+    segment_plan = json.loads((outputs_dir / "segment_plan.json").read_text(encoding="utf-8"))
+    assert segment_plan["episode_duration_minutes"] == 2
+    assert len(segment_plan["segments"]) >= 3

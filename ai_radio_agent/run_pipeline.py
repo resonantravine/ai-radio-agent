@@ -26,6 +26,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mock", action="store_true", help="Run with the built-in mock provider.")
     parser.add_argument("--provider", choices=["mock", "openai", "gemini"], help="Override LLM_PROVIDER.")
     parser.add_argument("--output-dir", default=None, help="Where generated artifacts should be saved.")
+    parser.add_argument("--topic", default="为什么有些 AI 主播听起来像真的懂你？", help="User-facing episode topic.")
+    parser.add_argument("--duration-minutes", type=int, default=2, help="Target episode duration in minutes.")
+    parser.add_argument("--user-profile", default="A commuter interested in AI products, startups, and practical product logic.")
+    parser.add_argument("--memory-context", default="Yesterday the listener heard an episode about AI startups and kept thinking about long-term memory.")
     return parser.parse_args()
 
 
@@ -34,10 +38,21 @@ def main() -> None:
     run_pipeline(
         provider_name="mock" if args.mock else args.provider,
         output_dir=Path(args.output_dir) if args.output_dir else None,
+        topic=args.topic,
+        duration_minutes=args.duration_minutes,
+        user_profile=args.user_profile,
+        memory_context=args.memory_context,
     )
 
 
-def run_pipeline(provider_name: str | None = None, output_dir: Path | None = None) -> dict[str, Any]:
+def run_pipeline(
+    provider_name: str | None = None,
+    output_dir: Path | None = None,
+    topic: str = "为什么有些 AI 主播听起来像真的懂你？",
+    duration_minutes: int = 2,
+    user_profile: str = "A commuter interested in AI products, startups, and practical product logic.",
+    memory_context: str = "Yesterday the listener heard an episode about AI startups and kept thinking about long-term memory.",
+) -> dict[str, Any]:
     load_dotenv()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
@@ -48,13 +63,19 @@ def run_pipeline(provider_name: str | None = None, output_dir: Path | None = Non
     LOGGER.info("Running AI radio pipeline with provider=%s", provider.name)
     context: dict[str, Any] = {
         "project_goal": "Create a personalized AI radio episode script for an audio content generation portfolio demo.",
+        "user_facing_input": {
+            "topic": topic,
+            "user_profile": user_profile,
+            "memory_context": memory_context,
+            "duration_minutes": duration_minutes,
+        },
         "target_episode": {
             "title": "为什么有些 AI 主播听起来像真的懂你？",
             "time": "8:00 AM",
             "scene": "the listener is on the subway",
             "previous_memory": "yesterday the listener heard an episode about AI startups",
             "today_continuation": "continue the listener's previous question: why are AI companies competing for long-term memory?",
-            "target_duration_seconds": "90-120",
+            "target_duration_seconds": f"{duration_minutes * 60}",
         },
         "listener_experience_rule": (
             "The listener should hear a natural two-host radio conversation, not an explanation of the internal agent pipeline. "

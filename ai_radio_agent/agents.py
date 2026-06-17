@@ -17,11 +17,13 @@ LOGGER = logging.getLogger("ai_radio_agent")
 
 AGENT_ORDER = [
     "user_episode_input",
-    "episode_brief_agent",
-    "segment_planner_agent",
+    "moment_profile_agent",
     "user_preference_agent",
     "memory_agent",
     "recommendation_agent",
+    "timely_context_agent",
+    "episode_brief_agent",
+    "segment_planner_agent",
     "topic_planner",
     "broadcast_context_agent",
     "research_agent",
@@ -37,6 +39,7 @@ AGENT_ORDER = [
 
 AGENT_OUTPUTS = {
     "user_episode_input": "00_user_episode_input.json",
+    "moment_profile_agent": "00_moment_profile.json",
     "episode_brief_agent": "episode_brief.json",
     "segment_planner_agent": "segment_plan.json",
     "user_preference_agent": "00_user_preference.json",
@@ -44,6 +47,7 @@ AGENT_OUTPUTS = {
     "recommendation_agent": "00_recommendation.json",
     "topic_planner": "01_topic_plan.json",
     "broadcast_context_agent": "02_broadcast_context.json",
+    "timely_context_agent": "02_timely_context.json",
     "research_agent": "03_research_brief.json",
     "fact_check_agent": "04_fact_check.json",
     "script_outliner": "05_script_outline.json",
@@ -56,13 +60,25 @@ AGENT_OUTPUTS = {
 
 
 AGENT_GUIDANCE = {
+    "moment_profile_agent": (
+        "Select and restate the editorial moment profile from the provided moment profile config. "
+        "The key decision is the content operation: breakfast means continue, lunch means compress, "
+        "and dinner means transform. Preserve the style rules, research policy, content logic, "
+        "listener state, and intended output feeling."
+    ),
+    "timely_context_agent": (
+        "Decide whether freshness is needed for this episode. For breakfast, usually do not turn the "
+        "episode into news; continue the remembered thread unless factual verification is needed. "
+        "For lunch, use timely context only when it helps relevance compression, and provide two or "
+        "three source-backed updates when available. For dinner, avoid new heavy information by default "
+        "and use reflective synthesis. Never turn the output into a generic news roundup."
+    ),
     "dialogue_planner_agent": (
         "Plan a conversation, not alternating mini-essays. Host A must include at least one lived reaction "
         "from the listener's point of view, not only questions. Host B must use at least one concrete metaphor. "
         "The plan must include one specific remembered detail from the previous listening session. "
         "Create real response, tension, clarification, and emotional or experiential movement across turns. "
-        "Shape the episode like Yoli's Morning Coffee: a soft personal morning radio ritual that begins with "
-        "a gentle greeting, yesterday's thread, and today's small question."
+        "Follow the selected moment profile: continue for breakfast, compress for lunch, transform for dinner."
     ),
     "dual_host_dialogue_writer": (
         "Write short, speakable turns. Host A should sometimes react from lived experience before asking. "
@@ -81,7 +97,10 @@ AGENT_GUIDANCE = {
     "quality_evaluator": (
         "Evaluate dialogue_liveliness_score from 1 to 10. Ask: does the dialogue contain real response, "
         "tension, clarification, and emotional or experiential movement? Also check whether Host A expresses "
-        "a lived reaction, Host B uses a concrete metaphor, and one specific remembered detail appears."
+        "a lived reaction, Host B uses a concrete metaphor, and one specific remembered detail appears. "
+        "Evaluate moment_fit_score against the selected moment profile. For breakfast, check continuity, "
+        "one-thread focus, and gentle start. For lunch, check compression, why-now relevance, source discipline, "
+        "and avoidance of generic news. For dinner, check story or future image, low semantic density, and soft closure."
     ),
 }
 
@@ -129,9 +148,8 @@ def build_prompt(*, agent_name: str, schema: type[BaseModel], context: dict[str,
         "Do not make hosts read internal agent names, JSON artifact names, or production instructions aloud.\n"
         "Host A is a warm observer who represents lived listener experience and asks natural questions. "
         "Host B is a calm explainer who uses everyday language, avoids jargon, and responds directly to Host A.\n"
-        "The audio identity is Yoli's Morning Coffee: calm but not sleepy, personal but not overly intimate, "
-        "thoughtful but not academic, warm but not sentimental, and lightly paced. "
-        "Do not sound like a tech news anchor, productivity coach, marketing narrator, overly cheerful podcast host, or therapist.\n"
+        "Follow the selected moment profile and audio identity from upstream context. "
+        "Do not sound like a generic tech news anchor, productivity coach, marketing narrator, overly cheerful podcast host, or therapist.\n"
         f"Agent-specific guidance: {extra_guidance}\n"
         "Return only valid JSON. Do not include markdown, commentary, or extra keys.\n\n"
         f"Required JSON schema:\n{schema.model_json_schema()}\n\n"

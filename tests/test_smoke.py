@@ -128,10 +128,15 @@ def test_mock_lunch_pipeline_uses_midday_brief_sample(tmp_path: Path) -> None:
     assert result.returncode == 0, result.stderr
 
     clean_tts = (outputs_dir / "tts_clean_single_voice.txt").read_text(encoding="utf-8")
-    assert "It's midday, Yoli. Quick brief for the lunch walk." in clean_tts
-    assert "memory as the new onboarding layer" in clean_tts
+    assert "It's Yoli's Midday Brief" in clean_tts
+    assert "too many tabs open" in clean_tts
+    assert "It's midday, Yoli. Quick brief for the lunch walk" in clean_tts
+    assert "memory is the new onboarding layer" in clean_tts
     assert "lunch specials board" in clean_tts
-    assert "what should an AI remember because it helps you continue?" in clean_tts
+    assert "Congratulations, you are noodle person forever." in clean_tts
+    assert "a little too close to my business" in clean_tts
+    assert "what would you want an AI to remember because it helps you continue?" in clean_tts
+    assert "Both count." in clean_tts
     assert "Good morning, Yoli." not in clean_tts
 
     moment_profile = json.loads((outputs_dir / "00_moment_profile.json").read_text(encoding="utf-8"))

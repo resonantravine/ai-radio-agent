@@ -11,30 +11,44 @@ AI Radio Agent turns a listener profile, memory context, topic, and target durat
 
 In a real AI podcast product, the user would not write Host A / Host B scripts. These scripts are internal generated artifacts used for quality control, TTS segmentation, persona consistency, and audio rendering.
 
+## Watch The Demo
+
+[04_final_live_texture_mix_npr_style_v2.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix_npr_style_v2.mp4) is the best quick entry point. It shows the final AI radio episode as a clean audio-reactive video card: a soft morning-radio sample with dual AI hosts, memory-aware dialogue, ElevenLabs TTS, subtle breakfast texture, and final audio rendering.
+
+Audio-only version: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
+
 ## At A Glance
 
 - **What it is:** A multi-agent workflow that generates a personalized two-host AI radio episode.
 - **What it demonstrates:** agent orchestration, structured JSON artifacts, dialogue quality evaluation, TTS segmentation, and final audio rendering.
-- **Demo format:** **Yoli's Morning Coffee**, a soft personal morning radio sample with intro/outro music and subtle breakfast-at-home live texture.
+- **Demo format:** **Yoli's Morning Coffee**, a soft personal morning radio sample designed for earbuds during breakfast.
+- **Best video demo:** [04_final_live_texture_mix_npr_style_v2.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix_npr_style_v2.mp4)
 - **Best audio demo:** [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 - **Run locally:** `python -m ai_radio_agent.run_pipeline --mock`
 
-## Listen First
+## Daily Radio Concept
 
-The best current demo is [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3): a soft morning-radio sample with dual AI hosts, intro/outro music, and subtle breakfast-at-home live texture.
+This prototype is designed as a reusable personal radio pipeline, not a one-off podcast script generator. The same agent workflow can generate different short episodes for different moments of the day, optimized for earbuds and low-friction listening.
 
-There is also a simple portfolio-friendly video version: [04_final_live_texture_mix.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp4).
+| Moment | Demo Concept | Listening Context | Content Role |
+| --- | --- | --- | --- |
+| Breakfast | **Yoli's Morning Coffee** | kitchen, coffee, first earbuds session of the day | reconnect with yesterday's unfinished question and offer one useful thread |
+| Lunch | **Yoli's Midday Brief** | short walk, lunch break, between tasks | compress useful updates and explain why they matter now |
+| Dinner | **Yoli's Evening Reset** | cooking, dishes, low-energy reflection | slow down, connect the day's ideas, and prepare a softer ending |
+
+The current release implements the breakfast demo. Lunch and dinner are planned as follow-up samples using the same internal artifacts: episode brief, segment plan, dialogue plan, TTS segments, audio rendering, ASR transcript, and audio fidelity report.
 
 ## Listen To The Iterations
 
 The audio demos are hosted as GitHub Release assets so the code repository stays lightweight.
 
-| Version | Audio | What Changed |
+| Version | Demo | What Changed |
 | --- | --- | --- |
 | 1. Basic dual-host render | [01_basic_dual_host.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/01_basic_dual_host.mp3) | First complete two-host pipeline: generated dialogue, segmented ElevenLabs TTS, and assembled mp3. |
 | 2. Dialogue liveliness pass | [02_dialogue_liveliness.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/02_dialogue_liveliness.mp3) | Adds stronger host response, a lived Host A reaction, a concrete Host B metaphor, and remembered context. |
 | 3. Morning show identity | [03_morning_coffee_intro.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/03_morning_coffee_intro.mp3) | Turns the demo into **Yoli's Morning Coffee**, with a softer personal morning-radio opening. |
 | 4. Final live texture mix | [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3) | Final portfolio sample with dual voices, intro/outro music, subtle kitchen texture, and a more live breakfast-at-home feeling. |
+| 5. Audio-reactive video card | [04_final_live_texture_mix_npr_style_v2.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix_npr_style_v2.mp4) | A clean, NPR-inspired visualizer video that makes the audio demo immediately legible in a portfolio or GitHub README. |
 
 Release page: [AI Radio Agent Demo Audio](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
 

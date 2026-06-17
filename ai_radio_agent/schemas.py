@@ -22,6 +22,20 @@ class UserEpisodeInput(StrictBaseModel):
     user_profile: str
     memory_context: str
     duration_minutes: int = Field(ge=1, le=20)
+    moment: Literal["breakfast", "lunch", "dinner"] = "breakfast"
+
+
+class MomentProfile(StrictBaseModel):
+    moment: Literal["breakfast", "lunch", "dinner"]
+    format_name: str
+    core_operation: Literal["continue", "compress", "transform"]
+    content_role: str
+    listener_state: str
+    output_feeling: str
+    style_rules: list[str]
+    content_logic: str
+    research_policy: str
+    semantic_density: str
 
 
 class EpisodeBrief(StrictBaseModel):
@@ -79,6 +93,21 @@ class ResearchBrief(StrictBaseModel):
     sources_to_check: list[str]
 
 
+class TimelyContextUpdate(StrictBaseModel):
+    claim: str
+    source: str
+    why_relevant: str
+
+
+class TimelyContext(StrictBaseModel):
+    freshness_required: bool
+    date: str
+    topic: str
+    verified_updates: list[TimelyContextUpdate]
+    do_not_claim: list[str]
+    briefing_angle: str
+
+
 class FactCheckReport(StrictBaseModel):
     status: Literal["pass", "needs_review"]
     verified_claims: list[str]
@@ -126,6 +155,12 @@ class PersonaNotes(StrictBaseModel):
 class QualityEvaluation(StrictBaseModel):
     score: int = Field(ge=1, le=10)
     dialogue_liveliness_score: int = Field(ge=1, le=10)
+    moment_fit_score: int = Field(ge=1, le=10)
+    content_operation: Literal["continue", "compress", "transform"]
+    memory_use_score: int = Field(ge=1, le=10)
+    freshness_relevance_score: int = Field(ge=1, le=10)
+    semantic_density: Literal["low", "low_to_medium", "medium", "medium_high", "high"]
+    risk_notes: list[str]
     strengths: list[str]
     improvements: list[str]
     ready_for_tts: bool
@@ -139,6 +174,7 @@ class TTSExport(StrictBaseModel):
 
 SCHEMA_BY_AGENT: dict[str, type[BaseModel]] = {
     "user_episode_input": UserEpisodeInput,
+    "moment_profile_agent": MomentProfile,
     "episode_brief_agent": EpisodeBrief,
     "segment_planner_agent": SegmentPlan,
     "user_preference_agent": UserPreference,
@@ -146,6 +182,7 @@ SCHEMA_BY_AGENT: dict[str, type[BaseModel]] = {
     "recommendation_agent": Recommendation,
     "topic_planner": TopicPlan,
     "broadcast_context_agent": BroadcastContext,
+    "timely_context_agent": TimelyContext,
     "research_agent": ResearchBrief,
     "fact_check_agent": FactCheckReport,
     "script_outliner": ScriptOutline,

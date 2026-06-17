@@ -85,14 +85,24 @@ class GeminiProvider(LLMProvider):
         self.model = model or os.getenv("LLM_MODEL", "gemini-3.1-flash-lite")
 
     def complete(self, *, agent_name: str, prompt: str, schema: type[BaseModel]) -> str:
-        response = self.client.models.generate_content(
-            model=self.model,
-            contents=prompt,
-            config=self.types.GenerateContentConfig(
-                system_instruction="Return only JSON matching the requested schema. No markdown.",
-                response_mime_type="application/json",
-            ),
-        )
+        try:
+            response = self.client.models.generate_content(
+                model=self.model,
+                contents=prompt,
+                config=self.types.GenerateContentConfig(
+                    system_instruction="Return only JSON matching the requested schema. No markdown.",
+                    response_mime_type="application/json",
+                ),
+            )
+        except Exception as exc:
+            message = str(exc)
+            if "FAILED_PRECONDITION" in message and "location is not supported" in message:
+                raise RuntimeError(
+                    "Gemini API request was rejected because the current user location is not supported "
+                    "for Google Generative Language API use. Try mock mode, OpenAI mode, or a Gemini API "
+                    "account/network location that is supported by Google."
+                ) from exc
+            raise
         return response.text or ""
 
 

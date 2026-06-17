@@ -14,6 +14,7 @@ except ImportError:
 
 from ai_radio_agent.agents import AGENT_ORDER, run_agent
 from ai_radio_agent.json_utils import write_json
+from ai_radio_agent.moment_profiles import get_moment_profile
 from ai_radio_agent.providers import get_provider
 from ai_radio_agent.schemas import BroadcastContext, DialoguePlan, PersonaNotes, QualityEvaluation, TTSExport
 
@@ -28,6 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", default=None, help="Where generated artifacts should be saved.")
     parser.add_argument("--topic", default="Why do some AI hosts sound like they really understand you?", help="User-facing episode topic.")
     parser.add_argument("--duration-minutes", type=int, default=2, help="Target episode duration in minutes.")
+    parser.add_argument("--moment", choices=["breakfast", "lunch", "dinner"], default="breakfast", help="Daily radio moment profile.")
     parser.add_argument("--user-profile", default="Yoli, a commuter interested in AI products, startups, and practical product logic.")
     parser.add_argument("--memory-context", default="Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.")
     return parser.parse_args()
@@ -40,6 +42,7 @@ def main() -> None:
         output_dir=Path(args.output_dir) if args.output_dir else None,
         topic=args.topic,
         duration_minutes=args.duration_minutes,
+        moment=args.moment,
         user_profile=args.user_profile,
         memory_context=args.memory_context,
     )
@@ -50,6 +53,7 @@ def run_pipeline(
     output_dir: Path | None = None,
     topic: str = "Why do some AI hosts sound like they really understand you?",
     duration_minutes: int = 2,
+    moment: str = "breakfast",
     user_profile: str = "Yoli, a commuter interested in AI products, startups, and practical product logic.",
     memory_context: str = "Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.",
 ) -> dict[str, Any]:
@@ -59,6 +63,7 @@ def run_pipeline(
     provider = get_provider(provider_name)
     target_dir = output_dir or Path(os.getenv("OUTPUT_DIR", "outputs"))
     target_dir.mkdir(parents=True, exist_ok=True)
+    moment_profile = get_moment_profile(moment)
 
     LOGGER.info("Running AI radio pipeline with provider=%s", provider.name)
     context: dict[str, Any] = {
@@ -68,19 +73,22 @@ def run_pipeline(
             "user_profile": user_profile,
             "memory_context": memory_context,
             "duration_minutes": duration_minutes,
+            "moment": moment_profile["moment"],
         },
+        "moment_profile_config": moment_profile,
         "target_episode": {
             "title": "Why do some AI hosts sound like they really understand you?",
-            "format_name": "Yoli's Morning Coffee",
-            "time": "8:00 AM",
-            "scene": "the listener is in a quiet kitchen preparing breakfast",
+            "format_name": moment_profile["format_name"],
+            "core_operation": moment_profile["core_operation"],
+            "time": moment_profile["time"],
+            "scene": moment_profile["scene"],
             "previous_memory": "yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products",
             "today_continuation": "continue the listener's previous question: why are AI companies competing for long-term memory?",
             "target_duration_seconds": f"{duration_minutes * 60}",
-            "audio_identity": (
-                "A soft personal morning radio ritual for breakfast at home: calm but not sleepy, personal but not creepy, "
-                "thoughtful but not academic, warm but not sentimental, clear but not over-explaining."
-            ),
+            "content_logic": moment_profile["content_logic"],
+            "research_policy": moment_profile["research_policy"],
+            "semantic_density": moment_profile["semantic_density"],
+            "audio_identity": moment_profile["audio_identity"],
         },
         "listener_experience_rule": (
             "The listener should hear a natural two-host radio conversation, not an explanation of the internal agent pipeline. "
@@ -221,7 +229,15 @@ def build_production_script(
     lines.extend(["", "## Quality Evaluation", ""])
     lines.append(f"- Score: {quality.score}/10")
     lines.append(f"- Dialogue liveliness score: {quality.dialogue_liveliness_score}/10")
+    lines.append(f"- Moment fit score: {quality.moment_fit_score}/10")
+    lines.append(f"- Content operation: {quality.content_operation}")
+    lines.append(f"- Memory use score: {quality.memory_use_score}/10")
+    lines.append(f"- Freshness relevance score: {quality.freshness_relevance_score}/10")
+    lines.append(f"- Semantic density: {quality.semantic_density}")
     lines.append(f"- Ready for TTS: {quality.ready_for_tts}")
+    if quality.risk_notes:
+        lines.extend(["", "### Risk Notes", ""])
+        lines.extend(f"- {note}" for note in quality.risk_notes)
     return "\n".join(lines).strip() + "\n"
 
 

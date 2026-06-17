@@ -671,12 +671,11 @@ def build_midday_texture_events(
         events.append(event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -29, "distant crosswalk cue", 2000, 300, 900))
     if boundary is not None:
         events.append(event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -24, "boundary thin bed", 8000, 700, 1200))
-    outro_start_segment = afternoon_takeaway or tabs_outro
+    outro_start_segment = tabs_outro or afternoon_takeaway
     if outro_start_segment is not None:
         outro_start_ms = max(0, voice_start_ms + outro_start_segment["start_ms"] - 250)
-        outro_duration_ms = max(2500, voice_start_ms + final_logo["end_ms"] + 1600 - outro_start_ms)
         events.append(
-            event(files["outro"], outro_start_ms, -24, "midday outro bed", outro_duration_ms, 1400, 2200)
+            event(files["outro"], outro_start_ms, -22, "midday outro bed", 8000, 900, 2600)
         )
     if tabs_outro is not None:
         events.append(event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -32, "outro single tab click", 500, 40, 300))

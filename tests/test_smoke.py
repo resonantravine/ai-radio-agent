@@ -105,6 +105,47 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
     assert timely_context["freshness_required"] is False
 
 
+def test_mock_lunch_pipeline_uses_midday_brief_sample(tmp_path: Path) -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    outputs_dir = tmp_path / "lunch_outputs"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "ai_radio_agent.run_pipeline",
+            "--mock",
+            "--moment",
+            "lunch",
+            "--output-dir",
+            str(outputs_dir),
+        ],
+        cwd=project_root,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
+
+    clean_tts = (outputs_dir / "tts_clean_single_voice.txt").read_text(encoding="utf-8")
+    assert "It's midday, Yoli. Quick brief for the lunch walk." in clean_tts
+    assert "memory as the new onboarding layer" in clean_tts
+    assert "lunch specials board" in clean_tts
+    assert "what should an AI remember because it helps you continue?" in clean_tts
+    assert "Good morning, Yoli." not in clean_tts
+
+    moment_profile = json.loads((outputs_dir / "00_moment_profile.json").read_text(encoding="utf-8"))
+    assert moment_profile["moment"] == "lunch"
+    assert moment_profile["core_operation"] == "compress"
+
+    timely_context = json.loads((outputs_dir / "02_timely_context.json").read_text(encoding="utf-8"))
+    assert timely_context["freshness_required"] is True
+
+    quality_eval = json.loads((outputs_dir / "09_quality_eval.json").read_text(encoding="utf-8"))
+    assert quality_eval["content_operation"] == "compress"
+    assert quality_eval["semantic_density"] == "medium"
+
+
 def test_elevenlabs_soft_voice_settings_can_be_overridden(monkeypatch) -> None:
     from ai_radio_agent.tts_elevenlabs import resolve_voice_settings
 

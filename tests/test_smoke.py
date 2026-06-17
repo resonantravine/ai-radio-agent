@@ -168,3 +168,42 @@ def test_elevenlabs_soft_voice_settings_can_be_overridden(monkeypatch) -> None:
     overridden = resolve_voice_settings("host_a")
     assert overridden["speed"] == 0.88
     assert overridden["use_speaker_boost"] is True
+
+
+def test_elevenlabs_segment_export_skips_existing_files(tmp_path: Path, monkeypatch) -> None:
+    from ai_radio_agent import tts_elevenlabs
+
+    segments_path = tmp_path / "tts_segments.json"
+    output_dir = tmp_path / "segments"
+    output_dir.mkdir()
+    existing = output_dir / "01_host_a.mp3"
+    existing.write_bytes(b"existing audio")
+    segments_path.write_text(
+        json.dumps(
+            {
+                "episode_title": "Resume test",
+                "segments": [
+                    {
+                        "speaker": "Host A",
+                        "voice_key": "host_a",
+                        "text": "Already generated.",
+                        "pause_after_ms": 300,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    def fail_if_called(**_: object) -> None:
+        raise AssertionError("Existing segment should not be regenerated")
+
+    monkeypatch.setattr(tts_elevenlabs, "export_elevenlabs_audio", fail_if_called)
+    tts_elevenlabs.export_segments(
+        segments_path=segments_path,
+        output_dir=output_dir,
+        model_id="test-model",
+        output_format="mp3_44100_128",
+    )
+
+    assert existing.read_bytes() == b"existing audio"

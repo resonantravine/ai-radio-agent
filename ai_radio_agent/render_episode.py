@@ -643,6 +643,7 @@ def build_midday_texture_events(
     boundary = find_optional_segment_by_text(segments, "That sounds useful. Also")
     afternoon_takeaway = find_optional_segment_by_text(segments, "So this afternoon")
     tabs_outro = find_optional_segment_by_text(segments, "Take that one with you")
+    literally_line = find_optional_segment_by_text(segments, "Emotionally, or literally.")
     final_logo = segments[-1]
 
     events: list[dict[str, Any]] = []
@@ -666,9 +667,9 @@ def build_midday_texture_events(
         events.append(event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -29, "distant crosswalk cue", 2000, 300, 900))
     if boundary is not None:
         events.append(event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -24, "boundary thin bed", 8000, 700, 1200))
-    outro_start_segment = tabs_outro or afternoon_takeaway
+    outro_start_segment = literally_line or tabs_outro or afternoon_takeaway
     if outro_start_segment is not None:
-        outro_start_ms = max(0, voice_start_ms + outro_start_segment["start_ms"] - 250)
+        outro_start_ms = max(0, voice_start_ms + outro_start_segment["end_ms"] + 120)
         events.append(
             event(files["outro"], outro_start_ms, -22, "midday outro bed", 8000, 900, 2600)
         )

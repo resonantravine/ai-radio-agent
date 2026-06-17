@@ -388,13 +388,6 @@ def _mock_script_outline(prompt: str) -> dict[str, Any] | None:
 def _mock_dialogue_plan(prompt: str) -> dict[str, Any] | None:
     if _detect_moment(prompt) != "lunch":
         return None
-    turn_types = [
-        "example", "clarification", "callback", "clarification", "question", "clarification",
-        "callback", "clarification", "challenge", "clarification", "question", "example",
-        "question", "example", "callback", "clarification", "callback", "clarification",
-        "callback", "clarification", "question", "clarification", "callback", "ending",
-        "callback", "ending", "ending", "ending", "ending",
-    ]
     tones = {
         "Host A": "warm, practical, lightly brisk",
         "Host B": "calm, clear, concise",
@@ -407,11 +400,27 @@ def _mock_dialogue_plan(prompt: str) -> dict[str, Any] | None:
                 "conversational_function": _lunch_turn_function(index, line["line"]),
                 "emotional_tone": tones[line["host"]],
                 "responds_to": "previous turn or lunch moment context",
-                "turn_type": turn_types[index] if index < len(turn_types) else "ending",
+                "turn_type": _lunch_turn_type(index, line["line"], len(LUNCH_LINES)),
             }
             for index, line in enumerate(LUNCH_LINES)
         ],
     }
+
+
+def _lunch_turn_type(index: int, line: str, total: int) -> str:
+    if index >= total - 4:
+        return "ending"
+    if "isn't this just another recommendation" in line.lower():
+        return "challenge"
+    if "?" in line:
+        return "question"
+    if any(marker in line.lower() for marker in ["lunch specials board", "noodle person", "ten minutes"]):
+        return "example"
+    if any(marker in line.lower() for marker in ["yesterday", "where we left off", "that's the part", "race is not"]):
+        return "callback"
+    if index < 3:
+        return "example"
+    return "clarification"
 
 
 def _lunch_turn_function(index: int, line: str) -> str:

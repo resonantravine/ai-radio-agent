@@ -459,6 +459,8 @@ This writes one mp3 per dialogue segment to:
 outputs/elevenlabs_segments/
 ```
 
+Segment export is resumable by default. If the command stops because of quota or network issues, rerun the same command later and existing non-empty segment files will be skipped. Use `--overwrite-segments` only when you intentionally want to regenerate every clip.
+
 See `outputs/tts_elevenlabs_ready.md` after running the pipeline. If ElevenLabs is unavailable or no API key is configured, the main agent pipeline still works.
 
 ### Render Final Episode

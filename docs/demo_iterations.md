@@ -22,7 +22,7 @@ Suggested release asset names:
 | 2. Dialogue liveliness pass | `02_dialogue_liveliness.mp3` | Better host interaction, more lived reaction, stronger metaphor, and clearer memory continuity. |
 | 3. Soft morning identity | `03_morning_coffee_intro.mp3` | The show becomes **Yoli's Morning Coffee**, with a personal greeting and soft intro bed. |
 | 4. Final live texture mix | `04_final_live_texture_mix.mp3` | Final portfolio sample: breakfast-at-home scene, dual voices, intro/outro music, subtle kitchen texture, and a more live radio feel. |
-| 5. Audio-reactive video card | `04_final_live_texture_mix_npr_style_v2.mp4` | Portfolio-friendly visual entry point with a clean editorial audio visualizer. |
+| 5. Audio-reactive video card | `ai-radio-agent-demo.mp4` | Portfolio-friendly visual entry point with a clean editorial audio visualizer. |
 
 ## Daily Radio Roadmap
 

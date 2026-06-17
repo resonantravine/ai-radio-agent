@@ -250,17 +250,17 @@ def build_delivery_note(host: str, persona: PersonaNotes, turn: Any) -> str:
 
 def pause_for_turn(turn: Any, index: int, total: int) -> int:
     if index == total - 1:
-        return 1300
+        return 900
     if turn is None:
-        return 450
+        return 320
     return {
-        "question": 650,
-        "example": 450,
-        "challenge": 700,
-        "clarification": 320,
-        "callback": 550,
-        "ending": 1200,
-    }.get(turn.turn_type, 450)
+        "question": 520,
+        "example": 340,
+        "challenge": 560,
+        "clarification": 260,
+        "callback": 380,
+        "ending": 420,
+    }.get(turn.turn_type, 320)
 
 
 def build_elevenlabs_ready_doc(*, title: str, segments: list[dict[str, Any]]) -> str:

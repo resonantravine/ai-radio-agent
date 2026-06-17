@@ -639,10 +639,10 @@ def build_midday_texture_events(
 
     first_line = find_segment_by_text(segments, "It's Yoli's Midday Brief")
     main_start = find_segment_by_text(segments, "It's midday, Yoli.")
-    lunch_board = find_segment_by_text(segments, "A recommendation system is like the lunch specials board")
-    crosswalk = find_segment_by_text(segments, "Okay, give me the lunch-walk version")
-    boundary = find_segment_by_text(segments, "That sounds useful. Also")
-    tabs_outro = find_segment_by_text(segments, "Take that one with you")
+    lunch_board = find_optional_segment_by_text(segments, "A recommendation system is like the lunch specials board")
+    crosswalk = find_optional_segment_by_text(segments, "Okay, give me the lunch-walk version")
+    boundary = find_optional_segment_by_text(segments, "That sounds useful. Also")
+    tabs_outro = find_optional_segment_by_text(segments, "Take that one with you")
     final_logo = segments[-1]
 
     events: list[dict[str, Any]] = []
@@ -653,7 +653,7 @@ def build_midday_texture_events(
 
     # Low main BGM loops under the body of the brief.
     main_bgm_start = voice_start_ms + main_start["start_ms"] - 250
-    body_end = voice_start_ms + boundary["start_ms"]
+    body_end = voice_start_ms + (boundary or final_logo)["start_ms"]
     loop_start = max(0, main_bgm_start)
     while loop_start < body_end + 12000:
         events.append(event(files["main_bgm"], loop_start, -28, "midday main BGM loop", 32000, 700, 1200))
@@ -662,14 +662,22 @@ def build_midday_texture_events(
     events.extend(
         [
             event(files["tabs"], voice_start_ms + first_line["start_ms"] + 4200, -20, "intro tab closing clicks", 1200, 50, 400),
-            event(files["lunch_board"], voice_start_ms + lunch_board["start_ms"] - 450, -23, "lunch specials board cue", 1800, 120, 500),
-            event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -29, "distant crosswalk cue", 2000, 300, 900),
-            event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -24, "boundary thin bed", 8000, 700, 1200),
-            event(files["outro"], voice_start_ms + tabs_outro["start_ms"] - 150, -24, "midday outro bed", 12000, 1400, 3500),
-            event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -30, "outro single tab click", 650, 40, 350),
-            event(files["outro_logo"], voice_start_ms + final_logo["end_ms"] + 500, -24, "midday sonic logo outro", 3000, 250, 1500),
         ]
     )
+    if lunch_board is not None:
+        events.append(event(files["lunch_board"], voice_start_ms + lunch_board["start_ms"] - 450, -23, "lunch specials board cue", 1800, 120, 500))
+    if crosswalk is not None:
+        events.append(event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -29, "distant crosswalk cue", 2000, 300, 900))
+    if boundary is not None:
+        events.append(event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -24, "boundary thin bed", 8000, 700, 1200))
+    if tabs_outro is not None:
+        events.extend(
+            [
+                event(files["outro"], voice_start_ms + tabs_outro["start_ms"] - 150, -24, "midday outro bed", 12000, 1400, 3500),
+                event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -30, "outro single tab click", 650, 40, 350),
+            ]
+        )
+    events.append(event(files["outro_logo"], voice_start_ms + final_logo["end_ms"] + 500, -24, "midday sonic logo outro", 3000, 250, 1500))
     return events
 
 
@@ -698,6 +706,13 @@ def find_segment_by_text(segments: list[dict[str, Any]], text_start: str) -> dic
         if str(segment.get("text", "")).startswith(text_start):
             return segment
     raise RuntimeError(f"Could not find segment starting with: {text_start}")
+
+
+def find_optional_segment_by_text(segments: list[dict[str, Any]], text_start: str) -> dict[str, Any] | None:
+    for segment in segments:
+        if str(segment.get("text", "")).startswith(text_start):
+            return segment
+    return None
 
 
 def get_audio_duration_ms(path: Path) -> int:

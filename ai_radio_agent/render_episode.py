@@ -650,25 +650,25 @@ def build_midday_texture_events(
 
     # Very low ambience loops to keep the walk space alive without becoming foreground.
     for start in range(0, max(voice_start_ms + final_logo["end_ms"] + 2000, 45000), 43000):
-        events.append(event(files["ambience"], start, -27, "midday lunch-walk ambience", 45000, 1200, 1800))
+        events.append(event(files["ambience"], start, -31, "midday lunch-walk ambience", 45000, 1200, 1800))
 
     # Low main BGM loops under the body of the brief.
     main_bgm_start = voice_start_ms + main_start["start_ms"] - 250
     body_end = voice_start_ms + boundary["start_ms"]
     loop_start = max(0, main_bgm_start)
     while loop_start < body_end + 12000:
-        events.append(event(files["main_bgm"], loop_start, -24, "midday main BGM loop", 32000, 700, 1200))
+        events.append(event(files["main_bgm"], loop_start, -28, "midday main BGM loop", 32000, 700, 1200))
         loop_start += 30000
 
     events.extend(
         [
-            event(files["tabs"], voice_start_ms + first_line["start_ms"] + 4200, -17, "intro tab closing clicks", 1200, 50, 400),
-            event(files["lunch_board"], voice_start_ms + lunch_board["start_ms"] - 450, -20, "lunch specials board cue", 1800, 120, 500),
-            event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -25, "distant crosswalk cue", 2000, 300, 900),
-            event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -20, "boundary thin bed", 8000, 700, 1200),
-            event(files["outro"], voice_start_ms + outro["start_ms"] - 300, -14, "midday outro bed", 12000, 1200, 3000),
-            event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -21, "outro single tab click", 650, 40, 350),
-            event(files["outro_logo"], voice_start_ms + final_logo["end_ms"] - 200, -11, "midday sonic logo outro", 3000, 200, 1200),
+            event(files["tabs"], voice_start_ms + first_line["start_ms"] + 4200, -20, "intro tab closing clicks", 1200, 50, 400),
+            event(files["lunch_board"], voice_start_ms + lunch_board["start_ms"] - 450, -23, "lunch specials board cue", 1800, 120, 500),
+            event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -29, "distant crosswalk cue", 2000, 300, 900),
+            event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -24, "boundary thin bed", 8000, 700, 1200),
+            event(files["outro"], voice_start_ms + outro["start_ms"] - 300, -18, "midday outro bed", 12000, 1200, 3000),
+            event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -24, "outro single tab click", 650, 40, 350),
+            event(files["outro_logo"], voice_start_ms + final_logo["end_ms"] - 200, -16, "midday sonic logo outro", 3000, 200, 1200),
         ]
     )
     return events

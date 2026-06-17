@@ -30,8 +30,40 @@ class MockProvider(LLMProvider):
             return json.dumps(_mock_timely_context(prompt), ensure_ascii=False)
         if agent_name == "episode_brief_agent":
             return json.dumps(_mock_episode_brief(prompt), ensure_ascii=False)
+        if agent_name == "segment_planner_agent":
+            response = _mock_segment_plan(prompt)
+            if response is not None:
+                return json.dumps(response, ensure_ascii=False)
+        if agent_name == "topic_planner":
+            response = _mock_topic_plan(prompt)
+            if response is not None:
+                return json.dumps(response, ensure_ascii=False)
+        if agent_name == "broadcast_context_agent":
+            response = _mock_broadcast_context(prompt)
+            if response is not None:
+                return json.dumps(response, ensure_ascii=False)
+        if agent_name == "script_outliner":
+            response = _mock_script_outline(prompt)
+            if response is not None:
+                return json.dumps(response, ensure_ascii=False)
+        if agent_name == "dialogue_planner_agent":
+            response = _mock_dialogue_plan(prompt)
+            if response is not None:
+                return json.dumps(response, ensure_ascii=False)
+        if agent_name == "dual_host_dialogue_writer":
+            response = _mock_dialogue_script(prompt)
+            if response is not None:
+                return json.dumps(response, ensure_ascii=False)
+        if agent_name == "persona_agent":
+            response = _mock_persona_notes(prompt)
+            if response is not None:
+                return json.dumps(response, ensure_ascii=False)
         if agent_name == "quality_evaluator":
             return json.dumps(_mock_quality_evaluation(prompt), ensure_ascii=False)
+        if agent_name == "tts_export":
+            response = _mock_tts_export(prompt)
+            if response is not None:
+                return json.dumps(response, ensure_ascii=False)
         data = MOCK_RESPONSES[agent_name]
         return json.dumps(data, ensure_ascii=False)
 
@@ -228,6 +260,225 @@ def _mock_quality_evaluation(prompt: str) -> dict[str, Any]:
         "strengths": ["Specific remembered detail", "Host A lived reaction", "Host B metaphor", "Moment-aware editorial logic"],
         "improvements": ["Future versions can generate separate polished mock scripts for lunch and dinner audio demos."],
         "ready_for_tts": True,
+    }
+
+
+LUNCH_LINES = [
+    {"host": "Host A", "line": "It's midday, Yoli. Quick brief for the lunch walk."},
+    {"host": "Host B", "line": "Today's thread: why AI companies are racing toward long-term memory."},
+    {"host": "Host A", "line": "Right. Yesterday we heard that line from an AI startup founder: memory as the new onboarding layer."},
+    {"host": "Host B", "line": "Exactly. And that phrase matters because memory is moving closer to the front door of AI products."},
+    {"host": "Host A", "line": "Meaning?"},
+    {"host": "Host B", "line": "Meaning the product does not want to ask you to start over every time."},
+    {"host": "Host A", "line": "That is honestly the part I feel during the day. At lunch, I do not want to explain myself again. I just want to pick up where I left off."},
+    {"host": "Host B", "line": "That is the why now. AI tools are becoming more everyday. Writing, search, work notes, voice assistants, personal radio: they all get more useful if they remember the thread."},
+    {"host": "Host A", "line": "But isn't this just another recommendation system?"},
+    {"host": "Host B", "line": "Close, but not quite."},
+    {"host": "Host A", "line": "Okay, give me the lunch-walk version."},
+    {"host": "Host B", "line": "A recommendation system is like the lunch specials board. It says, people like you might want this."},
+    {"host": "Host A", "line": "And memory?"},
+    {"host": "Host B", "line": "Memory is more like someone remembering you only have ten minutes, you skipped coffee, and yesterday you were still thinking about one question."},
+    {"host": "Host A", "line": "So recommendation guesses what I might click."},
+    {"host": "Host B", "line": "Yes. Memory helps the product understand what you are continuing."},
+    {"host": "Host A", "line": "That sounds useful. Also slightly uncomfortable."},
+    {"host": "Host B", "line": "That's the real tension."},
+    {"host": "Host A", "line": "Because if it remembers well, it saves time."},
+    {"host": "Host B", "line": "And if it remembers too much, it starts to shape the path before you notice."},
+    {"host": "Host A", "line": "So what happens if memory starts shaping too much of what I hear?"},
+    {"host": "Host B", "line": "Then it needs limits. Good memory should be visible. You should be able to see what it kept, change it, pause it, or delete it."},
+    {"host": "Host A", "line": "So the race is not just who remembers more."},
+    {"host": "Host B", "line": "Right. It is who remembers with the most restraint."},
+    {"host": "Host A", "line": "That is a better way to hold it."},
+    {"host": "Host B", "line": "For this afternoon, the useful question is simple: what should an AI remember because it helps you continue?"},
+    {"host": "Host A", "line": "And what should it forget, so you still feel free?"},
+    {"host": "Host B", "line": "That's your Midday Brief."},
+    {"host": "Host A", "line": "Take that one back into the afternoon."},
+]
+
+
+def _mock_segment_plan(prompt: str) -> dict[str, Any] | None:
+    if _detect_moment(prompt) != "lunch":
+        return None
+    return {
+        "episode_duration_minutes": 2,
+        "segments": [
+            {
+                "name": "Midday framing",
+                "target_duration_sec": 25,
+                "goal": "Start quickly and connect yesterday's memory phrase to today's lunch brief.",
+                "listener_value": "Yoli immediately knows why this brief matters now.",
+            },
+            {
+                "name": "Why now",
+                "target_duration_sec": 30,
+                "goal": "Compress why long-term memory matters as AI tools become everyday companions.",
+                "listener_value": "The listener gets a useful midday explanation without a long setup.",
+            },
+            {
+                "name": "Recommendation versus memory",
+                "target_duration_sec": 35,
+                "goal": "Use a concrete lunch metaphor to separate recommendation from memory.",
+                "listener_value": "The distinction becomes memorable and easy to repeat.",
+            },
+            {
+                "name": "Boundary and afternoon takeaway",
+                "target_duration_sec": 30,
+                "goal": "Name the discomfort boundary and close with a practical afternoon question.",
+                "listener_value": "The listener leaves with a clear frame: useful memory requires restraint.",
+            },
+        ],
+    }
+
+
+def _mock_topic_plan(prompt: str) -> dict[str, Any] | None:
+    if _detect_moment(prompt) != "lunch":
+        return None
+    return {
+        "title": "Yoli's Midday Brief: Why AI memory matters now",
+        "angle": "Compress yesterday's AI startup memory thread into a short lunch-walk distinction between recommendation and long-term memory.",
+        "segments": [
+            "Quick midday opening",
+            "Why memory matters now for everyday AI tools",
+            "Lunch specials board metaphor for recommendation versus memory",
+            "Visible, editable, pausable, deletable memory",
+            "Afternoon framing question",
+        ],
+        "target_takeaway": "The race is not just who remembers more; it is who remembers with the most restraint.",
+    }
+
+
+def _mock_broadcast_context(prompt: str) -> dict[str, Any] | None:
+    if _detect_moment(prompt) != "lunch":
+        return None
+    return {
+        "time": "12:30 PM",
+        "scene": "Yoli is busy, between tasks, wearing earbuds during lunch or a short walk.",
+        "previous_memory": "Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.",
+        "today_continuation": "Today's brief compresses that memory question into why AI companies are racing toward long-term memory now.",
+        "listener_mood": "busy, practical, wants useful clarity without a long setup",
+        "opening_frame": "It's midday, Yoli. Quick brief for the lunch walk.",
+    }
+
+
+def _mock_script_outline(prompt: str) -> dict[str, Any] | None:
+    if _detect_moment(prompt) != "lunch":
+        return None
+    return {
+        "intro": "Open quickly with midday energy and recall the phrase memory as the new onboarding layer.",
+        "beats": [
+            "Name the lunch brief topic: why AI companies are racing toward long-term memory.",
+            "Connect the previous memory to today's why-now question.",
+            "Give Host A a lived midday reaction: not wanting to explain herself again.",
+            "Use the lunch specials board metaphor to separate recommendation from memory.",
+            "Ask the boundary question about memory shaping too much of what the listener hears.",
+            "Answer with visible, editable, pausable, deletable memory.",
+            "Close with one practical afternoon framing question.",
+        ],
+        "transition_notes": ["Keep turns short and useful.", "Use slightly longer pauses after the challenge, boundary question, and final takeaway."],
+        "outro": "Close cleanly with the Midday Brief identity and a light return to the afternoon.",
+    }
+
+
+def _mock_dialogue_plan(prompt: str) -> dict[str, Any] | None:
+    if _detect_moment(prompt) != "lunch":
+        return None
+    turn_types = [
+        "example", "clarification", "callback", "clarification", "question", "clarification",
+        "callback", "clarification", "challenge", "clarification", "question", "example",
+        "question", "example", "callback", "clarification", "callback", "clarification",
+        "callback", "clarification", "question", "clarification", "callback", "ending",
+        "callback", "ending", "ending", "ending", "ending",
+    ]
+    tones = {
+        "Host A": "warm, practical, lightly brisk",
+        "Host B": "calm, clear, concise",
+    }
+    return {
+        "episode_title": "Yoli's Midday Brief: Why AI memory matters now",
+        "turns": [
+            {
+                "speaker": line["host"],
+                "conversational_function": _lunch_turn_function(index, line["line"]),
+                "emotional_tone": tones[line["host"]],
+                "responds_to": "previous turn or lunch moment context",
+                "turn_type": turn_types[index],
+            }
+            for index, line in enumerate(LUNCH_LINES)
+        ],
+    }
+
+
+def _lunch_turn_function(index: int, line: str) -> str:
+    functions = [
+        "open with a quick lunch-walk greeting",
+        "name today's compressed thread",
+        "recall the specific remembered detail from yesterday",
+        "explain why the remembered phrase matters",
+        "invite a plain-language explanation",
+        "answer with the start-over problem",
+        "express lived midday friction",
+        "explain why memory matters now for everyday AI tools",
+        "raise the recommendation challenge",
+        "acknowledge the overlap without flattening the distinction",
+        "ask for the compressed version",
+        "introduce the lunch specials board metaphor",
+        "prompt the memory side of the metaphor",
+        "make memory concrete in the listener's day",
+        "check understanding",
+        "state the distinction",
+        "name the usefulness and discomfort",
+        "confirm the central tension",
+        "explain the time-saving upside",
+        "explain the shaping-risk downside",
+        "ask the boundary question",
+        "answer with user control",
+        "summarize the race as restraint, not volume",
+        "land the main takeaway",
+        "reflect the takeaway",
+        "give the afternoon framing question",
+        "add the freedom-side question",
+        "close the show identity",
+        "return the listener to the afternoon",
+    ]
+    return functions[index] if index < len(functions) else line[:80]
+
+
+def _mock_dialogue_script(prompt: str) -> dict[str, Any] | None:
+    if _detect_moment(prompt) != "lunch":
+        return None
+    return {
+        "title": "Yoli's Midday Brief: Why AI memory matters now",
+        "lines": LUNCH_LINES,
+    }
+
+
+def _mock_persona_notes(prompt: str) -> dict[str, Any] | None:
+    if _detect_moment(prompt) != "lunch":
+        return None
+    return {
+        "host_a_persona": "Warm, practical lunch-walk companion who represents Yoli's lived midday friction.",
+        "host_b_persona": "Calm, concise explainer who compresses product logic into everyday language.",
+        "style_rules": [
+            "Start quickly, but not anxiously.",
+            "Keep turns shorter than breakfast.",
+            "Explain why this matters now.",
+            "Avoid generic tech news voice.",
+            "Keep the recommendation-versus-memory distinction concrete.",
+        ],
+        "revised_lines": LUNCH_LINES,
+    }
+
+
+def _mock_tts_export(prompt: str) -> dict[str, Any] | None:
+    if _detect_moment(prompt) != "lunch":
+        return None
+    return {
+        "episode_title": "Yoli's Midday Brief: Why AI memory matters now",
+        "tts_text": "\n\n".join(line["line"] for line in LUNCH_LINES),
+        "voice_notes": [
+            "Host A should sound warm, practical, and lightly brisk, like someone walking with the listener during lunch.",
+            "Host B should sound calm, concise, and grounded, with no lecture tone.",
+        ],
     }
 
 

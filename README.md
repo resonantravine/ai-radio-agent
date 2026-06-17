@@ -495,6 +495,25 @@ python -m ai_radio_agent.render_episode \
 
 Live texture effects are mixed very quietly behind the voices. They are intended to prevent digital black silence and create a light breakfast-at-home space, not to become foreground ASMR or a kitchen soundscape.
 
+Optional midday brief music and walking texture mix:
+
+```bash
+mkdir -p outputs/audio_assets/yoli_midday_sound_pack
+unzip -o /path/to/yoli_midday_sound_pack_mp3.zip \
+  -d outputs/audio_assets/yoli_midday_sound_pack
+
+python -m ai_radio_agent.render_episode \
+  --segments outputs/tts_segments.json \
+  --audio-dir outputs/elevenlabs_segments \
+  --output outputs/final_ai_radio_episode_lunch_texture.mp3 \
+  --intro-audio outputs/audio_assets/yoli_midday_sound_pack/yoli_midday_intro_bed_10s.mp3 \
+  --voice-start-ms 1500 \
+  --intro-total-ms 10000 \
+  --midday-sfx-dir outputs/audio_assets/yoli_midday_sound_pack
+```
+
+The midday mix uses a very low main bed, lunch-walk ambience, a soft tab-closing cue, a lunch specials board cue, a distant crosswalk cue, a thinner boundary texture, and a short outro logo. These sounds are post-render layers and never appear in `tts_segments.json`.
+
 Optional WAV export:
 
 ```bash

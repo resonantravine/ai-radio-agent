@@ -28,13 +28,21 @@ Suggested release asset names:
 
 The breakfast sample is the first episode format in a broader personal radio concept designed for earbuds:
 
-| Moment | Show Format | Product Purpose |
-| --- | --- | --- |
-| Breakfast | **Yoli's Morning Coffee** | Start the day by continuing yesterday's unfinished question. |
-| Lunch | **Yoli's Midday Brief** | Compress useful updates into a short, clear break-time listen. |
-| Dinner | **Yoli's Evening Reset** | Slow down, connect the day's ideas, and end with a softer reflection. |
+| Moment | Show Format | Core Operation | Product Purpose |
+| --- | --- | --- | --- |
+| Breakfast | **Yoli's Morning Coffee** | Continue | Start the day by continuing yesterday's unfinished question. |
+| Lunch | **Yoli's Midday Brief** | Compress | Filter timely context into a short, clear "why now" listen. |
+| Dinner | **Yoli's Evening Reset** | Transform | Turn the day's idea into a story, future image, or reflective closure. |
 
-All three formats can reuse the same internal pipeline: listener context, memory, recommendation, segment planning, dialogue planning, TTS segmentation, audio rendering, and post-render fidelity checks.
+All three formats can reuse the same internal pipeline: listener context, moment profile, memory, recommendation, timely context when needed, segment planning, dialogue planning, TTS segmentation, audio rendering, and post-render fidelity checks.
+
+The important design point is that these are not only three moods. They are three editorial operations:
+
+```text
+Breakfast = continue
+Lunch     = compress + update
+Dinner    = transform
+```
 
 ## Iteration Story
 
@@ -101,7 +109,9 @@ These sounds are not part of the spoken script and are not sent to TTS. They are
 This demo shows that AI audio products are not only about text generation or voice synthesis. A good audio agent pipeline needs several controllable layers:
 
 - **Content planning:** What should this listener hear today?
+- **Moment fit:** Should this episode continue, compress, or transform the listener's current thread?
 - **Memory continuity:** What unfinished thread should the show continue?
+- **Freshness discipline:** Does the episode need timely context, and if so, is it relevant and source-backed?
 - **Dialogue planning:** How do two hosts respond to each other naturally?
 - **Persona control:** What should each host feel like across episodes?
 - **TTS segmentation:** What should be sent to each voice, and what should never be read aloud?

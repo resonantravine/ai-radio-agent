@@ -32,11 +32,25 @@ Audio-only version: [04_final_live_texture_mix.mp3](https://github.com/resonantr
 
 This prototype is designed as a reusable personal radio pipeline, not a one-off podcast script generator. The same agent workflow can generate different short episodes for different moments of the day, optimized for earbuds and low-friction listening.
 
-| Moment | Demo Concept | Listening Context | Content Role |
-| --- | --- | --- | --- |
-| Breakfast | **Yoli's Morning Coffee** | kitchen, coffee, first earbuds session of the day | reconnect with yesterday's unfinished question and offer one useful thread |
-| Lunch | **Yoli's Midday Brief** | short walk, lunch break, between tasks | compress useful updates and explain why they matter now |
-| Dinner | **Yoli's Evening Reset** | cooking, dishes, low-energy reflection | slow down, connect the day's ideas, and prepare a softer ending |
+The daily editorial system is built around three content operations:
+
+```text
+Breakfast = continue
+Lunch     = compress + update
+Dinner    = transform
+```
+
+| Moment | Core Operation | Content Source | Listener State | Output Feeling |
+| --- | --- | --- | --- | --- |
+| Breakfast | **Continue** | memory + yesterday's thread | half-awake, beginning the day | gentle continuity |
+| Lunch | **Compress** | current context + relevant updates | busy, between tasks | useful clarity |
+| Dinner | **Transform** | story + reflection + future image | low-energy, ending the day | soft closure |
+
+The three planned formats are:
+
+- **Yoli's Morning Coffee:** pick up one unfinished thread from yesterday.
+- **Yoli's Midday Brief:** compress timely context into why it matters now.
+- **Yoli's Evening Reset:** turn the day's idea into a story, future image, or reflective closing question.
 
 The current release implements the breakfast demo. Lunch and dinner are planned as follow-up samples using the same internal artifacts: episode brief, segment plan, dialogue plan, TTS segments, audio rendering, ASR transcript, and audio fidelity report.
 
@@ -104,9 +118,11 @@ The current dialogue prompts intentionally optimize for radio liveliness, not ju
 ## How The Pipeline Works
 
 ```text
-User Preference Agent
+User Episode Input
+→ Moment Profile Agent
 → Memory Agent
 → Recommendation Agent
+→ Timely Context Agent, only for lunch or freshness-required topics
 → Episode Brief Agent
 → Segment Planner Agent
 → Topic Planner
@@ -123,17 +139,20 @@ User Preference Agent
 
 ```mermaid
 flowchart TD
-    A["User-facing input<br/>topic, profile, memory, duration"] --> B["Preference + Memory Agents"]
-    B --> C["Recommendation + Topic Planner"]
-    C --> D["Research + Fact Check"]
-    D --> E["Broadcast Context<br/>Yoli's Morning Coffee"]
-    E --> F["Dialogue Planner<br/>turn-by-turn conversation plan"]
-    F --> G["Dialogue Writer + Persona Polish"]
-    G --> H["Quality Evaluation<br/>dialogue_liveliness_score"]
-    H --> I["TTS Segment Export<br/>clean speaker/text/pause JSON"]
-    I --> J["ElevenLabs Segment Generation"]
-    J --> K["Episode Renderer<br/>pauses, loudness, intro/outro, live texture"]
-    K --> L["final_ai_radio_episode.mp3"]
+    A["User-facing input<br/>topic, profile, memory, duration, moment"] --> B["Moment Profile Agent<br/>continue, compress, or transform"]
+    B --> C["Memory + Preference Agents"]
+    C --> D["Recommendation Agent"]
+    D --> E["Timely Context Agent<br/>lunch or freshness-required topics"]
+    E --> F["Episode Brief + Segment Planner"]
+    F --> G["Research + Fact Check"]
+    G --> H["Broadcast Context"]
+    H --> I["Dialogue Planner<br/>turn-by-turn conversation plan"]
+    I --> J["Dialogue Writer + Persona Polish"]
+    J --> K["Quality Evaluation<br/>liveliness + moment fit"]
+    K --> L["TTS Segment Export<br/>clean speaker/text/pause JSON"]
+    L --> M["ElevenLabs Segment Generation"]
+    M --> N["Episode Renderer<br/>pauses, loudness, intro/outro, live texture"]
+    N --> O["final_ai_radio_episode.mp3"]
 ```
 
 Each agent produces a small JSON artifact in `outputs/`, so the workflow is easy to inspect, debug, and explain in an interview.
@@ -212,13 +231,19 @@ python -m ai_radio_agent.run_pipeline --mock
 You can also pass the user-facing product inputs directly:
 
 ```bash
-python -m ai_radio_agent.run_pipeline --mock --topic "Why do some AI hosts sound like they really understand you?" --duration-minutes 2
+python -m ai_radio_agent.run_pipeline --mock \
+  --moment breakfast \
+  --topic "Why do some AI hosts sound like they really understand you?" \
+  --duration-minutes 2
 ```
+
+Use `--moment lunch` or `--moment dinner` to test the same pipeline with a different editorial operation. Mock mode keeps these runs deterministic; live providers can generate fuller scripts for each moment.
 
 Main outputs:
 
 ```text
 outputs/production_script.md
+outputs/00_moment_profile.json
 outputs/episode_brief.json
 outputs/segment_plan.json
 outputs/tts_segments.json
@@ -247,12 +272,14 @@ Structured artifacts:
 ```text
 outputs/00_user_preference.json
 outputs/00_user_episode_input.json
+outputs/00_moment_profile.json
 outputs/00_memory_state.json
 outputs/00_recommendation.json
 outputs/episode_brief.json
 outputs/segment_plan.json
 outputs/01_topic_plan.json
 outputs/02_broadcast_context.json
+outputs/02_timely_context.json
 outputs/03_research_brief.json
 outputs/04_fact_check.json
 outputs/05_script_outline.json
@@ -328,6 +355,17 @@ The runner also:
 This makes model failures visible instead of mysterious.
 
 The quality evaluator includes `dialogue_liveliness_score`, which asks whether the episode feels like two hosts responding to each other, with some tension, clarification, and lived movement, instead of two voices reading adjacent paragraphs.
+
+It also includes moment-specific evaluation fields:
+
+- `moment_fit_score`
+- `content_operation`
+- `memory_use_score`
+- `freshness_relevance_score`
+- `semantic_density`
+- `risk_notes`
+
+These fields make Breakfast, Lunch, and Dinner evaluable as different editorial modes rather than different surface tones.
 
 ## TTS Is Optional
 
@@ -554,6 +592,7 @@ The smoke test runs the full mock pipeline and verifies that the expected output
 ```text
 ai_radio_agent/
   agents.py        # agent order, prompts, validation, retry, debug logging
+  moment_profiles.py # breakfast/lunch/dinner editorial profiles
   providers.py     # LLMProvider, MockProvider, OpenAIProvider, GeminiProvider
   schemas.py       # Pydantic schemas for all agent artifacts
   json_utils.py    # robust JSON extraction helpers

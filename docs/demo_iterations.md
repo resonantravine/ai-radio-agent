@@ -22,6 +22,19 @@ Suggested release asset names:
 | 2. Dialogue liveliness pass | `02_dialogue_liveliness.mp3` | Better host interaction, more lived reaction, stronger metaphor, and clearer memory continuity. |
 | 3. Soft morning identity | `03_morning_coffee_intro.mp3` | The show becomes **Yoli's Morning Coffee**, with a personal greeting and soft intro bed. |
 | 4. Final live texture mix | `04_final_live_texture_mix.mp3` | Final portfolio sample: breakfast-at-home scene, dual voices, intro/outro music, subtle kitchen texture, and a more live radio feel. |
+| 5. Audio-reactive video card | `04_final_live_texture_mix_npr_style_v2.mp4` | Portfolio-friendly visual entry point with a clean editorial audio visualizer. |
+
+## Daily Radio Roadmap
+
+The breakfast sample is the first episode format in a broader personal radio concept designed for earbuds:
+
+| Moment | Show Format | Product Purpose |
+| --- | --- | --- |
+| Breakfast | **Yoli's Morning Coffee** | Start the day by continuing yesterday's unfinished question. |
+| Lunch | **Yoli's Midday Brief** | Compress useful updates into a short, clear break-time listen. |
+| Dinner | **Yoli's Evening Reset** | Slow down, connect the day's ideas, and end with a softer reflection. |
+
+All three formats can reuse the same internal pipeline: listener context, memory, recommendation, segment planning, dialogue planning, TTS segmentation, audio rendering, and post-render fidelity checks.
 
 ## Iteration Story
 
@@ -105,7 +118,7 @@ Before publishing:
 2. Generate the final ElevenLabs segments if needed.
 3. Render the final live texture episode.
 4. Create a GitHub Release named `AI Radio Agent Demo Audio`.
-5. Upload the 3-4 selected mp3 files as release assets.
+5. Upload the selected mp3 and mp4 files as release assets.
 6. Add the release URL to the README demo section.
 
 Useful local commands:

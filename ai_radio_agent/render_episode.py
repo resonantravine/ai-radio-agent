@@ -27,6 +27,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--voice-start-ms", type=int, default=3000, help="When the first voice starts if intro audio is used.")
     parser.add_argument("--intro-total-ms", type=int, default=13000, help="Total intro bed duration if intro audio is used.")
     parser.add_argument("--live-sfx-dir", default=None, help="Optional breakfast live texture SFX directory.")
+    parser.add_argument("--midday-sfx-dir", default=None, help="Optional Yoli's Midday Brief music and SFX directory.")
     parser.add_argument("--outro-audio", default=None, help="Optional soft outro music bed.")
     return parser.parse_args()
 
@@ -46,6 +47,7 @@ def main() -> None:
             voice_start_ms=args.voice_start_ms,
             intro_total_ms=args.intro_total_ms,
             live_sfx_dir=Path(args.live_sfx_dir) if args.live_sfx_dir else None,
+            midday_sfx_dir=Path(args.midday_sfx_dir) if args.midday_sfx_dir else None,
             outro_audio_path=Path(args.outro_audio) if args.outro_audio else None,
         )
         print(f"Saved final episode to {args.output}")
@@ -67,6 +69,7 @@ def render_episode(
     voice_start_ms: int = 3000,
     intro_total_ms: int = 13000,
     live_sfx_dir: Path | None = None,
+    midday_sfx_dir: Path | None = None,
     outro_audio_path: Path | None = None,
 ) -> dict[str, Any]:
     ensure_file_exists(segments_path, "TTS segments")
@@ -76,7 +79,7 @@ def render_episode(
         raise RuntimeError(f"No segments found in {segments_path}")
 
     check_ffmpeg()
-    if shutil.which("ffprobe") is None or live_sfx_dir is not None or outro_audio_path is not None:
+    if shutil.which("ffprobe") is None or live_sfx_dir is not None or midday_sfx_dir is not None or outro_audio_path is not None:
         return render_with_ffmpeg_only(
             episode_data=episode_data,
             segments=segments,
@@ -91,6 +94,7 @@ def render_episode(
             voice_start_ms=voice_start_ms,
             intro_total_ms=intro_total_ms,
             live_sfx_dir=live_sfx_dir,
+            midday_sfx_dir=midday_sfx_dir,
             outro_audio_path=outro_audio_path,
         )
 
@@ -210,12 +214,15 @@ def render_with_ffmpeg_only(
     voice_start_ms: int,
     intro_total_ms: int,
     live_sfx_dir: Path | None,
+    midday_sfx_dir: Path | None,
     outro_audio_path: Path | None,
 ) -> dict[str, Any]:
     if intro_audio_path is not None:
         ensure_file_exists(intro_audio_path, "Intro audio")
     if live_sfx_dir is not None and not live_sfx_dir.exists():
         raise RuntimeError(f"Live SFX directory not found: {live_sfx_dir}")
+    if midday_sfx_dir is not None and not midday_sfx_dir.exists():
+        raise RuntimeError(f"Midday SFX directory not found: {midday_sfx_dir}")
     if outro_audio_path is not None:
         ensure_file_exists(outro_audio_path, "Outro audio")
 
@@ -288,7 +295,12 @@ def render_with_ffmpeg_only(
             "\n".join(f"file '{escape_concat_path(path)}'" for path in concat_items) + "\n",
             encoding="utf-8",
         )
-        needs_texture_mix = intro_audio_path is not None or live_sfx_dir is not None or outro_audio_path is not None
+        needs_texture_mix = (
+            intro_audio_path is not None
+            or live_sfx_dir is not None
+            or midday_sfx_dir is not None
+            or outro_audio_path is not None
+        )
         no_intro_output = tmp_dir / "episode_no_intro.mp3" if needs_texture_mix else output_path
         run_ffmpeg(
             [
@@ -309,8 +321,9 @@ def render_with_ffmpeg_only(
         )
 
         effective_voice_start_ms = voice_start_ms if intro_audio_path is not None else 0
-        texture_events = build_breakfast_texture_events(
+        texture_events = build_texture_events(
             live_sfx_dir=live_sfx_dir,
+            midday_sfx_dir=midday_sfx_dir,
             outro_audio_path=outro_audio_path,
             segments=manifest_segments,
             voice_start_ms=effective_voice_start_ms,
@@ -363,6 +376,7 @@ def render_with_ffmpeg_only(
         "intro_gain_db": intro_gain_db if intro_audio_path else None,
         "voice_start_ms": effective_voice_start_ms if intro_audio_path else None,
         "live_sfx_dir": str(live_sfx_dir) if live_sfx_dir else None,
+        "midday_sfx_dir": str(midday_sfx_dir) if midday_sfx_dir else None,
         "outro_audio": str(outro_audio_path) if outro_audio_path else None,
         "texture_events": [
             {key: str(value) if isinstance(value, Path) else value for key, value in event.items()}
@@ -525,6 +539,29 @@ def build_ffmpeg_intro_mix_command(
     ]
 
 
+def build_texture_events(
+    *,
+    live_sfx_dir: Path | None,
+    midday_sfx_dir: Path | None,
+    outro_audio_path: Path | None,
+    segments: list[dict[str, Any]],
+    voice_start_ms: int,
+) -> list[dict[str, Any]]:
+    if midday_sfx_dir is not None:
+        return build_midday_texture_events(
+            midday_sfx_dir=midday_sfx_dir,
+            outro_audio_path=outro_audio_path,
+            segments=segments,
+            voice_start_ms=voice_start_ms,
+        )
+    return build_breakfast_texture_events(
+        live_sfx_dir=live_sfx_dir,
+        outro_audio_path=outro_audio_path,
+        segments=segments,
+        voice_start_ms=voice_start_ms,
+    )
+
+
 def build_breakfast_texture_events(
     *,
     live_sfx_dir: Path | None,
@@ -577,6 +614,63 @@ def build_breakfast_texture_events(
         events.append(
             event(outro_audio_path, voice_start_ms + host_a_until["start_ms"] - 300, -9, "soft outro bed", 9000, 1200, 3500)
         )
+    return events
+
+
+def build_midday_texture_events(
+    *,
+    midday_sfx_dir: Path,
+    outro_audio_path: Path | None,
+    segments: list[dict[str, Any]],
+    voice_start_ms: int,
+) -> list[dict[str, Any]]:
+    files = {
+        "ambience": midday_sfx_dir / "amb_lunch_walk_45s.mp3",
+        "boundary": midday_sfx_dir / "sfx_boundary_thin_bed_8s.mp3",
+        "crosswalk": midday_sfx_dir / "sfx_distant_crosswalk.mp3",
+        "lunch_board": midday_sfx_dir / "sfx_lunch_specials_board.mp3",
+        "tabs": midday_sfx_dir / "sfx_soft_tab_closing_clicks.mp3",
+        "main_bgm": midday_sfx_dir / "yoli_midday_main_bgm_loop_32s.mp3",
+        "outro": outro_audio_path or midday_sfx_dir / "yoli_midday_outro_bed_12s.mp3",
+        "outro_logo": midday_sfx_dir / "yoli_midday_sonic_logo_outro_3s.mp3",
+    }
+    for label, path in files.items():
+        ensure_file_exists(path, f"Midday audio asset {label}")
+
+    first_line = find_segment_by_text(segments, "It's Yoli's Midday Brief")
+    main_start = find_segment_by_text(segments, "It's midday, Yoli.")
+    lunch_board = find_segment_by_text(segments, "A recommendation system is like the lunch specials board")
+    crosswalk = find_segment_by_text(segments, "Okay, give me the lunch-walk version")
+    boundary = find_segment_by_text(segments, "That sounds useful. Also")
+    outro = find_segment_by_text(segments, "So that")
+    tabs_outro = find_segment_by_text(segments, "Take that one with you")
+    final_logo = segments[-1]
+
+    events: list[dict[str, Any]] = []
+
+    # Very low ambience loops to keep the walk space alive without becoming foreground.
+    for start in range(0, max(voice_start_ms + final_logo["end_ms"] + 2000, 45000), 43000):
+        events.append(event(files["ambience"], start, -27, "midday lunch-walk ambience", 45000, 1200, 1800))
+
+    # Low main BGM loops under the body of the brief.
+    main_bgm_start = voice_start_ms + main_start["start_ms"] - 250
+    body_end = voice_start_ms + boundary["start_ms"]
+    loop_start = max(0, main_bgm_start)
+    while loop_start < body_end + 12000:
+        events.append(event(files["main_bgm"], loop_start, -24, "midday main BGM loop", 32000, 700, 1200))
+        loop_start += 30000
+
+    events.extend(
+        [
+            event(files["tabs"], voice_start_ms + first_line["start_ms"] + 4200, -17, "intro tab closing clicks", 1200, 50, 400),
+            event(files["lunch_board"], voice_start_ms + lunch_board["start_ms"] - 450, -20, "lunch specials board cue", 1800, 120, 500),
+            event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -25, "distant crosswalk cue", 2000, 300, 900),
+            event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -20, "boundary thin bed", 8000, 700, 1200),
+            event(files["outro"], voice_start_ms + outro["start_ms"] - 300, -14, "midday outro bed", 12000, 1200, 3000),
+            event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -21, "outro single tab click", 650, 40, 350),
+            event(files["outro_logo"], voice_start_ms + final_logo["end_ms"] - 200, -11, "midday sonic logo outro", 3000, 200, 1200),
+        ]
+    )
     return events
 
 

@@ -625,7 +625,6 @@ def build_midday_texture_events(
     voice_start_ms: int,
 ) -> list[dict[str, Any]]:
     files = {
-        "ambience": midday_sfx_dir / "amb_lunch_walk_45s.mp3",
         "boundary": midday_sfx_dir / "sfx_boundary_thin_bed_8s.mp3",
         "crosswalk": midday_sfx_dir / "sfx_distant_crosswalk.mp3",
         "lunch_board": midday_sfx_dir / "sfx_lunch_specials_board.mp3",
@@ -648,12 +647,8 @@ def build_midday_texture_events(
 
     events: list[dict[str, Any]] = []
 
-    # Very low ambience loops to keep the walk space alive without becoming foreground.
-    for start in range(0, max(voice_start_ms + final_logo["end_ms"] + 2000, 45000), 43000):
-        events.append(event(files["ambience"], start, -31, "midday lunch-walk ambience", 45000, 1200, 1800))
-
-    # Low main BGM loops under the body of the brief.
-    main_bgm_start = voice_start_ms + main_start["start_ms"] - 250
+    # Low main BGM starts immediately for the short intro, then continues under the brief.
+    main_bgm_start = 0
     body_end = voice_start_ms + (boundary or final_logo)["start_ms"]
     loop_start = max(0, main_bgm_start)
     while loop_start < body_end + 12000:
@@ -662,7 +657,7 @@ def build_midday_texture_events(
 
     events.extend(
         [
-            event(files["tabs"], voice_start_ms + first_line["start_ms"] + 4200, -20, "intro tab closing clicks", 1200, 50, 400),
+            event(files["tabs"], voice_start_ms + first_line["end_ms"] + 150, -22, "intro tab closing clicks", 900, 50, 300),
         ]
     )
     if lunch_board is not None:

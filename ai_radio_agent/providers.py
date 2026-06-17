@@ -7,6 +7,8 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from ai_radio_agent.moment_profiles import MOMENT_PROFILES
+
 
 class LLMProvider(ABC):
     name: str
@@ -20,6 +22,16 @@ class MockProvider(LLMProvider):
     name = "mock"
 
     def complete(self, *, agent_name: str, prompt: str, schema: type[BaseModel]) -> str:
+        if agent_name == "user_episode_input":
+            return json.dumps(_mock_user_episode_input(prompt), ensure_ascii=False)
+        if agent_name == "moment_profile_agent":
+            return json.dumps(_mock_moment_profile(prompt), ensure_ascii=False)
+        if agent_name == "timely_context_agent":
+            return json.dumps(_mock_timely_context(prompt), ensure_ascii=False)
+        if agent_name == "episode_brief_agent":
+            return json.dumps(_mock_episode_brief(prompt), ensure_ascii=False)
+        if agent_name == "quality_evaluator":
+            return json.dumps(_mock_quality_evaluation(prompt), ensure_ascii=False)
         data = MOCK_RESPONSES[agent_name]
         return json.dumps(data, ensure_ascii=False)
 
@@ -95,12 +107,146 @@ def get_provider(provider_name: str | None = None) -> LLMProvider:
     raise ValueError(f"Unsupported LLM_PROVIDER={selected!r}. Use mock, openai, or gemini.")
 
 
+def _detect_moment(prompt: str) -> str:
+    lowered = prompt.lower()
+    for moment in ("breakfast", "lunch", "dinner"):
+        if f'"moment": "{moment}"' in lowered or f"'moment': '{moment}'" in lowered:
+            return moment
+    return "breakfast"
+
+
+def _mock_user_episode_input(prompt: str) -> dict[str, Any]:
+    moment = _detect_moment(prompt)
+    return {
+        "topic": "Why do some AI hosts sound like they really understand you?",
+        "user_profile": "Yoli, a listener interested in AI products, startups, and practical product logic.",
+        "memory_context": "Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.",
+        "duration_minutes": 2,
+        "moment": moment,
+    }
+
+
+def _mock_moment_profile(prompt: str) -> dict[str, Any]:
+    moment = _detect_moment(prompt)
+    profile = MOMENT_PROFILES[moment]
+    return {
+        "moment": profile["moment"],
+        "format_name": profile["format_name"],
+        "core_operation": profile["core_operation"],
+        "content_role": profile["content_role"],
+        "listener_state": profile["listener_state"],
+        "output_feeling": profile["output_feeling"],
+        "style_rules": profile["style_rules"],
+        "content_logic": profile["content_logic"],
+        "research_policy": profile["research_policy"],
+        "semantic_density": profile["semantic_density"],
+    }
+
+
+def _mock_timely_context(prompt: str) -> dict[str, Any]:
+    moment = _detect_moment(prompt)
+    if moment == "lunch":
+        return {
+            "freshness_required": True,
+            "date": "2026-06-17",
+            "topic": "Why do some AI hosts sound like they really understand you?",
+            "verified_updates": [
+                {
+                    "claim": "Mock mode marks this as a placeholder update instead of live news.",
+                    "source": "mock://timely-context",
+                    "why_relevant": "It demonstrates that lunch episodes can require source-backed freshness without making unsourced claims.",
+                }
+            ],
+            "do_not_claim": [
+                "Do not present mock updates as real current news.",
+                "Do not turn the brief into a generic trend roundup.",
+            ],
+            "briefing_angle": "For lunch, compress relevant updates into why this matters now.",
+        }
+    if moment == "dinner":
+        return {
+            "freshness_required": False,
+            "date": "2026-06-17",
+            "topic": "Why do some AI hosts sound like they really understand you?",
+            "verified_updates": [],
+            "do_not_claim": [
+                "Do not introduce heavy new information at dinner.",
+                "Do not create urgency or an afternoon task list.",
+            ],
+            "briefing_angle": "For dinner, transform the day's idea into a slower story or future image.",
+        }
+    return {
+        "freshness_required": False,
+        "date": "2026-06-17",
+        "topic": "Why do some AI hosts sound like they really understand you?",
+        "verified_updates": [],
+        "do_not_claim": [
+            "Do not imply this is breaking news.",
+            "Do not claim industry-wide consensus without source-backed research.",
+        ],
+        "briefing_angle": "For breakfast, continue yesterday's memory question instead of turning the episode into a news brief.",
+    }
+
+
+def _mock_episode_brief(prompt: str) -> dict[str, Any]:
+    moment = _detect_moment(prompt)
+    profile = MOMENT_PROFILES[moment]
+    return {
+        "title": f"{profile['format_name']}: Why do some AI hosts sound like they really understand you?",
+        "listener_promise": f"A {profile['output_feeling']} personal radio episode that uses the {profile['core_operation']} operation.",
+        "user_facing_topic": "An AI host feels like it understands you when it can connect listening history, preferences, follow-up questions, and current context.",
+        "internal_pipeline_note": "Host scripts are generated internal artifacts for quality control, persona consistency, TTS segmentation, and audio rendering. The end user only provides topic, profile or memory context, moment, and duration.",
+        "target_duration_minutes": 2,
+    }
+
+
+def _mock_quality_evaluation(prompt: str) -> dict[str, Any]:
+    moment = _detect_moment(prompt)
+    profile = MOMENT_PROFILES[moment]
+    freshness_score = 9 if moment == "lunch" else 8
+    return {
+        "score": 9,
+        "dialogue_liveliness_score": 9,
+        "moment_fit_score": 9,
+        "content_operation": profile["core_operation"],
+        "memory_use_score": 9,
+        "freshness_relevance_score": freshness_score,
+        "semantic_density": profile["semantic_density"],
+        "risk_notes": [
+            f"Keep this {moment} episode aligned with {profile['core_operation']} rather than drifting into a generic tech explainer."
+        ],
+        "strengths": ["Specific remembered detail", "Host A lived reaction", "Host B metaphor", "Moment-aware editorial logic"],
+        "improvements": ["Future versions can generate separate polished mock scripts for lunch and dinner audio demos."],
+        "ready_for_tts": True,
+    }
+
+
 MOCK_RESPONSES: dict[str, dict[str, Any]] = {
     "user_episode_input": {
         "topic": "Why do some AI hosts sound like they really understand you?",
         "user_profile": "Yoli, a morning listener interested in AI products, startups, and practical product logic.",
         "memory_context": "Yesterday the listener heard an episode about AI startups where a founder described memory as the new onboarding layer for AI products.",
         "duration_minutes": 2,
+        "moment": "breakfast",
+    },
+    "moment_profile_agent": {
+        "moment": "breakfast",
+        "format_name": "Yoli's Morning Coffee",
+        "core_operation": "continue",
+        "content_role": "continue yesterday's unfinished question and offer one useful thread",
+        "listener_state": "half-awake, beginning the day",
+        "output_feeling": "gentle continuity",
+        "style_rules": [
+            "Begin gently. No hard headline opening.",
+            "Use one remembered detail from the previous episode.",
+            "Offer only one useful thread, not a list of topics.",
+            "Keep semantic density low to medium.",
+            "Make the listener feel: I do not need to start from zero today.",
+            "Avoid news-anchor tone, productivity coaching, and over-explaining.",
+        ],
+        "content_logic": "memory -> small question -> one useful distinction -> soft takeaway",
+        "research_policy": "Do not search unless the topic requires factual verification.",
+        "semantic_density": "low_to_medium",
     },
     "episode_brief_agent": {
         "title": "Yoli's Morning Coffee: Why do some AI hosts sound like they really understand you?",
@@ -162,6 +308,17 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
         "today_continuation": "Instead of generic tech news, today's episode continues the listener's previous question: why are AI companies competing for long-term memory?",
         "listener_mood": "half-awake, curious, wants something useful but not too heavy",
         "opening_frame": "Good morning, Yoli. Your morning coffee is ready. Yesterday we left off with one question: why are AI companies competing for long-term memory?",
+    },
+    "timely_context_agent": {
+        "freshness_required": False,
+        "date": "2026-06-17",
+        "topic": "Why do some AI hosts sound like they really understand you?",
+        "verified_updates": [],
+        "do_not_claim": [
+            "Do not imply this is breaking news.",
+            "Do not claim industry-wide consensus without source-backed research.",
+        ],
+        "briefing_angle": "For breakfast, continue yesterday's memory question instead of turning the episode into a news brief.",
     },
     "research_agent": {
         "key_points": [
@@ -297,6 +454,12 @@ MOCK_RESPONSES: dict[str, dict[str, Any]] = {
     "quality_evaluator": {
         "score": 9,
         "dialogue_liveliness_score": 9,
+        "moment_fit_score": 9,
+        "content_operation": "continue",
+        "memory_use_score": 9,
+        "freshness_relevance_score": 8,
+        "semantic_density": "low_to_medium",
+        "risk_notes": ["Avoid sounding like a generic tech news brief; this breakfast moment should pick up yesterday's thread."],
         "strengths": ["Soft personal morning greeting", "Specific remembered detail", "Host A lived reaction", "Host B metaphor", "Boundary question"],
         "improvements": ["Future versions can add live user follow-up interaction and even shorter spontaneous turns"],
         "ready_for_tts": True,

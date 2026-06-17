@@ -2,7 +2,7 @@
 
 ## AI Radio Agent Demo Audio
 
-This release contains selected audio samples from the AI Radio Agent portfolio demo.
+This release contains selected audio and video samples from the AI Radio Agent portfolio demo.
 
 The samples show how the project evolved from a basic AI-generated two-host dialogue into **Yoli's Morning Coffee**, a soft personal morning radio episode with memory continuity, dual-host TTS, and subtle breakfast-at-home live texture.
 
@@ -16,5 +16,7 @@ Recommended listening order:
    - Soft show identity with Yoli's Morning Coffee intro.
 4. `04_final_live_texture_mix.mp3`
    - Final sample with intro/outro music and subtle live kitchen texture.
+5. `04_final_live_texture_mix_npr_style_v2.mp4`
+   - Best quick visual entry point: a clean audio-reactive video card for GitHub, portfolio pages, and social sharing.
 
-The code repository contains the generation pipeline and inspectable artifacts. The audio files are provided here as release assets so the Git repo stays lightweight.
+The code repository contains the generation pipeline and inspectable artifacts. The media files are provided here as release assets so the Git repo stays lightweight.

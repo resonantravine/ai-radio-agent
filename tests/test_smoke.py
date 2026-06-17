@@ -6,6 +6,7 @@ import sys
 
 EXPECTED_OUTPUTS = [
     "00_user_episode_input.json",
+    "00_moment_profile.json",
     "00_user_preference.json",
     "00_memory_state.json",
     "00_recommendation.json",
@@ -13,6 +14,7 @@ EXPECTED_OUTPUTS = [
     "segment_plan.json",
     "01_topic_plan.json",
     "02_broadcast_context.json",
+    "02_timely_context.json",
     "03_research_brief.json",
     "04_fact_check.json",
     "05_script_outline.json",
@@ -91,6 +93,16 @@ def test_mock_pipeline_creates_expected_outputs(tmp_path: Path) -> None:
 
     quality_eval = json.loads((outputs_dir / "09_quality_eval.json").read_text(encoding="utf-8"))
     assert quality_eval["dialogue_liveliness_score"] >= 8
+    assert quality_eval["moment_fit_score"] >= 8
+    assert quality_eval["content_operation"] == "continue"
+    assert quality_eval["semantic_density"] == "low_to_medium"
+
+    moment_profile = json.loads((outputs_dir / "00_moment_profile.json").read_text(encoding="utf-8"))
+    assert moment_profile["moment"] == "breakfast"
+    assert moment_profile["core_operation"] == "continue"
+
+    timely_context = json.loads((outputs_dir / "02_timely_context.json").read_text(encoding="utf-8"))
+    assert timely_context["freshness_required"] is False
 
 
 def test_elevenlabs_soft_voice_settings_can_be_overridden(monkeypatch) -> None:

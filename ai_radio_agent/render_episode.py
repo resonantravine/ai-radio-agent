@@ -642,7 +642,6 @@ def build_midday_texture_events(
     lunch_board = find_segment_by_text(segments, "A recommendation system is like the lunch specials board")
     crosswalk = find_segment_by_text(segments, "Okay, give me the lunch-walk version")
     boundary = find_segment_by_text(segments, "That sounds useful. Also")
-    outro = find_segment_by_text(segments, "So that")
     tabs_outro = find_segment_by_text(segments, "Take that one with you")
     final_logo = segments[-1]
 
@@ -666,9 +665,9 @@ def build_midday_texture_events(
             event(files["lunch_board"], voice_start_ms + lunch_board["start_ms"] - 450, -23, "lunch specials board cue", 1800, 120, 500),
             event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -29, "distant crosswalk cue", 2000, 300, 900),
             event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -24, "boundary thin bed", 8000, 700, 1200),
-            event(files["outro"], voice_start_ms + outro["start_ms"] - 300, -18, "midday outro bed", 12000, 1200, 3000),
-            event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -24, "outro single tab click", 650, 40, 350),
-            event(files["outro_logo"], voice_start_ms + final_logo["end_ms"] - 200, -16, "midday sonic logo outro", 3000, 200, 1200),
+            event(files["outro"], voice_start_ms + tabs_outro["start_ms"] - 150, -24, "midday outro bed", 12000, 1400, 3500),
+            event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -30, "outro single tab click", 650, 40, 350),
+            event(files["outro_logo"], voice_start_ms + final_logo["end_ms"] + 500, -24, "midday sonic logo outro", 3000, 250, 1500),
         ]
     )
     return events

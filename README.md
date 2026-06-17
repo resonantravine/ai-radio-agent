@@ -512,11 +512,11 @@ python -m ai_radio_agent.render_episode \
   --intro-audio outputs/audio_assets/yoli_midday_sound_pack/yoli_midday_intro_bed_10s.mp3 \
   --intro-gain-db -22 \
   --voice-start-ms 1500 \
-  --intro-total-ms 10000 \
+  --intro-total-ms 8000 \
   --midday-sfx-dir outputs/audio_assets/yoli_midday_sound_pack
 ```
 
-The midday mix uses a very low main bed, lunch-walk ambience, a soft tab-closing cue, a lunch specials board cue, a distant crosswalk cue, a thinner boundary texture, and a short outro logo. These sounds are post-render layers and never appear in `tts_segments.json`.
+The midday mix uses a low main bed, a soft tab-closing cue, a lunch specials board cue, a distant crosswalk cue, a thinner boundary texture, and a short trimmed outro bed. It intentionally does not use continuous lunch-walk ambience, because that made the ending feel like a long near-silent tail. These sounds are post-render layers and never appear in `tts_segments.json`.
 
 Optional WAV export:
 

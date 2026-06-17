@@ -506,7 +506,9 @@ python -m ai_radio_agent.render_episode \
   --segments outputs/tts_segments.json \
   --audio-dir outputs/elevenlabs_segments \
   --output outputs/final_ai_radio_episode_lunch_texture.mp3 \
+  --target-dbfs -17 \
   --intro-audio outputs/audio_assets/yoli_midday_sound_pack/yoli_midday_intro_bed_10s.mp3 \
+  --intro-gain-db -22 \
   --voice-start-ms 1500 \
   --intro-total-ms 10000 \
   --midday-sfx-dir outputs/audio_assets/yoli_midday_sound_pack

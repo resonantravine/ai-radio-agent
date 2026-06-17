@@ -316,6 +316,8 @@ python -m ai_radio_agent.run_pipeline
 
 `gemini-3.1-flash-lite` is the default in this project because Google lists Flash-Lite models as structured-output-capable and they are a good fit for low-cost text generation. If your account or region uses a different Flash or Flash-Lite model name, set `LLM_MODEL` in `.env`.
 
+If Gemini returns `User location is not supported for the API use`, the request is being blocked by Google API availability for the current account or network location. The project cannot bypass that provider policy; use mock mode, OpenAI mode, or a supported Gemini API setup.
+
 ## Run With OpenAI
 
 Install OpenAI support:

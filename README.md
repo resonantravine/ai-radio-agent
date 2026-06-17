@@ -52,7 +52,7 @@ The three planned formats are:
 - **Yoli's Midday Brief:** compress timely context into why it matters now.
 - **Yoli's Evening Reset:** turn the day's idea into a story, future image, or reflective closing question.
 
-The current release implements the breakfast demo. Lunch and dinner are planned as follow-up samples using the same internal artifacts: episode brief, segment plan, dialogue plan, TTS segments, audio rendering, ASR transcript, and audio fidelity report.
+The current release implements the breakfast demo and includes a curated mock script for the lunch format. Dinner is planned as a follow-up sample using the same internal artifacts: episode brief, segment plan, dialogue plan, TTS segments, audio rendering, ASR transcript, and audio fidelity report.
 
 ## Listen To The Iterations
 

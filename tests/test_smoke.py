@@ -130,6 +130,7 @@ def test_mock_lunch_pipeline_uses_midday_brief_sample(tmp_path: Path) -> None:
     clean_tts = (outputs_dir / "tts_clean_single_voice.txt").read_text(encoding="utf-8")
     assert "It's Yoli's Midday Brief" in clean_tts
     assert "too many tabs open" in clean_tts
+    assert "Let's close fourteen of them." in clean_tts
     assert "It's midday, Yoli. Quick brief for the lunch walk" in clean_tts
     assert "memory is the new onboarding layer" in clean_tts
     assert "lunch specials board" in clean_tts

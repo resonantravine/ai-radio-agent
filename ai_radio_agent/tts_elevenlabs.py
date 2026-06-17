@@ -49,6 +49,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", default="outputs/09_elevenlabs_audio.mp3", help="Output audio file.")
     parser.add_argument("--segments", default=None, help="Optional tts_segments.json for dual-host segment export.")
     parser.add_argument("--segments-output-dir", default="outputs/elevenlabs_segments", help="Directory for per-segment audio.")
+    parser.add_argument("--overwrite-segments", action="store_true", help="Regenerate segment mp3 files even if they already exist.")
     parser.add_argument("--list-voices", action="store_true", help="List available ElevenLabs voices for this API key.")
     parser.add_argument("--voice-id", default=None, help="ElevenLabs voice ID. Defaults to ELEVENLABS_VOICE_ID.")
     parser.add_argument("--model-id", default=None, help="ElevenLabs model ID. Defaults to ELEVENLABS_MODEL_ID.")
@@ -71,6 +72,7 @@ def main() -> None:
                 output_dir=Path(args.segments_output_dir),
                 model_id=args.model_id or os.getenv("ELEVENLABS_MODEL_ID", DEFAULT_MODEL_ID),
                 output_format=args.output_format or os.getenv("ELEVENLABS_OUTPUT_FORMAT", DEFAULT_OUTPUT_FORMAT),
+                overwrite=args.overwrite_segments,
             )
             return
 
@@ -98,6 +100,7 @@ def export_segments(
     output_dir: Path,
     model_id: str,
     output_format: str,
+    overwrite: bool = False,
 ) -> None:
     ensure_file_exists(segments_path, "TTS segments")
     payload = json.loads(segments_path.read_text(encoding="utf-8"))
@@ -111,6 +114,9 @@ def export_segments(
         voice_id = resolve_segment_voice(segment)
         voice_key = resolve_segment_voice_key(segment)
         output_path = output_dir / f"{index:02d}_{speaker}.mp3"
+        if output_path.exists() and output_path.stat().st_size > 0 and not overwrite:
+            print(f"Skipping existing {segment['speaker']} segment {index}: {output_path}")
+            continue
         export_elevenlabs_audio(
             text=segment["text"],
             output_path=output_path,

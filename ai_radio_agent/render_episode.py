@@ -642,6 +642,7 @@ def build_midday_texture_events(
     lunch_board = find_optional_segment_by_text(segments, "A recommendation system is like the lunch specials board")
     crosswalk = find_optional_segment_by_text(segments, "Okay, give me the lunch-walk version")
     boundary = find_optional_segment_by_text(segments, "That sounds useful. Also")
+    afternoon_takeaway = find_optional_segment_by_text(segments, "So this afternoon")
     tabs_outro = find_optional_segment_by_text(segments, "Take that one with you")
     final_logo = segments[-1]
 
@@ -670,14 +671,15 @@ def build_midday_texture_events(
         events.append(event(files["crosswalk"], voice_start_ms + crosswalk["start_ms"] + 900, -29, "distant crosswalk cue", 2000, 300, 900))
     if boundary is not None:
         events.append(event(files["boundary"], voice_start_ms + boundary["start_ms"] - 300, -24, "boundary thin bed", 8000, 700, 1200))
-    if tabs_outro is not None:
-        events.extend(
-            [
-                event(files["outro"], voice_start_ms + tabs_outro["start_ms"] - 150, -24, "midday outro bed", 12000, 1400, 3500),
-                event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -30, "outro single tab click", 650, 40, 350),
-            ]
+    outro_start_segment = afternoon_takeaway or tabs_outro
+    if outro_start_segment is not None:
+        outro_start_ms = max(0, voice_start_ms + outro_start_segment["start_ms"] - 250)
+        outro_duration_ms = max(2500, voice_start_ms + final_logo["end_ms"] + 1600 - outro_start_ms)
+        events.append(
+            event(files["outro"], outro_start_ms, -24, "midday outro bed", outro_duration_ms, 1400, 2200)
         )
-    events.append(event(files["outro_logo"], voice_start_ms + final_logo["end_ms"] + 500, -24, "midday sonic logo outro", 3000, 250, 1500))
+    if tabs_outro is not None:
+        events.append(event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -32, "outro single tab click", 500, 40, 300))
     return events
 
 

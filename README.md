@@ -13,18 +13,25 @@ In a real AI podcast product, the user would not write Host A / Host B scripts. 
 
 ## Watch The Demo
 
-<video src="https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4" controls width="100%"></video>
+[![Yoli's Morning Coffee video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix_cover.png)](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4)
 
-[ai-radio-agent-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4) is the best quick entry point. It shows the final AI radio episode as a clean audio-reactive video card: a soft morning-radio sample with dual AI hosts, memory-aware dialogue, ElevenLabs TTS, subtle breakfast texture, and final audio rendering.
+**Yoli's Morning Coffee**: [watch the breakfast video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4)
 
-Audio-only version: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
+[![Yoli's Midday Brief video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-poster.png)](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4)
+
+**Yoli's Midday Brief**: [watch the lunch video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4)
+
+GitHub does not always render release-hosted MP4 files as inline players inside README files, so the demos are shown as clickable poster images. The video files open directly from the GitHub Release assets.
+
+Breakfast audio-only version: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 
 ## At A Glance
 
 - **What it is:** A multi-agent workflow that generates a personalized two-host AI radio episode.
 - **What it demonstrates:** agent orchestration, structured JSON artifacts, dialogue quality evaluation, TTS segmentation, and final audio rendering.
 - **Demo format:** **Yoli's Morning Coffee**, a soft personal morning radio sample designed for earbuds during breakfast.
-- **Best video demo:** [ai-radio-agent-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4)
+- **Best breakfast video demo:** [ai-radio-agent-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4)
+- **Best lunch video demo:** [yolis-midday-brief-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4)
 - **Best audio demo:** [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 - **Run locally:** `python -m ai_radio_agent.run_pipeline --mock`
 
@@ -65,6 +72,7 @@ The audio demos are hosted as GitHub Release assets so the code repository stays
 | 3. Morning show identity | [03_morning_coffee_intro.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/03_morning_coffee_intro.mp3) | Turns the demo into **Yoli's Morning Coffee**, with a softer personal morning-radio opening. |
 | 4. Final live texture mix | [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3) | Final portfolio sample with dual voices, intro/outro music, subtle kitchen texture, and a more live breakfast-at-home feeling. |
 | 5. Audio-reactive video card | [ai-radio-agent-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4) | A clean, NPR-inspired visualizer video that makes the audio demo immediately legible in a portfolio or GitHub README. |
+| 6. Midday Brief video card | [yolis-midday-brief-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4) | Lunch-format demo showing the same pipeline adapted to compress + update editorial logic. |
 
 Release page: [AI Radio Agent Demo Audio](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
 

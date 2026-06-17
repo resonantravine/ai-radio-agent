@@ -16,7 +16,7 @@ Recommended listening order:
    - Soft show identity with Yoli's Morning Coffee intro.
 4. `04_final_live_texture_mix.mp3`
    - Final sample with intro/outro music and subtle live kitchen texture.
-5. `04_final_live_texture_mix_npr_style_v2.mp4`
+5. `ai-radio-agent-demo.mp4`
    - Best quick visual entry point: a clean audio-reactive video card for GitHub, portfolio pages, and social sharing.
 
 The code repository contains the generation pipeline and inspectable artifacts. The media files are provided here as release assets so the Git repo stays lightweight.

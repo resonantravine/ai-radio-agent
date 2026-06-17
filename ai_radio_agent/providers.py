@@ -264,8 +264,8 @@ def _mock_quality_evaluation(prompt: str) -> dict[str, Any]:
 
 
 LUNCH_LINES = [
-    {"host": "Host A", "line": "It's Yoli's Midday Brief: the show for when lunch is short and your brain has too many tabs open."},
-    {"host": "Host B", "line": "We're closing fourteen of them."},
+    {"host": "Host A", "line": "It's Yoli's Midday Brief. Lunch is short, and your brain has too many tabs open."},
+    {"host": "Host B", "line": "Let's close fourteen of them."},
     {"host": "Host A", "line": "Today, one stays open: why AI companies are racing toward long-term memory."},
     {"host": "Host A", "line": "It's midday, Yoli. Quick brief for the lunch walk: no fifteen-tab rabbit hole, I promise."},
     {"host": "Host B", "line": "A generous promise. Today's thread: why AI companies are suddenly obsessed with long-term memory."},

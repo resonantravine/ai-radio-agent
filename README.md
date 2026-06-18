@@ -62,27 +62,48 @@ Dinner    = transform
 
 ## How The Pipeline Works
 
-The pipeline separates user-facing input, editorial planning, dialogue generation, voice handoff, rendering, and post-render checks.
+The core pipeline is a sequence of schema-validated agents. It turns a listener request into inspectable planning artifacts first, then writes and evaluates the two-host episode before exporting clean TTS segments. Voice generation, rendering, and ASR checks sit after the core generator as optional production layers.
 
 ```mermaid
 flowchart TD
-    A["User input<br/>topic, profile, memory, duration, moment"] --> B["Moment Profile<br/>continue, compress, or transform"]
-    B --> C["Memory + Preference Context"]
-    C --> D["Recommendation"]
-    D --> E["Timely Context<br/>when freshness matters"]
-    E --> F["Episode Brief + Segment Plan"]
-    F --> G["Research + Fact Check"]
-    G --> H["Broadcast Context"]
-    H --> I["Dialogue Plan"]
-    I --> J["Dialogue + Persona Polish"]
-    J --> K["Quality Evaluation"]
-    K --> L["TTS Segment Export"]
-    L --> M["Voice Generation"]
-    M --> N["Episode Renderer"]
-    N --> O["Rendered Audio + QA"]
+    A["User Episode Input<br/>topic, profile, memory, duration, moment"] --> B["Moment Profile<br/>Breakfast / Lunch / Dinner operation"]
+
+    subgraph L["Listener + Editorial Context"]
+        B --> C["Preference + Memory"]
+        C --> D["Recommendation"]
+        D --> E["Timely Context<br/>only when freshness helps"]
+    end
+
+    subgraph P["Episode Planning"]
+        E --> F["Episode Brief"]
+        F --> G["Segment Plan"]
+        G --> H["Topic Plan"]
+        H --> I["Broadcast Context"]
+        I --> J["Research + Fact Check"]
+        J --> K["Script Outline"]
+    end
+
+    subgraph S["Dialogue + Safety"]
+        K --> M["Dialogue Plan"]
+        M --> N["Dual-Host Script"]
+        N --> O["Persona Polish"]
+        O --> Q["Quality Evaluation"]
+    end
+
+    subgraph T["Audio Handoff"]
+        Q --> R["TTS Export"]
+        R --> U["production_script.md"]
+        R --> V["tts_segments.json"]
+    end
+
+    subgraph X["Optional Production Layer"]
+        V --> W["Voice Generation"]
+        W --> Y["Episode Renderer"]
+        Y --> Z["ASR + Fidelity Check"]
+    end
 ```
 
-Each agent produces a small JSON artifact in `outputs/`, so the workflow is inspectable instead of hidden inside one prompt. In a real product, the listener only hears the final episode; the generated scripts and JSON files exist for quality control, TTS segmentation, debugging, and evaluation.
+The important design choice is separation: editorial logic, dialogue quality, TTS handoff, and audio rendering are different layers. In a real product, the listener only hears the final episode; the generated scripts and JSON files exist for quality control, debugging, and evaluation.
 
 ## Key Outputs
 

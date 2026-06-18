@@ -2,41 +2,30 @@
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Provider: Mock Gemini OpenAI](https://img.shields.io/badge/LLM-mock%20%7C%20Gemini%20%7C%20OpenAI-purple.svg)](#run-with-gemini)
-[![Audio: ElevenLabs Optional](https://img.shields.io/badge/audio-ElevenLabs%20optional-orange.svg)](#elevenlabs-tts)
 
-A portfolio demo for an **AI Agent Engineer | Audio Content Generation** role.
+A moment-aware AI audio content generation pipeline for personalized daily radio.
 
-AI Radio Agent turns a listener profile, memory context, topic, and target duration into a personalized two-host AI radio episode. It produces inspectable JSON artifacts, TTS-ready segments, dual-host voice clips, and a final rendered audio episode.
+AI Radio Agent turns listener context, memory, topic, duration, and time-of-day intent into short two-host radio episodes. It is built as a portfolio demo for AI audio content generation work: planning, dialogue writing, TTS-safe segmentation, voice rendering, and post-render quality checks.
 
-In a real AI podcast product, the user would not write Host A / Host B scripts. These scripts are internal generated artifacts used for quality control, TTS segmentation, persona consistency, and audio rendering.
+## Demo
 
-## Watch The Demo
-
-### Yoli's Morning Coffee
+### Best First Watch: Yoli's Morning Coffee
 
 <video src="https://github.com/user-attachments/assets/ca8384e8-ba84-4bc2-8b3f-b01a572b87c3"></video>
 
-Breakfast audio-only version: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
+Best first listen: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 
-Dinner audio-only version: [final_ai_radio_episode_dinner_texture.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/final_ai_radio_episode_dinner_texture.mp3)
+Release page: [AI Radio Agent Demo v1](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
 
-## At A Glance
-
-- **What it is:** A multi-agent workflow that generates a personalized two-host AI radio episode.
-- **What it demonstrates:** agent orchestration, structured JSON artifacts, dialogue quality evaluation, TTS segmentation, and final audio rendering.
-- **Demo format:** a three-moment personal radio arc: **Yoli's Morning Coffee**, **Yoli's Midday Brief**, and **Yoli's Evening Reset**.
-- **Best breakfast video demo:** [ai-radio-agent-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4)
-- **Best lunch video demo:** [yolis-midday-brief-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4)
-- **Best dinner video demo:** [yolis-evening-reset-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-demo.mp4)
-- **Best audio demo:** [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
-- **Run locally:** `python -m ai_radio_agent.run_pipeline --mock`
+| Moment | Demo | What to notice |
+| --- | --- | --- |
+| Breakfast | [Morning Coffee video](https://github.com/user-attachments/assets/ca8384e8-ba84-4bc2-8b3f-b01a572b87c3) / [audio](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3) | Continues one unfinished listener thread with soft morning continuity. |
+| Lunch | [Midday Brief video](https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849) | Compresses timely context into a short, useful midday explanation. |
+| Dinner | [Evening Reset video](https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347) / [audio](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/final_ai_radio_episode_dinner_texture.mp3) | Transforms the day's idea into slower reflection and closure. |
 
 ## Daily Radio Concept
 
-This prototype is designed as a reusable personal radio pipeline, not a one-off podcast script generator. The same agent workflow can generate different short episodes for different moments of the day, optimized for earbuds and low-friction listening.
-
-The daily editorial system is built around three content operations:
+This prototype treats personal radio as a reusable editorial system, not a one-off podcast script generator. The same pipeline can adapt a listener's memory thread into different short episodes depending on the moment of day.
 
 ```text
 Breakfast = continue
@@ -44,138 +33,66 @@ Lunch     = compress + update
 Dinner    = transform
 ```
 
-| Moment | Core Operation | Content Source | Listener State | Output Feeling |
+| Moment | Show Format | Core Operation | Listener State | Output Feeling |
 | --- | --- | --- | --- | --- |
-| Breakfast | **Continue** | memory + yesterday's thread | half-awake, beginning the day | gentle continuity |
-| Lunch | **Compress** | current context + relevant updates | busy, between tasks | useful clarity |
-| Dinner | **Transform** | story + reflection + future image | low-energy, ending the day | soft closure |
+| Breakfast | Yoli's Morning Coffee | Continue | Beginning the day | Gentle continuity |
+| Lunch | Yoli's Midday Brief | Compress + update | Between tasks | Useful clarity |
+| Dinner | Yoli's Evening Reset | Transform | Winding down | Soft closure |
 
-The three demo formats are:
-
-- **Yoli's Morning Coffee:** pick up one unfinished thread from yesterday.
-
-- **Yoli's Midday Brief:** compress timely context into why it matters now.
+### Yoli's Midday Brief
 
 <video src="https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849"></video>
 
-- **Yoli's Evening Reset:** turn the day's idea into a story, future image, or reflective closing question.
+### Yoli's Evening Reset
 
 <video src="https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347"></video>
 
-The current release implements the full Breakfast + Lunch + Dinner daily-radio demo arc. Dinner includes its own production script, clean TTS segments, dual-host ElevenLabs render, evening sound texture, and portfolio video card.
+## What This Demonstrates
 
-## Listen To The Iterations
-
-The audio demos are hosted as GitHub Release assets so the code repository stays lightweight.
-
-| Version | Demo | What Changed |
-| --- | --- | --- |
-| 1. Basic dual-host render | [01_basic_dual_host.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/01_basic_dual_host.mp3) | First complete two-host pipeline: generated dialogue, segmented ElevenLabs TTS, and assembled mp3. |
-| 2. Dialogue liveliness pass | [02_dialogue_liveliness.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/02_dialogue_liveliness.mp3) | Adds stronger host response, a lived Host A reaction, a concrete Host B metaphor, and remembered context. |
-| 3. Morning show identity | [03_morning_coffee_intro.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/03_morning_coffee_intro.mp3) | Turns the demo into **Yoli's Morning Coffee**, with a softer personal morning-radio opening. |
-| 4. Final live texture mix | [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3) | Final portfolio sample with dual voices, intro/outro music, subtle kitchen texture, and a more live breakfast-at-home feeling. |
-| 5. Audio-reactive video card | [ai-radio-agent-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4) | A clean, NPR-inspired visualizer video that makes the audio demo immediately legible in a portfolio or GitHub README. |
-| 6. Midday Brief video card | [yolis-midday-brief-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4) | Lunch-format demo showing the same pipeline adapted to compress + update editorial logic. |
-| 7. Evening Reset video card | [yolis-evening-reset-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-demo.mp4) | Dinner-format demo showing the pipeline adapted to transform the day's idea into reflective closure. |
-
-Release page: [AI Radio Agent Demo Audio](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
-
-## What This Project Shows
-
-This project shows the core skills behind AI audio content generation:
-
-- Personalized content planning from listener preferences and memory.
-- Modular agent design instead of one giant prompt.
-- Internal intermediate representations such as `episode_brief.json`, `segment_plan.json`, `dialogue_plan.json`, and `tts_segments.json`.
-- Structured JSON outputs with Pydantic validation.
-- A quality and fact-checking step before voice generation.
-- A dialogue liveliness evaluation that checks response, tension, clarification, and emotional or experiential movement.
-- Clean TTS handoff files that separate human production notes from machine-ready speech text.
-- Dual-voice segment generation and final episode rendering.
-- Multi-provider LLM support for mock, Gemini, and OpenAI.
-
-## Demo Evolution
-
-This repo includes the pipeline artifacts for a small but realistic iteration story:
-
-```text
-basic AI-generated dialogue
--> dual-host segmented TTS
--> more natural host interaction
--> Yoli's Morning Coffee show identity
--> breakfast-at-home live texture mix
-```
-
-The key portfolio idea is that a good AI audio agent is not just "one prompt to speech." It needs intermediate planning artifacts, persona control, TTS-safe segmentation, audio rendering, and quality evaluation.
-
-See [docs/demo_iterations.md](docs/demo_iterations.md) for the recommended demo audio sequence and release checklist.
-
-## Sound Direction
-
-The sample show format is **Yoli's Morning Coffee**: a soft personal morning ritual that gives the listener a gentle greeting, reconnects with yesterday's unfinished thread, and offers one useful thought while breakfast is coming together.
-
-The current dialogue prompts intentionally optimize for radio liveliness, not just correctness:
-
-- Host A must include at least one lived reaction from the listener's point of view.
-- Host B must use at least one concrete metaphor.
-- Each episode should include one specific remembered detail from the previous listening session.
-
-- Calm but not sleepy.
-- Personal but not overly intimate.
-- Thoughtful but not academic.
-- Warm but not sentimental.
-- Clear but not over-explaining.
-- Not a tech news anchor, productivity coach, marketing narrator, overly cheerful podcast host, or therapist.
+- **Agent orchestration:** each stage has a clear schema, input, output, and retry path.
+- **Audio-content planning:** memory, moment, topic, and duration become an editorial brief.
+- **Dialogue evaluation:** the system checks liveliness, moment fit, memory use, freshness relevance, semantic density, and TTS readiness.
+- **TTS handoff:** production notes are separated from machine-readable speech segments so voice tools do not read labels aloud.
+- **Audio rendering:** dual-host clips can be assembled with pauses, loudness control, intro/outro beds, and subtle texture.
+- **Post-render QA:** ASR transcript checks compare rendered audio against `tts_segments.json` to catch missing text, label leakage, or audio interference.
 
 ## How The Pipeline Works
 
-```text
-User Episode Input
-→ Moment Profile Agent
-→ Memory Agent
-→ Recommendation Agent
-→ Timely Context Agent, only for lunch or freshness-required topics
-→ Episode Brief Agent
-→ Segment Planner Agent
-→ Topic Planner
-→ Research / Fact Check
-→ Broadcast Context Agent
-→ Dialogue Planner Agent
-→ Dialogue Writer
-→ Persona Agent
-→ TTS Segment Export
-→ ElevenLabs Segment Generation
-→ Audio Assembler / Episode Renderer
-→ final_ai_radio_episode.mp3
-```
+The pipeline separates user-facing input, editorial planning, dialogue generation, voice handoff, rendering, and post-render checks.
 
 ```mermaid
 flowchart TD
-    A["User-facing input<br/>topic, profile, memory, duration, moment"] --> B["Moment Profile Agent<br/>continue, compress, or transform"]
-    B --> C["Memory + Preference Agents"]
-    C --> D["Recommendation Agent"]
-    D --> E["Timely Context Agent<br/>lunch or freshness-required topics"]
-    E --> F["Episode Brief + Segment Planner"]
+    A["User input<br/>topic, profile, memory, duration, moment"] --> B["Moment Profile<br/>continue, compress, or transform"]
+    B --> C["Memory + Preference Context"]
+    C --> D["Recommendation"]
+    D --> E["Timely Context<br/>when freshness matters"]
+    E --> F["Episode Brief + Segment Plan"]
     F --> G["Research + Fact Check"]
     G --> H["Broadcast Context"]
-    H --> I["Dialogue Planner<br/>turn-by-turn conversation plan"]
-    I --> J["Dialogue Writer + Persona Polish"]
-    J --> K["Quality Evaluation<br/>liveliness + moment fit"]
-    K --> L["TTS Segment Export<br/>clean speaker/text/pause JSON"]
-    L --> M["ElevenLabs Segment Generation"]
-    M --> N["Episode Renderer<br/>pauses, loudness, intro/outro, live texture"]
-    N --> O["final_ai_radio_episode.mp3"]
+    H --> I["Dialogue Plan"]
+    I --> J["Dialogue + Persona Polish"]
+    J --> K["Quality Evaluation"]
+    K --> L["TTS Segment Export"]
+    L --> M["Voice Generation"]
+    M --> N["Episode Renderer"]
+    N --> O["Rendered Audio + QA"]
 ```
 
-Each agent produces a small JSON artifact in `outputs/`, so the workflow is easy to inspect, debug, and explain in an interview.
+Each agent produces a small JSON artifact in `outputs/`, so the workflow is inspectable instead of hidden inside one prompt. In a real product, the listener only hears the final episode; the generated scripts and JSON files exist for quality control, TTS segmentation, debugging, and evaluation.
 
-The listener hears a natural two-host radio episode. The interviewer can inspect the agent pipeline behind that episode.
+## Key Outputs
+
+| File | Why it matters |
+| --- | --- |
+| `outputs/production_script.md` | Human-readable episode script with speaker, delivery, and production notes. |
+| `outputs/tts_segments.json` | Machine-readable speech handoff with speaker, voice key, clean text, delivery note, and pause timing. |
+| `outputs/dinner/production_script.md` | Dinner-specific production script showing the transform operation and slower ending. |
+| `outputs/dinner/tts_segments.json` | Dinner-specific clean TTS handoff. |
+| `docs/demo_iterations.md` | Longer development story and release checklist. |
 
 ## Fastest Way To Try It
 
-Use Python 3.10 or newer.
-
-Mock mode does not require any API key. It creates inspectable JSON artifacts, a human-readable production script, and TTS-ready segment files in `outputs/`.
+Mock mode does not require API keys. It creates deterministic planning, script, evaluation, and TTS handoff artifacts.
 
 ```bash
 python3 -m venv .venv
@@ -184,484 +101,56 @@ python3 -m pip install -r requirements.txt
 python -m ai_radio_agent.run_pipeline --mock
 ```
 
-Then inspect:
-
-```text
-outputs/production_script.md
-outputs/tts_segments.json
-outputs/tts_clean_single_voice.txt
-```
-
-## Installation Options
-
-Basic local setup:
+Try another moment:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-cp .env.example .env
+python -m ai_radio_agent.run_pipeline --mock --moment lunch
+python -m ai_radio_agent.run_pipeline --mock --moment dinner
 ```
 
-Install as an editable package with optional extras:
-
-```bash
-# Local mock mode + tests
-python3 -m pip install -e '.[test]'
-
-# Gemini provider
-python3 -m pip install -e '.[gemini]'
-
-# OpenAI provider
-python3 -m pip install -e '.[openai]'
-
-# Optional local ASR quality check
-python3 -m pip install -e '.[asr]'
-
-# Everything used by the core portfolio demo
-python3 -m pip install -e '.[all]'
-```
-
-Use `requirements-gemini.txt` if you prefer a beginner-friendly requirements-file flow instead of package extras.
-
-For final episode rendering and local ASR transcription on macOS, install ffmpeg:
-
-```bash
-brew install ffmpeg
-```
-
-The renderer needs both `ffmpeg` and `ffprobe`, which Homebrew's ffmpeg package normally installs together. `faster-whisper` also uses ffmpeg to decode mp3 and other audio files.
-
-## Run In Mock Mode
-
-Mock mode uses built-in deterministic responses. It does not require any API key.
-
-```bash
-python -m ai_radio_agent.run_pipeline --mock
-```
-
-You can also pass the user-facing product inputs directly:
-
-```bash
-python -m ai_radio_agent.run_pipeline --mock \
-  --moment breakfast \
-  --topic "Why do some AI hosts sound like they really understand you?" \
-  --duration-minutes 2
-```
-
-Use `--moment lunch` or `--moment dinner` to test the same pipeline with a different editorial operation. Mock mode keeps these runs deterministic; live providers can generate fuller scripts for each moment.
-
-Main outputs:
-
-```text
-outputs/production_script.md
-outputs/00_moment_profile.json
-outputs/episode_brief.json
-outputs/segment_plan.json
-outputs/tts_segments.json
-outputs/tts_clean_single_voice.txt
-outputs/tts_elevenlabs_ready.md
-```
-
-`production_script.md` is for human review. It includes speaker names, personas, delivery notes, and production metadata.
-
-`episode_brief.json` and `segment_plan.json` show how the system turns a user-facing request into an internal episode structure. For a longer 10–20 minute product version, the segment planner would divide the show into multiple timed sections and generate each section separately instead of asking one prompt to produce a full long script.
-
-`tts_segments.json` is the machine-friendly dual-host handoff. Each segment has:
-
-- `speaker`
-- `voice_key`
-- `text`
-- `delivery_note`
-- `pause_after_ms`
-
-`tts_clean_single_voice.txt` is only for quick testing with one voice. It removes speaker labels and delivery notes.
-
-The episode content should sound like a radio program, not a portfolio explanation. For example, the hosts should talk naturally about personalized AI radio and listening habits. The agent names belong in `production_script.md`, README, and interview discussion, not in the audio text for a normal listener.
-
-Structured artifacts:
-
-```text
-outputs/00_user_preference.json
-outputs/00_user_episode_input.json
-outputs/00_moment_profile.json
-outputs/00_memory_state.json
-outputs/00_recommendation.json
-outputs/episode_brief.json
-outputs/segment_plan.json
-outputs/01_topic_plan.json
-outputs/02_broadcast_context.json
-outputs/02_timely_context.json
-outputs/03_research_brief.json
-outputs/04_fact_check.json
-outputs/05_script_outline.json
-outputs/06_dialogue_plan.json
-outputs/07_dialogue_script.json
-outputs/08_persona_script.json
-outputs/09_quality_eval.json
-outputs/10_tts_export.json
-```
-
-The Host A / Host B files are not user-authored inputs. They are generated intermediate representations that make the pipeline inspectable and debuggable.
-
-## Run With Gemini
-
-Install Gemini support:
-
-```bash
-python3 -m pip install -r requirements-gemini.txt
-```
-
-Edit `.env`:
-
-```bash
-LLM_PROVIDER=gemini
-GEMINI_API_KEY=your_key_here
-LLM_MODEL=gemini-3.1-flash-lite
-```
-
-Then run:
-
-```bash
-python -m ai_radio_agent.run_pipeline
-```
-
-`gemini-3.1-flash-lite` is the default in this project because Google lists Flash-Lite models as structured-output-capable and they are a good fit for low-cost text generation. If your account or region uses a different Flash or Flash-Lite model name, set `LLM_MODEL` in `.env`.
-
-If Gemini returns `User location is not supported for the API use`, the request is being blocked by Google API availability for the current account or network location. The project cannot bypass that provider policy; use mock mode, OpenAI mode, or a supported Gemini API setup.
-
-## Run With OpenAI
-
-Install OpenAI support:
-
-```bash
-pip install -e '.[openai]'
-```
-
-Edit `.env`:
-
-```bash
-LLM_PROVIDER=openai
-OPENAI_API_KEY=your_key_here
-LLM_MODEL=your_preferred_text_model
-```
-
-Then run:
-
-```bash
-python -m ai_radio_agent.run_pipeline
-```
-
-Use OpenAI mode only if you have API credits. Set `LLM_MODEL` to any text model available to your account. Mock mode is best for demos, tests, and interviews where you want predictable output.
-
-## JSON Reliability
-
-Every agent is asked to return JSON matching a Pydantic schema.
-
-The runner also:
-
-- extracts JSON from plain text or fenced code blocks,
-- validates the result with Pydantic,
-- retries once if parsing or validation fails,
-- logs the failing agent and error,
-- saves raw failed model output under `outputs/debug/`.
-
-This makes model failures visible instead of mysterious.
-
-The quality evaluator includes `dialogue_liveliness_score`, which asks whether the episode feels like two hosts responding to each other, with some tension, clarification, and lived movement, instead of two voices reading adjacent paragraphs.
-
-It also includes moment-specific evaluation fields:
-
-- `moment_fit_score`
-- `content_operation`
-- `memory_use_score`
-- `freshness_relevance_score`
-- `semantic_density`
-- `risk_notes`
-
-These fields make Breakfast, Lunch, and Dinner evaluable as different editorial modes rather than different surface tones.
-
-## TTS Is Optional
-
-The pipeline stops at reviewable and TTS-ready files. TTS is a separate optional step.
-
-You can add speech synthesis with:
-
-- OpenAI TTS,
-- ElevenLabs,
-- Doubao,
-- local macOS `say`,
-- or any other voice provider.
-
-TTS is intentionally not required because the portfolio goal is to show the content-generation agent workflow first.
-
-Important: do not paste a dual-host production script directly into one TTS voice. It may read labels like `Host A` or delivery notes aloud. Use `tts_segments.json` for a real two-voice workflow, or `tts_clean_single_voice.txt` only for a quick single-voice test.
-
-### ElevenLabs TTS
-
-ElevenLabs TTS is implemented as a separate optional command. First run the pipeline:
-
-```bash
-python -m ai_radio_agent.run_pipeline --mock
-```
-
-Then add your ElevenLabs key to `.env`:
-
-```env
-ELEVENLABS_API_KEY=your_key_here
-ELEVENLABS_VOICE_ID=JBFqnCBsd6RMkjVDRZzb
-ELEVENLABS_HOST_A_VOICE_ID=JBFqnCBsd6RMkjVDRZzb
-ELEVENLABS_HOST_B_VOICE_ID=EXAVITQu4vr4xnSDxMaL
-ELEVENLABS_MODEL_ID=eleven_multilingual_v2
-ELEVENLABS_OUTPUT_FORMAT=mp3_44100_128
-
-ELEVENLABS_HOST_A_STABILITY=0.72
-ELEVENLABS_HOST_A_SIMILARITY_BOOST=0.72
-ELEVENLABS_HOST_A_STYLE=0.08
-ELEVENLABS_HOST_A_USE_SPEAKER_BOOST=false
-ELEVENLABS_HOST_A_SPEED=0.90
-
-ELEVENLABS_HOST_B_STABILITY=0.68
-ELEVENLABS_HOST_B_SIMILARITY_BOOST=0.76
-ELEVENLABS_HOST_B_STYLE=0.10
-ELEVENLABS_HOST_B_USE_SPEAKER_BOOST=false
-ELEVENLABS_HOST_B_SPEED=0.93
-```
-
-For a two-host show, choose voices that are obviously different, for example one male-coded voice and one female-coded voice. List the voices available to your account:
-
-```bash
-python -m ai_radio_agent.tts_elevenlabs --list-voices
-```
-
-Then copy two different voice IDs into `ELEVENLABS_HOST_A_VOICE_ID` and `ELEVENLABS_HOST_B_VOICE_ID`.
-
-The voice ID controls who is speaking. The `voice_settings` values control how that voice speaks for this request. The defaults above aim for a softer morning-radio delivery: slightly slower, less boosted, stable, and not too performative. You can A/B test by changing only these `.env` values.
-
-Export a quick single-voice audio test:
-
-```bash
-python -m ai_radio_agent.tts_elevenlabs
-```
-
-Default output:
-
-```text
-outputs/09_elevenlabs_audio.mp3
-```
-
-This command reads `outputs/tts_clean_single_voice.txt` by default. It is useful for checking pacing and pronunciation, but it is not the final two-host workflow.
-
-For true dual-host audio, use `outputs/tts_segments.json`:
-
-1. Generate each Host A segment with `ELEVENLABS_HOST_A_VOICE_ID`.
-2. Generate each Host B segment with `ELEVENLABS_HOST_B_VOICE_ID`.
-3. Render the clips in segment order.
-4. Insert each segment's `pause_after_ms` between clips.
-
-You can generate separate Host A / Host B clips with:
-
-```bash
-python -m ai_radio_agent.tts_elevenlabs --segments outputs/tts_segments.json
-```
-
-This writes one mp3 per dialogue segment to:
-
-```text
-outputs/elevenlabs_segments/
-```
-
-Segment export is resumable by default. If the command stops because of quota or network issues, rerun the same command later and existing non-empty segment files will be skipped. Use `--overwrite-segments` only when you intentionally want to regenerate every clip.
-
-See `outputs/tts_elevenlabs_ready.md` after running the pipeline. If ElevenLabs is unavailable or no API key is configured, the main agent pipeline still works.
-
-### Render Final Episode
-
-After generating ElevenLabs segments, render the complete two-host episode:
-
-```bash
-python -m ai_radio_agent.render_episode --segments outputs/tts_segments.json --audio-dir outputs/elevenlabs_segments --output outputs/final_ai_radio_episode.mp3
-```
-
-Optional soft intro music or room tone:
-
-```bash
-python -m ai_radio_agent.render_episode \
-  --segments outputs/tts_segments.json \
-  --audio-dir outputs/elevenlabs_segments \
-  --output outputs/final_ai_radio_episode.mp3 \
-  --intro-audio path/to/soft_intro.mp3
-```
-
-The intro bed fades in quietly, starts the first voice after about three seconds, then fades out. Keep intro audio subtle: 3-5 seconds of soft piano, ambient texture, room tone, or a tiny cup/spoon cue works better than a full podcast jingle.
-
-Optional live kitchen texture mix:
-
-```bash
-python -m ai_radio_agent.render_episode \
-  --segments outputs/tts_segments.json \
-  --audio-dir outputs/elevenlabs_segments_breakfast_live \
-  --output outputs/final_ai_radio_episode_breakfast_live_texture.mp3 \
-  --intro-audio outputs/audio_assets/yoli_morning_coffee_intro_bed.mp3 \
-  --live-sfx-dir outputs/audio_assets/breakfast_live_sfx_pack \
-  --outro-audio outputs/audio_assets/breakfast_soft_outro_bed_v1.mp3
-```
-
-Live texture effects are mixed very quietly behind the voices. They are intended to prevent digital black silence and create a light breakfast-at-home space, not to become foreground ASMR or a kitchen soundscape.
-
-Optional midday brief music and walking texture mix:
-
-```bash
-mkdir -p outputs/audio_assets/yoli_midday_sound_pack
-unzip -o /path/to/yoli_midday_sound_pack_mp3.zip \
-  -d outputs/audio_assets/yoli_midday_sound_pack
-
-python -m ai_radio_agent.render_episode \
-  --segments outputs/tts_segments.json \
-  --audio-dir outputs/elevenlabs_segments \
-  --output outputs/final_ai_radio_episode_lunch_texture.mp3 \
-  --target-dbfs -17 \
-  --intro-audio outputs/audio_assets/yoli_midday_sound_pack/yoli_midday_intro_bed_10s.mp3 \
-  --intro-gain-db -22 \
-  --voice-start-ms 1500 \
-  --intro-total-ms 8000 \
-  --midday-sfx-dir outputs/audio_assets/yoli_midday_sound_pack
-```
-
-The midday mix uses a low main bed, a soft tab-closing cue, a lunch specials board cue, a distant crosswalk cue, a thinner boundary texture, and a short trimmed outro bed. It intentionally does not use continuous lunch-walk ambience, because that made the ending feel like a long near-silent tail. These sounds are post-render layers and never appear in `tts_segments.json`.
-
-Optional evening reset music and room texture mix:
-
-```bash
-python -m ai_radio_agent.render_episode \
-  --segments outputs/dinner/tts_segments.json \
-  --audio-dir outputs/elevenlabs_segments_dinner \
-  --output outputs/final_ai_radio_episode_dinner_texture.mp3 \
-  --evening-sfx-dir outputs/audio_assets/yoli_evening_sound_pack \
-  --pause-scale 2.5
-```
-
-The evening mix uses a quiet room-tone floor, slower intro/main/outro beds, soft dish and window cues, and a small sonic logo. `--pause-scale` lets the renderer preserve clean TTS segment timing while making Dinner breathe more slowly than Lunch.
-
-Optional WAV export:
-
-```bash
-python -m ai_radio_agent.render_episode --segments outputs/tts_segments.json --audio-dir outputs/elevenlabs_segments --output outputs/final_ai_radio_episode.mp3 --wav-output outputs/final_ai_radio_episode.wav
-```
-
-Renderer outputs:
-
-```text
-outputs/final_ai_radio_episode.mp3
-outputs/final_ai_radio_episode.wav
-outputs/final_episode_manifest.json
-```
-
-The renderer preserves segment order, normalizes segment loudness, inserts the configured pauses, and never reads speaker labels aloud because it uses only the generated mp3 clips.
-
-### ASR transcript check
-
-After rendering a final episode, you can transcribe the audio locally with `faster-whisper`. This step is a **quality check** for the rendered audio. It is **not** the original source of truth for the episode text.
-
-The source of truth is still:
-
-- `outputs/tts_segments.json` for machine-ready speech text
-- `outputs/script.md` and `outputs/production_script.md` for human review
-
-For generated TTS audio, compare the ASR transcript with `tts_segments.json` to detect:
-
-- missing text
-- wrong pronunciation
-- accidental reading of speaker labels
-- music or SFX interference
-
-Example:
-
-```bash
-python3 -m ai_radio_agent.asr_transcribe \
-  --audio outputs/final_ai_radio_episode_morning.mp3 \
-  --output outputs/transcript_morning.md
-```
-
-Outputs:
-
-```text
-outputs/transcript_morning.md
-outputs/transcript_morning.json
-```
-
-The markdown file includes the audio file name, detected language, timestamped segments, and a clean full transcript section. The JSON file contains the same data in a machine-friendly format for diffing or tooling.
-
-Then run the first-stage automated fidelity check:
-
-```bash
-python -m ai_radio_agent.audio_fidelity_check \
-  --segments outputs/tts_segments.json \
-  --asr outputs/transcript_morning.json \
-  --out-json outputs/audio_fidelity_report.json \
-  --out-md outputs/audio_fidelity_report.md \
-  --expected-language en
-```
-
-Outputs:
-
-```text
-outputs/audio_fidelity_report.json
-outputs/audio_fidelity_report.md
-```
-
-This check treats `tts_segments.json` as the source of truth. The ASR transcript is only a post-render quality probe, so the checker uses conservative fuzzy matching instead of exact word-level diffing.
-
-The report checks:
-
-- text coverage between TTS segments and ASR transcript
-- accidental leakage of labels or production notes such as `Host A`, `pause after`, `delivery note`, or `voice key`
-- low-confidence or missing TTS segments
-- detected ASR language versus the expected language
-
-The final report includes a `ready_for_publish` decision, blocking issues, warnings, and suggested next steps.
-
-Optional flags:
-
-- `--model base` — Whisper model size (`tiny`, `base`, `small`, `medium`, `large-v3`, etc.)
-- `--language en` — force a language instead of auto-detecting
-- `--device auto` — use `cpu` or `cuda` if needed
-
-The first run downloads the selected Whisper model. No OpenAI API key or paid ASR service is required.
-
-## Test
+Run tests:
 
 ```bash
 pytest
 ```
 
-The smoke test runs the full mock pipeline and verifies that the expected output files are created.
+## Optional Voice And QA Paths
+
+The core pipeline works without TTS. Voice rendering is a separate optional layer.
+
+- **Live model providers:** use mock mode for deterministic demos, or configure Gemini/OpenAI in `.env` for live generation.
+- **ElevenLabs export:** `python -m ai_radio_agent.tts_elevenlabs --segments outputs/tts_segments.json`
+- **Final episode render:** `python -m ai_radio_agent.render_episode --segments outputs/tts_segments.json --audio-dir outputs/elevenlabs_segments --output outputs/final_ai_radio_episode.mp3`
+- **ASR quality check:** transcribe rendered audio with `ai_radio_agent.asr_transcribe`, then compare the transcript with `ai_radio_agent.audio_fidelity_check`.
+
+These steps are intentionally optional because the portfolio focus is the controllable content-generation pipeline: editorial planning, dialogue, TTS-safe handoff, rendering hooks, and evaluation.
 
 ## Project Structure
 
 ```text
 ai_radio_agent/
-  agents.py        # agent order, prompts, validation, retry, debug logging
-  moment_profiles.py # breakfast/lunch/dinner editorial profiles
-  providers.py     # LLMProvider, MockProvider, OpenAIProvider, GeminiProvider
-  schemas.py       # Pydantic schemas for all agent artifacts
-  json_utils.py    # robust JSON extraction helpers
-  run_pipeline.py  # CLI entry point
-  tts_elevenlabs.py # optional ElevenLabs single-voice or segmented export
-  render_episode.py # audio assembler / final episode renderer
-  asr_transcribe.py # optional local ASR quality check for rendered audio
-  audio_fidelity_check.py # compares ASR transcript with tts_segments.json
-tests/
-  test_smoke.py
+  agents.py              # agent order, prompts, validation, retry, debug logging
+  moment_profiles.py     # breakfast/lunch/dinner editorial profiles
+  schemas.py             # Pydantic schemas for generated artifacts
+  providers.py           # mock, OpenAI, and Gemini provider adapters
+  run_pipeline.py        # CLI entry point
+  tts_elevenlabs.py      # optional segmented voice export
+  render_episode.py      # optional final episode renderer
+  asr_transcribe.py      # optional local ASR transcript check
+  audio_fidelity_check.py # optional ASR-vs-TTS fidelity report
+docs/
+  demo_iterations.md     # detailed demo story and release checklist
+outputs/dinner/
+  production_script.md   # dinner-format production script
+  tts_segments.json      # dinner-format TTS handoff
 ```
 
-## Interview Talking Points
+## Development Story
 
-This demo maps directly to AI audio agent and prompt evaluation work:
+This project started as a basic two-host generation pipeline, then added dialogue liveliness, memory continuity, TTS-safe segmentation, and final audio rendering. It now demonstrates a three-moment daily radio arc: Breakfast continues, Lunch compresses and updates, Dinner transforms.
 
-- **Agent orchestration:** each step has a clear input, output, and responsibility.
-- **Prompt engineering:** each agent is constrained to produce schema-valid artifacts.
-- **Evaluation:** the quality evaluator checks readiness before TTS.
-- **Dialogue quality:** `dialogue_liveliness_score` measures whether the hosts react, clarify, challenge, and move emotionally through the topic.
-- **Reliability:** failed JSON is retried and saved for debugging.
-- **Production mindset:** mock mode supports local testing while real providers support Gemini and OpenAI.
+See [docs/demo_iterations.md](docs/demo_iterations.md) for the longer iteration story and release asset guide.
+
+## License
+
+MIT

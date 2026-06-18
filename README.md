@@ -9,6 +9,7 @@ Given a listener profile, memory context, topic, and target duration, the system
 
 The visible Host A / Host B script is not meant to be written by the user. It is an internal production artifact used to make the generation process inspectable: checking dialogue quality, persona consistency, TTS segmentation, and audio rendering before the final episode is produced.
 
+
 ## Demo
 
 ### Start With: Yoli's Morning Coffee
@@ -23,11 +24,13 @@ First audio sample: [04_final_live_texture_mix.mp3](https://github.com/resonantr
 | Lunch | [Midday Brief video](https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849) | Compresses timely context into a short, useful midday explanation. |
 | Dinner | [Evening Reset video](https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347) / [audio](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/final_ai_radio_episode_dinner_texture.mp3) | Transforms the day's idea into slower reflection and closure. |
 
+
 ## Listen To The Iterations
 
 The release page includes the recommended review path and the full audio/video iteration sequence, from the first dual-host render to the Breakfast + Lunch + Dinner demo arc.
 
 [Open the demo release page](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
+
 
 ## Daily Radio Concept
 
@@ -45,13 +48,16 @@ Dinner    = transform
 | Lunch | Yoli's Midday Brief | Compress + update | Between tasks | Useful clarity |
 | Dinner | Yoli's Evening Reset | Transform | Winding down | Soft closure |
 
+
 ### Yoli's Midday Brief
 
 <video src="https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849"></video>
 
+
 ### Yoli's Evening Reset
 
 <video src="https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347"></video>
+
 
 ## What This Demonstrates
 
@@ -61,6 +67,7 @@ Dinner    = transform
 - **TTS handoff:** production notes are separated from machine-readable speech segments so voice tools do not read labels aloud.
 - **Audio rendering:** dual-host clips can be assembled with pauses, loudness control, intro/outro beds, and subtle texture.
 - **Post-render QA:** ASR transcript checks compare rendered audio against `tts_segments.json` to catch missing text, label leakage, or audio interference.
+
 
 ## How The Pipeline Works
 
@@ -107,6 +114,7 @@ flowchart TD
 
 The important design choice is separation: editorial logic, dialogue quality, TTS handoff, and audio rendering are different layers. In a real product, the listener only hears the final episode; the generated scripts and JSON files exist for quality control, debugging, and evaluation.
 
+
 ## Key Outputs
 
 | File | Why it matters |
@@ -116,6 +124,7 @@ The important design choice is separation: editorial logic, dialogue quality, TT
 | `outputs/dinner/production_script.md` | Dinner-specific production script showing the transform operation and slower ending. |
 | `outputs/dinner/tts_segments.json` | Dinner-specific clean TTS handoff. |
 | `docs/demo_iterations.md` | Longer development story and release checklist. |
+
 
 ## Fastest Way To Try It
 
@@ -141,6 +150,7 @@ Run tests:
 pytest
 ```
 
+
 ## Optional Voice And QA Paths
 
 The core pipeline works without TTS. Voice rendering is a separate optional layer.
@@ -151,6 +161,7 @@ The core pipeline works without TTS. Voice rendering is a separate optional laye
 - **ASR quality check:** transcribe rendered audio with `ai_radio_agent.asr_transcribe`, then compare the transcript with `ai_radio_agent.audio_fidelity_check`.
 
 These steps are intentionally optional because the portfolio focus is the controllable content-generation pipeline: editorial planning, dialogue, TTS-safe handoff, rendering hooks, and evaluation.
+
 
 ## Project Structure
 
@@ -171,6 +182,7 @@ outputs/dinner/
   production_script.md   # dinner-format production script
   tts_segments.json      # dinner-format TTS handoff
 ```
+
 
 ## Development Story
 

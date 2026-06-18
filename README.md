@@ -64,19 +64,23 @@ Dinner    = transform
 
 ## How The Pipeline Works
 
-The core pipeline is a sequence of schema-validated agents. It turns a listener request into inspectable planning artifacts first, then writes and evaluates the two-host episode before exporting clean TTS segments. Voice generation, rendering, and ASR checks sit after the core generator as optional production layers.
+The core pipeline is a gated production loop, not just "generate script, then synthesize voice." It uses moment and memory context to plan the episode, checks the script before TTS, and uses rendered-audio QA to catch issues that only appear after voice generation.
 
 ```mermaid
 flowchart LR
-    A["Input"] --> B["Moment + Context"]
-    B --> C["Episode Plan"]
-    C --> D["Dialogue + Persona"]
-    D --> E["Quality Check"]
-    E --> F["TTS Handoff"]
-    F --> G["Render + ASR QA"]
+    A["Input"] --> B["Moment + Memory Gate"]
+    B --> C["Editorial Plan"]
+    C --> D["Research + Framing"]
+    D --> E["Dialogue"]
+    E --> F{"Script QA"}
+    F -- revise --> D
+    F -- pass --> G["TTS Segments"]
+    G --> H{"ASR Diff"}
+    H -- fix --> G
+    H -- pass --> I["Render + Audio QA"]
 ```
 
-The important design choice is separation: editorial logic, dialogue quality, TTS handoff, and audio rendering are different layers. In a real product, the listener only hears the final episode; the generated scripts and JSON files exist for quality control, debugging, and evaluation.
+The important design choice is separation: memory informs the episode without dominating it, research constrains the script, TTS segments are the source of truth for speech, and audio QA closes the loop after rendering. In a real product, the listener only hears the final episode; the generated scripts and JSON files exist for quality control, debugging, and evaluation.
 
 ## Key Outputs
 

@@ -13,19 +13,23 @@ In a real AI podcast product, the user would not write Host A / Host B scripts. 
 
 ## Watch The Demo
 
-[![Yoli's Morning Coffee video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix_cover.png)](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4)
+### Yoli's Morning Coffee
 
-**Yoli's Morning Coffee**: [watch the breakfast video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4)
+<video src="https://github.com/user-attachments/assets/ca8384e8-ba84-4bc2-8b3f-b01a572b87c3"></video>
 
-[![Yoli's Midday Brief video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-poster.png)](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4)
+[Open the breakfast video demo](https://github.com/user-attachments/assets/ca8384e8-ba84-4bc2-8b3f-b01a572b87c3)
 
-**Yoli's Midday Brief**: [watch the lunch video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4)
+### Yoli's Midday Brief
 
-[![Yoli's Evening Reset video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-poster.png)](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-demo.mp4)
+<video src="https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849"></video>
 
-**Yoli's Evening Reset**: [watch the dinner video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-demo.mp4)
+[Open the lunch video demo](https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849)
 
-GitHub does not always render release-hosted MP4 files as inline players inside README files, so the demos are shown as clickable poster images. The video files open directly from the GitHub Release assets.
+### Yoli's Evening Reset
+
+<video src="https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347"></video>
+
+[Open the dinner video demo](https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347)
 
 Breakfast audio-only version: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 

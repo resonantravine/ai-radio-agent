@@ -17,20 +17,6 @@ In a real AI podcast product, the user would not write Host A / Host B scripts. 
 
 <video src="https://github.com/user-attachments/assets/ca8384e8-ba84-4bc2-8b3f-b01a572b87c3"></video>
 
-[Open the breakfast video demo](https://github.com/user-attachments/assets/ca8384e8-ba84-4bc2-8b3f-b01a572b87c3)
-
-### Yoli's Midday Brief
-
-<video src="https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849"></video>
-
-[Open the lunch video demo](https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849)
-
-### Yoli's Evening Reset
-
-<video src="https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347"></video>
-
-[Open the dinner video demo](https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347)
-
 Breakfast audio-only version: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 
 Dinner audio-only version: [final_ai_radio_episode_dinner_texture.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/final_ai_radio_episode_dinner_texture.mp3)
@@ -67,8 +53,14 @@ Dinner    = transform
 The three demo formats are:
 
 - **Yoli's Morning Coffee:** pick up one unfinished thread from yesterday.
+
 - **Yoli's Midday Brief:** compress timely context into why it matters now.
+
+<video src="https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849"></video>
+
 - **Yoli's Evening Reset:** turn the day's idea into a story, future image, or reflective closing question.
+
+<video src="https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347"></video>
 
 The current release implements the full Breakfast + Lunch + Dinner daily-radio demo arc. Dinner includes its own production script, clean TTS segments, dual-host ElevenLabs render, evening sound texture, and portfolio video card.
 

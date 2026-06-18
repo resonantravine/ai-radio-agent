@@ -21,17 +21,24 @@ In a real AI podcast product, the user would not write Host A / Host B scripts. 
 
 **Yoli's Midday Brief**: [watch the lunch video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4)
 
+[![Yoli's Evening Reset video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-poster.png)](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-demo.mp4)
+
+**Yoli's Evening Reset**: [watch the dinner video demo](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-demo.mp4)
+
 GitHub does not always render release-hosted MP4 files as inline players inside README files, so the demos are shown as clickable poster images. The video files open directly from the GitHub Release assets.
 
 Breakfast audio-only version: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
+
+Dinner audio-only version: [final_ai_radio_episode_dinner_texture.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/final_ai_radio_episode_dinner_texture.mp3)
 
 ## At A Glance
 
 - **What it is:** A multi-agent workflow that generates a personalized two-host AI radio episode.
 - **What it demonstrates:** agent orchestration, structured JSON artifacts, dialogue quality evaluation, TTS segmentation, and final audio rendering.
-- **Demo format:** **Yoli's Morning Coffee**, a soft personal morning radio sample designed for earbuds during breakfast.
+- **Demo format:** a three-moment personal radio arc: **Yoli's Morning Coffee**, **Yoli's Midday Brief**, and **Yoli's Evening Reset**.
 - **Best breakfast video demo:** [ai-radio-agent-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4)
 - **Best lunch video demo:** [yolis-midday-brief-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4)
+- **Best dinner video demo:** [yolis-evening-reset-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-demo.mp4)
 - **Best audio demo:** [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 - **Run locally:** `python -m ai_radio_agent.run_pipeline --mock`
 
@@ -53,13 +60,13 @@ Dinner    = transform
 | Lunch | **Compress** | current context + relevant updates | busy, between tasks | useful clarity |
 | Dinner | **Transform** | story + reflection + future image | low-energy, ending the day | soft closure |
 
-The three planned formats are:
+The three demo formats are:
 
 - **Yoli's Morning Coffee:** pick up one unfinished thread from yesterday.
 - **Yoli's Midday Brief:** compress timely context into why it matters now.
 - **Yoli's Evening Reset:** turn the day's idea into a story, future image, or reflective closing question.
 
-The current release implements the breakfast demo and includes a curated mock script for the lunch format. Dinner is planned as a follow-up sample using the same internal artifacts: episode brief, segment plan, dialogue plan, TTS segments, audio rendering, ASR transcript, and audio fidelity report.
+The current release implements the full Breakfast + Lunch + Dinner daily-radio demo arc. Dinner includes its own production script, clean TTS segments, dual-host ElevenLabs render, evening sound texture, and portfolio video card.
 
 ## Listen To The Iterations
 
@@ -73,6 +80,7 @@ The audio demos are hosted as GitHub Release assets so the code repository stays
 | 4. Final live texture mix | [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3) | Final portfolio sample with dual voices, intro/outro music, subtle kitchen texture, and a more live breakfast-at-home feeling. |
 | 5. Audio-reactive video card | [ai-radio-agent-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/ai-radio-agent-demo.mp4) | A clean, NPR-inspired visualizer video that makes the audio demo immediately legible in a portfolio or GitHub README. |
 | 6. Midday Brief video card | [yolis-midday-brief-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-midday-brief-demo.mp4) | Lunch-format demo showing the same pipeline adapted to compress + update editorial logic. |
+| 7. Evening Reset video card | [yolis-evening-reset-demo.mp4](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/yolis-evening-reset-demo.mp4) | Dinner-format demo showing the pipeline adapted to transform the day's idea into reflective closure. |
 
 Release page: [AI Radio Agent Demo Audio](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
 
@@ -525,6 +533,19 @@ python -m ai_radio_agent.render_episode \
 ```
 
 The midday mix uses a low main bed, a soft tab-closing cue, a lunch specials board cue, a distant crosswalk cue, a thinner boundary texture, and a short trimmed outro bed. It intentionally does not use continuous lunch-walk ambience, because that made the ending feel like a long near-silent tail. These sounds are post-render layers and never appear in `tts_segments.json`.
+
+Optional evening reset music and room texture mix:
+
+```bash
+python -m ai_radio_agent.render_episode \
+  --segments outputs/dinner/tts_segments.json \
+  --audio-dir outputs/elevenlabs_segments_dinner \
+  --output outputs/final_ai_radio_episode_dinner_texture.mp3 \
+  --evening-sfx-dir outputs/audio_assets/yoli_evening_sound_pack \
+  --pause-scale 2.5
+```
+
+The evening mix uses a quiet room-tone floor, slower intro/main/outro beds, soft dish and window cues, and a small sonic logo. `--pause-scale` lets the renderer preserve clean TTS segment timing while making Dinner breathe more slowly than Lunch.
 
 Optional WAV export:
 

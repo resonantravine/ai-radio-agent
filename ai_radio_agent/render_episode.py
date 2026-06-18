@@ -26,8 +26,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--intro-fade-ms", type=int, default=3000, help="Fade in/out duration for optional intro audio.")
     parser.add_argument("--voice-start-ms", type=int, default=3000, help="When the first voice starts if intro audio is used.")
     parser.add_argument("--intro-total-ms", type=int, default=13000, help="Total intro bed duration if intro audio is used.")
+    parser.add_argument("--pause-scale", type=float, default=1.0, help="Multiplier applied to segment pause_after_ms values.")
     parser.add_argument("--live-sfx-dir", default=None, help="Optional breakfast live texture SFX directory.")
     parser.add_argument("--midday-sfx-dir", default=None, help="Optional Yoli's Midday Brief music and SFX directory.")
+    parser.add_argument("--evening-sfx-dir", default=None, help="Optional Yoli's Evening Reset music and SFX directory.")
     parser.add_argument("--outro-audio", default=None, help="Optional soft outro music bed.")
     return parser.parse_args()
 
@@ -46,8 +48,10 @@ def main() -> None:
             intro_fade_ms=args.intro_fade_ms,
             voice_start_ms=args.voice_start_ms,
             intro_total_ms=args.intro_total_ms,
+            pause_scale=args.pause_scale,
             live_sfx_dir=Path(args.live_sfx_dir) if args.live_sfx_dir else None,
             midday_sfx_dir=Path(args.midday_sfx_dir) if args.midday_sfx_dir else None,
+            evening_sfx_dir=Path(args.evening_sfx_dir) if args.evening_sfx_dir else None,
             outro_audio_path=Path(args.outro_audio) if args.outro_audio else None,
         )
         print(f"Saved final episode to {args.output}")
@@ -68,8 +72,10 @@ def render_episode(
     intro_fade_ms: int = 3000,
     voice_start_ms: int = 3000,
     intro_total_ms: int = 13000,
+    pause_scale: float = 1.0,
     live_sfx_dir: Path | None = None,
     midday_sfx_dir: Path | None = None,
+    evening_sfx_dir: Path | None = None,
     outro_audio_path: Path | None = None,
 ) -> dict[str, Any]:
     ensure_file_exists(segments_path, "TTS segments")
@@ -79,7 +85,13 @@ def render_episode(
         raise RuntimeError(f"No segments found in {segments_path}")
 
     check_ffmpeg()
-    if shutil.which("ffprobe") is None or live_sfx_dir is not None or midday_sfx_dir is not None or outro_audio_path is not None:
+    if (
+        shutil.which("ffprobe") is None
+        or live_sfx_dir is not None
+        or midday_sfx_dir is not None
+        or evening_sfx_dir is not None
+        or outro_audio_path is not None
+    ):
         return render_with_ffmpeg_only(
             episode_data=episode_data,
             segments=segments,
@@ -93,8 +105,10 @@ def render_episode(
             intro_fade_ms=intro_fade_ms,
             voice_start_ms=voice_start_ms,
             intro_total_ms=intro_total_ms,
+            pause_scale=pause_scale,
             live_sfx_dir=live_sfx_dir,
             midday_sfx_dir=midday_sfx_dir,
+            evening_sfx_dir=evening_sfx_dir,
             outro_audio_path=outro_audio_path,
         )
 
@@ -121,6 +135,7 @@ def render_episode(
             ) from exc
         normalized = normalize_audio(audio, target_dbfs=target_dbfs)
         pause_after_ms = int(segment.get("pause_after_ms", 500))
+        pause_after_ms = max(0, int(round(pause_after_ms * pause_scale)))
 
         final_audio += normalized
         final_audio += AudioSegment.silent(duration=pause_after_ms)
@@ -174,6 +189,7 @@ def render_episode(
         "intro_audio": str(intro_audio_path) if intro_audio_path else None,
         "intro_gain_db": intro_gain_db if intro_audio_path else None,
         "voice_start_ms": voice_start_ms if intro_audio_path else None,
+        "pause_scale": pause_scale,
         "total_duration_ms": len(final_audio),
         "segments": manifest_segments,
     }
@@ -213,8 +229,10 @@ def render_with_ffmpeg_only(
     intro_fade_ms: int,
     voice_start_ms: int,
     intro_total_ms: int,
+    pause_scale: float,
     live_sfx_dir: Path | None,
     midday_sfx_dir: Path | None,
+    evening_sfx_dir: Path | None,
     outro_audio_path: Path | None,
 ) -> dict[str, Any]:
     if intro_audio_path is not None:
@@ -223,6 +241,8 @@ def render_with_ffmpeg_only(
         raise RuntimeError(f"Live SFX directory not found: {live_sfx_dir}")
     if midday_sfx_dir is not None and not midday_sfx_dir.exists():
         raise RuntimeError(f"Midday SFX directory not found: {midday_sfx_dir}")
+    if evening_sfx_dir is not None and not evening_sfx_dir.exists():
+        raise RuntimeError(f"Evening SFX directory not found: {evening_sfx_dir}")
     if outro_audio_path is not None:
         ensure_file_exists(outro_audio_path, "Outro audio")
 
@@ -239,6 +259,7 @@ def render_with_ffmpeg_only(
             normalized_path = tmp_dir / f"{index:02d}_normalized.wav"
             pause_path = tmp_dir / f"{index:02d}_pause.wav"
             pause_after_ms = int(segment.get("pause_after_ms", 500))
+            pause_after_ms = max(0, int(round(pause_after_ms * pause_scale)))
 
             run_ffmpeg(
                 [
@@ -299,6 +320,7 @@ def render_with_ffmpeg_only(
             intro_audio_path is not None
             or live_sfx_dir is not None
             or midday_sfx_dir is not None
+            or evening_sfx_dir is not None
             or outro_audio_path is not None
         )
         no_intro_output = tmp_dir / "episode_no_intro.mp3" if needs_texture_mix else output_path
@@ -324,6 +346,7 @@ def render_with_ffmpeg_only(
         texture_events = build_texture_events(
             live_sfx_dir=live_sfx_dir,
             midday_sfx_dir=midday_sfx_dir,
+            evening_sfx_dir=evening_sfx_dir,
             outro_audio_path=outro_audio_path,
             segments=manifest_segments,
             voice_start_ms=effective_voice_start_ms,
@@ -375,8 +398,11 @@ def render_with_ffmpeg_only(
         "intro_audio": str(intro_audio_path) if intro_audio_path else None,
         "intro_gain_db": intro_gain_db if intro_audio_path else None,
         "voice_start_ms": effective_voice_start_ms if intro_audio_path else None,
+        "pause_scale": pause_scale,
+        "total_duration_ms": current_ms,
         "live_sfx_dir": str(live_sfx_dir) if live_sfx_dir else None,
         "midday_sfx_dir": str(midday_sfx_dir) if midday_sfx_dir else None,
+        "evening_sfx_dir": str(evening_sfx_dir) if evening_sfx_dir else None,
         "outro_audio": str(outro_audio_path) if outro_audio_path else None,
         "texture_events": [
             {key: str(value) if isinstance(value, Path) else value for key, value in event.items()}
@@ -543,10 +569,18 @@ def build_texture_events(
     *,
     live_sfx_dir: Path | None,
     midday_sfx_dir: Path | None,
+    evening_sfx_dir: Path | None,
     outro_audio_path: Path | None,
     segments: list[dict[str, Any]],
     voice_start_ms: int,
 ) -> list[dict[str, Any]]:
+    if evening_sfx_dir is not None:
+        return build_evening_texture_events(
+            evening_sfx_dir=evening_sfx_dir,
+            outro_audio_path=outro_audio_path,
+            segments=segments,
+            voice_start_ms=voice_start_ms,
+        )
     if midday_sfx_dir is not None:
         return build_midday_texture_events(
             midday_sfx_dir=midday_sfx_dir,
@@ -675,6 +709,57 @@ def build_midday_texture_events(
         )
     if tabs_outro is not None:
         events.append(event(files["tabs"], voice_start_ms + tabs_outro["start_ms"] + 4200, -32, "outro single tab click", 500, 40, 300))
+    return events
+
+
+def build_evening_texture_events(
+    *,
+    evening_sfx_dir: Path,
+    outro_audio_path: Path | None,
+    segments: list[dict[str, Any]],
+    voice_start_ms: int,
+) -> list[dict[str, Any]]:
+    files = {
+        "intro": evening_sfx_dir / "yoli_evening_intro_bed_12s.mp3",
+        "main_bed": evening_sfx_dir / "yoli_evening_main_bed_loop_36s.mp3",
+        "outro": outro_audio_path or evening_sfx_dir / "yoli_evening_outro_bed_14s.mp3",
+        "room": evening_sfx_dir / "amb_evening_room_tone_45s.mp3",
+        "dish": evening_sfx_dir / "sfx_soft_dish_and_water_4s.mp3",
+        "window": evening_sfx_dir / "sfx_window_night_air_5s.mp3",
+        "memory_glow": evening_sfx_dir / "sfx_memory_glow_3s.mp3",
+        "boundary": evening_sfx_dir / "sfx_boundary_soft_drop_8s.mp3",
+        "intro_logo": evening_sfx_dir / "yoli_evening_sonic_logo_intro_4s.mp3",
+        "outro_logo": evening_sfx_dir / "yoli_evening_sonic_logo_outro_4s.mp3",
+    }
+    for label, path in files.items():
+        ensure_file_exists(path, f"Evening audio asset {label}")
+
+    first_line = find_segment_by_text(segments, "It’s evening, Yoli.")
+    joke_line = find_segment_by_text(segments, "Good. My brain has filed")
+    callback_line = find_segment_by_text(segments, "Noted. At lunch")
+    future_scene = find_segment_by_text(segments, "Imagine opening your personal radio")
+    porch_light = find_segment_by_text(segments, "Right. Good memory is not a spotlight.")
+    boundary_question = find_segment_by_text(segments, "What kind of memory helps you return")
+    outro_start = find_segment_by_text(segments, "That’s your Evening Reset.")
+    final_line = segments[-1]
+
+    main_bed_end = voice_start_ms + outro_start["start_ms"] + 3000
+    events: list[dict[str, Any]] = [
+        event(files["room"], 0, -34, "evening room tone floor", None, 1200, 2500),
+        event(files["intro"], 0, -24, "evening intro bed", 12000, 800, 1800),
+        event(files["intro_logo"], max(0, voice_start_ms + first_line["start_ms"] - 900), -25, "evening intro sonic logo", 4000, 150, 900),
+        event(files["dish"], voice_start_ms + joke_line["end_ms"] + 120, -27, "soft dish and water cue", 4000, 120, 1000),
+        event(files["memory_glow"], max(0, voice_start_ms + future_scene["start_ms"] - 650), -26, "memory glow transition", 3000, 180, 900),
+        event(files["window"], max(0, voice_start_ms + porch_light["start_ms"] - 600), -30, "night air shift", 5000, 450, 1300),
+        event(files["boundary"], max(0, voice_start_ms + boundary_question["start_ms"] - 900), -25, "boundary soft drop", 8000, 700, 1500),
+        event(files["outro"], max(0, voice_start_ms + outro_start["start_ms"] - 500), -23, "evening outro bed", 14000, 1000, 3000),
+        event(files["outro_logo"], voice_start_ms + final_line["end_ms"] + 150, -23, "evening outro sonic logo", 4000, 100, 1200),
+    ]
+
+    loop_start = max(0, voice_start_ms + callback_line["start_ms"] - 500)
+    while loop_start < main_bed_end:
+        events.append(event(files["main_bed"], loop_start, -31, "evening main bed loop", 36000, 900, 1800))
+        loop_start += 34000
     return events
 
 

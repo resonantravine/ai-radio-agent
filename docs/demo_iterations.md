@@ -23,6 +23,9 @@ Suggested release asset names:
 | 3. Soft morning identity | `03_morning_coffee_intro.mp3` | The show becomes **Yoli's Morning Coffee**, with a personal greeting and soft intro bed. |
 | 4. Final live texture mix | `04_final_live_texture_mix.mp3` | Final portfolio sample: breakfast-at-home scene, dual voices, intro/outro music, subtle kitchen texture, and a more live radio feel. |
 | 5. Audio-reactive video card | `ai-radio-agent-demo.mp4` | Portfolio-friendly visual entry point with a clean editorial audio visualizer. |
+| 6. Midday Brief video card | `yolis-midday-brief-demo.mp4` | Lunch-format demo showing compress + update logic. |
+| 7. Evening Reset video card | `yolis-evening-reset-demo.mp4` | Dinner-format demo showing transform logic, slower pacing, and reflective closure. |
+| 8. Evening Reset audio | `final_ai_radio_episode_dinner_texture.mp3` | Dual-host dinner render with evening bed, room tone, subtle cues, and memory-loop outro. |
 
 ## Daily Radio Roadmap
 
@@ -148,4 +151,11 @@ python3 -m ai_radio_agent.render_episode \
   --intro-audio outputs/audio_assets/yoli_morning_coffee_intro_bed.mp3 \
   --live-sfx-dir outputs/audio_assets/breakfast_live_sfx_pack \
   --outro-audio outputs/audio_assets/breakfast_soft_outro_bed_v1.mp3
+
+python3 -m ai_radio_agent.render_episode \
+  --segments outputs/dinner/tts_segments.json \
+  --audio-dir outputs/elevenlabs_segments_dinner \
+  --output outputs/final_ai_radio_episode_dinner_texture.mp3 \
+  --evening-sfx-dir outputs/audio_assets/yoli_evening_sound_pack \
+  --pause-scale 2.5
 ```

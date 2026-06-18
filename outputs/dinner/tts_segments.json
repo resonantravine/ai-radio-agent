@@ -1,0 +1,194 @@
+{
+  "episode_title": "Yoli’s Evening Reset: Remembering with restraint",
+  "segments": [
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "It’s evening, Yoli. This is Yoli’s Evening Reset.",
+      "delivery_note": "warm, slower, low evening energy",
+      "pause_after_ms": 650
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "No news rush tonight. No ten-tab catch-up.",
+      "delivery_note": "calm, lightly dry",
+      "pause_after_ms": 450
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "Good. My brain has filed a formal complaint.",
+      "delivery_note": "soft joke, relaxed",
+      "pause_after_ms": 420
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "Noted. At lunch, we carried one line: the race is not who remembers more, but who remembers with restraint.",
+      "delivery_note": "gentle callback to midday episode",
+      "pause_after_ms": 700
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "That line stayed with me. It sounds like product design, but also like a way to live with other people.",
+      "delivery_note": "reflective, personal",
+      "pause_after_ms": 600
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "Exactly. So let’s not explain it again. Let’s turn it into a small scene.",
+      "delivery_note": "transition into story",
+      "pause_after_ms": 700
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "Okay. Evening version. I’m listening.",
+      "delivery_note": "inviting, quiet",
+      "pause_after_ms": 450
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "Imagine opening your personal radio after dinner. It does not say, here are all the things you missed.",
+      "delivery_note": "storytelling, slow and clear",
+      "pause_after_ms": 620
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "Already better.",
+      "delivery_note": "small smile, immediate reaction",
+      "pause_after_ms": 300
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "It says, you left one question open today. Do you want to stay with it for a minute, or let it go?",
+      "delivery_note": "soft future image",
+      "pause_after_ms": 850
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "That feels different. It remembers, but it does not pull me by the sleeve.",
+      "delivery_note": "sensory, grounded",
+      "pause_after_ms": 620
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "Right. Good memory is not a spotlight. It is more like a porch light. It helps you find the door, but it does not follow you into every room.",
+      "delivery_note": "concrete metaphor, gentle",
+      "pause_after_ms": 850
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "That’s the version I want. Helpful, but not hovering.",
+      "delivery_note": "settled, lived preference",
+      "pause_after_ms": 500
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "And that may be the real future of AI memory. Not a product that knows everything, but one that knows when to become quieter.",
+      "delivery_note": "future-facing, not grand",
+      "pause_after_ms": 750
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "So the boundary question for tonight is simple.",
+      "delivery_note": "preparing final reflection",
+      "pause_after_ms": 650
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "What kind of memory helps you return to yourself, instead of keeping you inside the system?",
+      "delivery_note": "important question, slow",
+      "pause_after_ms": 1000
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "That one can stay open. Gently.",
+      "delivery_note": "soft landing",
+      "pause_after_ms": 850
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "That’s your Evening Reset.",
+      "delivery_note": "clean close, but not final yet",
+      "pause_after_ms": 650
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "And actually, today’s whole conversation was a tiny example of memory being useful.",
+      "delivery_note": "soft smile, a little more casual",
+      "pause_after_ms": 520
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "Right. Not remembering everything. Just holding onto one question Yoli kept circling around.",
+      "delivery_note": "gentle, clear",
+      "pause_after_ms": 520
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "A concept she was interested in, but maybe hadn’t fully sorted out yet.",
+      "delivery_note": "reflective but relaxed",
+      "pause_after_ms": 500
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "Which, unfortunately, is most of learning.",
+      "delivery_note": "lightly amused",
+      "pause_after_ms": 430
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "Especially in the AI age. Lifelong learning is not optional anymore, apparently.",
+      "delivery_note": "small laugh, warm",
+      "pause_after_ms": 500
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "But it does not have to be frantic.",
+      "delivery_note": "calm, reassuring",
+      "pause_after_ms": 520
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "Exactly. One thread at a time is enough.",
+      "delivery_note": "gentle closing",
+      "pause_after_ms": 650
+    },
+    {
+      "speaker": "Host B",
+      "voice_key": "host_b",
+      "text": "That’s it for today.",
+      "delivery_note": "soft final line",
+      "pause_after_ms": 700
+    },
+    {
+      "speaker": "Host A",
+      "voice_key": "host_a",
+      "text": "Let the rest of the day go quiet. Rest well, Yoli. We’ll pick it up tomorrow.",
+      "delivery_note": "warm, fading ending",
+      "pause_after_ms": 1200
+    }
+  ]
+}

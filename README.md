@@ -15,13 +15,17 @@ AI Radio Agent turns listener context, memory, topic, duration, and time-of-day 
 
 Best first listen: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 
-Release page: [AI Radio Agent Demo v1](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
-
 | Moment | Demo | What to notice |
 | --- | --- | --- |
 | Breakfast | [Morning Coffee video](https://github.com/user-attachments/assets/ca8384e8-ba84-4bc2-8b3f-b01a572b87c3) / [audio](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3) | Continues one unfinished listener thread with soft morning continuity. |
 | Lunch | [Midday Brief video](https://github.com/user-attachments/assets/24b8ee25-7b7d-45f9-a056-6188e91a4849) | Compresses timely context into a short, useful midday explanation. |
 | Dinner | [Evening Reset video](https://github.com/user-attachments/assets/f0ac809a-a0b7-4d91-bc91-a1eb6ad5f347) / [audio](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/final_ai_radio_episode_dinner_texture.mp3) | Transforms the day's idea into slower reflection and closure. |
+
+## Listen To The Iterations
+
+The release page includes the recommended review path and the full audio/video iteration sequence, from the first dual-host render to the Breakfast + Lunch + Dinner demo arc.
+
+[Open the demo release page](https://github.com/resonantravine/ai-radio-agent/releases/tag/demo-audio-v1)
 
 ## Daily Radio Concept
 

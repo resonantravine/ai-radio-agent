@@ -3,17 +3,19 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A moment-aware AI audio content generation pipeline for personalized daily radio.
+AI Radio Agent is a moment-aware personal radio pipeline that turns listener context into short, personalized two-host audio episodes.
 
-AI Radio Agent turns listener context, memory, topic, duration, and time-of-day intent into short two-host radio episodes. It is built as a portfolio demo for AI audio content generation work: planning, dialogue writing, TTS-safe segmentation, voice rendering, and post-render quality checks.
+Given a listener profile, memory context, topic, and target duration, the system plans an editorial angle, generates a structured dialogue, prepares TTS-ready segments, renders dual-host voice clips, and assembles the final audio episode.
+
+The visible Host A / Host B script is not meant to be written by the user. It is an internal production artifact used to make the generation process inspectable: checking dialogue quality, persona consistency, TTS segmentation, and audio rendering before the final episode is produced.
 
 ## Demo
 
-### Best First Watch: Yoli's Morning Coffee
+### Start With: Yoli's Morning Coffee
 
 <video src="https://github.com/user-attachments/assets/ca8384e8-ba84-4bc2-8b3f-b01a572b87c3"></video>
 
-Best first listen: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
+First audio sample: [04_final_live_texture_mix.mp3](https://github.com/resonantravine/ai-radio-agent/releases/download/demo-audio-v1/04_final_live_texture_mix.mp3)
 
 | Moment | Demo | What to notice |
 | --- | --- | --- |
